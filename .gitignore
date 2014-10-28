@@ -1,0 +1,24 @@
+mpgi2/mpgi2-ha
+
+#For Java stuff:
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+#for Latex
+
+*.aux
+*.log
+*.synctex.gz
+
+
+# for Mac
+*.DS_Store
+
+
