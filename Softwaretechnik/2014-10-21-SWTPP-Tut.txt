@@ -1,0 +1,53 @@
+Softwaretechnik Tutorium
+
+Tobias Pfeffer: toboas.f.pfeffer@mail.tu-belin.de
+
+
+
+28.11. Ende der Anmeldefrist
+
+
+4-5er Gruppen für HA
+
+UML-Tools für Hausaufgaben!
+
+------------------------------------------
+
+Was ist Softwaretechnik?
+* Methoden
+* Erstellen, Warten von Software
+
+Wozu Softwaretechnik?
+* Anforderungen darstellen und erfüllen
+* Ziele erfüllen
+* Dokumentation
+* Schnittstellen definieren
+
+
+Wesentliche Bestandteile bzw. Schritte:
+* Planung
+* Entwurf
+* Implementierung
+* (Integration)
+* Testen, QA
+* Inbetriebnahme
+* Wartung
+* (Dokumentation)
+
+
+Validierung: Testen der Implementierung gegen die Planung (In Absprache mit Kunden) - Sind Anforderungen des Kunden erfüllt?
+Verifizierung: Testen der Implementierung gegen die überlegte Spezifikation
+
+
+Modelle der Softwareentwicklung:
+* Wasserfall (entspricht der Reihenfolge oben)
+* V-Modell (Testen parallel, jeder Schritt von Tests begleitet)
+* Spiralmodell (ständige Rücksprache mit Kunde) -> etwas agiler
+
+Qualitätssicherung:
+* Normen (DIN)
+* Standards
+* Best Practice, Guidelines
+
+Kann Beginnen mit dem Programnieren sinnvoll sein?
+* API Programmierung (um schnell zu sehen, ob API gut nutzbar ist)

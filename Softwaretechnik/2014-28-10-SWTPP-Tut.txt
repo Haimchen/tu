@@ -1,0 +1,63 @@
+Tutorium 28.10.2014
+********************
+
+Aufgabe 1
+a) standardisierte Vorgehensweise bei der Softwareentwicklung
+b) wichtige Rolle für: Qualitätssicherung, Testen, Koordination bei Teamarbeit, Kosten- und Zeitabschätzung, Dokumentation
+c) 	
+	* geplant: im Voraus geplantes Vorgehen, für große Teams und feste Anforderungen, sicherheitskritische Anwendungen, strenge gesetzlich (u.Ä.) Vorgaben und Rahmenbedingungen
+	* agil: spontanes Eingehen auf Veränderungen, für kleine Teams und häufig wechselnde Anforderungen, eher für ehrfahrene Entwickler (Struktur weniger nötig)
+
+d)
+* Wasserfallmodell (Plan): sequentieller Ablauf, späte Integration, einfaches Management während der Entwicklungszeit, gut geeignet für klare, feste Anforderungen
+* V-Modell (Plan): ähnlich Wasserfallmodell, mit früherer Integration von Tests für höhere Qualität
+* Spiral (Plan): Evolution eines (verkürzten) Wasserfallmodells, inkrementelle Prototypen, aufwändig wegen vieler Zyklen und Prototypen, deswegen eher für große Projekte
+* RUP (Plan): UML
+* Scrum (agil): Managementseite des Extreme Programming, Struktur und Zielvorgaben (Scrum Sorint: in einem Monat einen Prototypen), Rollenverteilung in Product Owner (Vision), Entwicklungsteam, Scrum Master(Überwachung des Teams & Zuarbeit/Unterstützung)
+* Extreme Programming (agil): Sofort beginnen mit der Implementierung, für kleine, erfahrene Teams, "einfach Losprogrammieren", auch TDD möglich, d.h. beginnen mit den Tests; Pair Programming für Qualitätssicherung, Abwechselnd an verschiedenen Teilen arbeiten um Wissen zu teilen
+
+*************************
+
+Aufgabe 2
+
+Use Cases:
+
+- Bestellung stornieren (Kunde)
+- Warenlager aufstocken (Mitarbeiter)
+- Auslieferung bestätigen (Spediteur, Kunde?)
+- Produkt hinzufügen (Mitarbeiter)
+- Produkt entfernen (Mitarbeiter)  --> Sortiment bearbeiten
+
+*************************
+
+Aufgabe 3 - Strukturierte Requirements
+- Pre-Cond und Post-Cond sollten sich nur auf die Werte aus Input und Output beziehen
+- Design by Contract: Vorher Contract (Input, Output, Pre- & Post-Cond.) festlegen, danach implementieren
+
+Name: Warenlager aufstocken
+Beschreibung:
+Input: Produktnummer, inc, (Datenbankzugriff)
+Output: - (da keine Abfrage, kein Rückgabewert direkt)
+Pre-Cond: Produktnr. existiert, inc > 0
+Post-Cond: stock_new = stock_old + inc
+Aktion (GUI): Bestätigungsnachricht und Anzeige von stock_new
+Rechte:
+Error:
+--> Warenlager reduzieren als extra Use Case nötig um Anpassung des Wertes zu ermöglichen, falls Bestand in der DB != realer Bestand (Schwund)
+--> alternativ: keine Überprüfung des Wertes inc, kann auch negativ (oder 0) sein
+
+*************************
+
+Aufgabe 4
+
+- funktionale Requirements:
+- nicht-funktionale Requirements:
+
+
+************************
+
+ELIZA
+künstliche Intelligenz, Chatbot
+masswerk.at/elizabot
+
+--> Turing-Test: System ist intelligent, wenn eine Anzahl von x Menschen, die mit dem System kommunizieren, nicht merken, dass sie nicht mit einem Menschen sprechen
