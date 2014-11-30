@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 	struct hostent *he;
 	int serverPort;
 	uint16_t i;
-	unsigned int n = 4;
+	unsigned int n = 25;
 	uint16_t keys[n];
 	uint16_t value = 0;
 
