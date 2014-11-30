@@ -22,7 +22,7 @@
 
 #define MAX_BUFFER_LENGTH 100
 
-int packData(char *buffer, char *order, unsigned int key, unsigned int value) {
+int packData(char *buffer, char *order, uint16_t key, uint16_t value) {
     snprintf(buffer, sizeof order, "%s", order);
     buffer[4] = key >> 8;
     buffer[5] = key;
@@ -32,12 +32,12 @@ int packData(char *buffer, char *order, unsigned int key, unsigned int value) {
     return 0;
 }
 
-void unpack(unsigned char *buffer, unsigned int *key, unsigned int *value) {
+void unpack(unsigned char *buffer, uint16_t *key, uint16_t *value) {
     *key = (buffer[4] << 8) | buffer[5];
     *value = (buffer[6] << 8) | buffer[7];
 }
 
-int getServer(unsigned int key, struct sockaddr *their_addr, int their_size, int sockfd) {
+int getServer(uint16_t key, struct sockaddr *their_addr, int their_size, int sockfd) {
 	char order[8];
 	packData(order, "GET", key, 0);
 
@@ -51,8 +51,8 @@ int getServer(unsigned int key, struct sockaddr *their_addr, int their_size, int
 		printf("Key %i not found\n", key);
 		return -1;
 	} else {
-		unsigned int key_in = 0;
-		unsigned int value_in = 0;
+		uint16_t key_in = 0;
+		uint16_t value_in = 0;
 
 		unpack(buffer, &key_in, &value_in);
 
@@ -61,7 +61,7 @@ int getServer(unsigned int key, struct sockaddr *their_addr, int their_size, int
 	}
 }
 
-int setServer(unsigned int key, unsigned int value, struct sockaddr *their_addr, int their_size, int sockfd) {
+int setServer(uint16_t key, uint16_t value, struct sockaddr *their_addr, int their_size, int sockfd) {
 	char order[8];
 	packData(order, "SET", key, value);
 
@@ -81,13 +81,13 @@ int setServer(unsigned int key, unsigned int value, struct sockaddr *their_addr,
 	}
 }
 
-int delServer(unsigned int key, struct sockaddr *their_addr, int their_size, int sockfd) {
-	char order[8];
+int delServer(uint16_t key, struct sockaddr *their_addr, int their_size, int sockfd) {
+	unsigned char order[8];
 	packData(order, "DEL", key, 0);
 
 	sendto(sockfd, order, sizeof(order), 0, their_addr, their_size);
 
-	char buffer[8];
+	unsigned char buffer[8];
 
 	recv(sockfd, buffer, sizeof buffer, 0);
 
@@ -107,13 +107,10 @@ int main(int argc, char *argv[])
     struct sockaddr_in their_addr; // connector's address information
     struct hostent *he;
     int serverPort;
-	unsigned int i;
-	unsigned int n = 4;
-	unsigned int keys[n];
-    unsigned int a = 0;
-    int b = 0;
-    int c = 0;
-
+  	uint16_t i;
+  	unsigned int n = 4;
+  	uint16_t keys[n];
+    uint16_t value = 0;
 
     printf("TCP client example\n\n");
 
@@ -146,32 +143,31 @@ int main(int argc, char *argv[])
     Send Data
     ******************************************************************* */
 
+  	srand(time(NULL));
 
-	srand(time(NULL));
+  	for (i = 0; i < n; i++) {
+  		keys[i] = rand();
+  	}
 
-	for (i = 0; i < n; i++) {
-		keys[i] = rand() % 65536;
-	}
+  	for (i = 0; i < n; i++) {
+  		value = rand();
+      printf("key: %i \n", keys[i]);
+      printf("value: %i \n", value);
+      setServer(keys[i], value, (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
+  	}
 
-	for (i = 0; i < n; i++) {
-		a = rand() % 65536;
-    printf("key: %i \n", (unsigned int)keys[i]);
-    printf("value: %i \n", a);
-    setServer(keys[i], a, (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
-	}
+  	for (i = 0; i < n; i++) {
+  		getServer(keys[i], (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
+  	}
 
-	for (i = 0; i < n; i++) {
-		getServer(keys[i], (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
-	}
-
-	for (i = 0; i < n; i++) {
-		delServer(keys[i], (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
-	}
+  	for (i = 0; i < n; i++) {
+  		delServer(keys[i], (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
+  	}
 
 
-	for (i = 0; i < n; i++) {
-		getServer(keys[i], (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
-	}
+  	for (i = 0; i < n; i++) {
+  		getServer(keys[i], (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
+  	}
 
     
     /* ******************************************************************
