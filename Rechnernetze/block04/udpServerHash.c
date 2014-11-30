@@ -21,8 +21,8 @@
 #define MAX_BUFFER_LENGTH 100
 
 typedef struct list_t {
-    unsigned int key;
-    int value;
+    uint16_t key;
+    uint16_t value;
     struct list_t *next;
 } list_t;
 
@@ -31,9 +31,9 @@ typedef struct hashtable_t {
     list_t **table;
 } hashtable_t;
 
-hashtable_t *create_ht (int size) {
+hashtable_t *create_ht (unsigned int size) {
     hashtable_t *ht = NULL;
-    int i;
+    unsigned int i;
 
     if (size < 1) return NULL;
 
@@ -53,12 +53,12 @@ hashtable_t *create_ht (int size) {
     return ht;
 }
 
-unsigned int hash (hashtable_t *ht, unsigned int *key) {
+uint16_t hash (hashtable_t *ht, uint16_t *key) {
     unsigned char temp = (unsigned char) *key;
-    return (unsigned int) temp;
+    return (uint16_t) temp;
 }
 
-list_t *new_pair (unsigned int *key, int *value){
+list_t *new_pair (uint16_t *key, uint16_t *value){
     list_t *newpair;
 
     if((newpair = malloc(sizeof (list_t))) == NULL) {
@@ -71,9 +71,9 @@ list_t *new_pair (unsigned int *key, int *value){
     return newpair;
 }
 
-list_t *get_ht (hashtable_t *ht, unsigned int *key) {
+list_t *get_ht (hashtable_t *ht, uint16_t *key) {
 
-    unsigned int keyPos = hash(ht, key);
+    uint16_t keyPos = hash(ht, key);
     list_t *tmp = ht->table[keyPos];
 
     if (tmp == NULL) {
@@ -92,9 +92,9 @@ list_t *get_ht (hashtable_t *ht, unsigned int *key) {
     return NULL;
 }
 
-int set_entry (hashtable_t *ht, unsigned int *key, int *value) {
+int set_entry (hashtable_t *ht, uint16_t *key, uint16_t *value) {
     
-    unsigned int keyPos = hash(ht, key);
+    uint16_t keyPos = hash(ht, key);
     list_t *tmp = ht->table[keyPos];    
 
     if (tmp == NULL) {
@@ -115,8 +115,8 @@ int set_entry (hashtable_t *ht, unsigned int *key, int *value) {
     return -1;
 }
 
-int delete_entry (hashtable_t *ht, unsigned int *key) {
-    unsigned int keyPos = hash(ht, key);
+int delete_entry (hashtable_t *ht, uint16_t *key) {
+    uint16_t keyPos = hash(ht, key);
     list_t *tmp = ht->table[keyPos];
     list_t *tmp_n;
 
@@ -145,7 +145,7 @@ int delete_entry (hashtable_t *ht, unsigned int *key) {
 }
 
 int delete_ht (hashtable_t *ht) {
-    int i;
+    unsigned int i;
     list_t *tmp;
 
     for (i = 0; i < sizeof(hashtable_t); i++) {
@@ -158,7 +158,7 @@ int delete_ht (hashtable_t *ht) {
 }
 
 void print_ht (hashtable_t *ht) {
-    int i;
+    unsigned int i;
     list_t *tmp;
     printf("Key | Value");
 
@@ -174,19 +174,21 @@ void print_ht (hashtable_t *ht) {
     printf("\n");
 }
 
-void unpackData(char *buffer, char *order, unsigned int *a, unsigned int *b, int* port, char *address) {
+void unpackData(unsigned char *buffer, unsigned char *order, uint16_t *a, uint16_t *b, int* port, char *address) {
     //strncpy(order, buffer, 4);
 
-    unsigned short key;
-    short value;
+    uint16_t key;
+    uint16_t value;
     order[0] = buffer[0]; 
     order[1] = buffer[1]; 
     order[2] = buffer[2]; 
     order[3] = buffer[3]; 
-    key = ((unsigned char)(buffer[4]) << 8) | (unsigned char)buffer[5]; 
-    *a = (unsigned int) key;
-    value = ((unsigned char)(buffer[6]) << 8) | (unsigned char) buffer[7];
-    *b = (unsigned int) value;
+    key = ((buffer[4]) << 8) | buffer[5]; 
+    *a = key;
+
+    value = ((buffer[6]) << 8) |  buffer[7];
+    *b = value;
+
     address[0] = buffer[8];
     address[1] = buffer[9];
     address[2] = buffer[10];
@@ -194,7 +196,7 @@ void unpackData(char *buffer, char *order, unsigned int *a, unsigned int *b, int
     *port = (buffer[12]<<8) | buffer[13];
 }
 
-void packData(char *buffer, unsigned int a, unsigned int b) {
+void packData(unsigned char *buffer, uint16_t a, uint16_t b) {
     buffer[4] = a >> 8; // erste Hälfte von a
     buffer[5] = a;
     buffer[6] = b >> 8;
@@ -221,10 +223,10 @@ int main(int argc, char *argv[])
     socklen_t their_len = sizeof their_addr;
     int serverPort;
     unsigned int len;
-    unsigned int key = 0;
-    unsigned int value = 0;
-    char order[4];
-    char buffer[14];
+    uint16_t key = 0;
+    uint16_t value = 0;
+    unsigned char order[4];
+    unsigned char buffer[14];
     int port;
     char address[4];
     
@@ -292,7 +294,7 @@ int main(int argc, char *argv[])
         unpackData(buffer, order, &key, &value, &port, address);
         printf("key: %u \n", key);
         printf("value: %u \n", value);
-        unsigned int hashValue = hash(ht, &key);
+        uint16_t hashValue = hash(ht, &key);
         printf("hashValue: %u \n", hashValue);
 
         // Anfrage von Client
