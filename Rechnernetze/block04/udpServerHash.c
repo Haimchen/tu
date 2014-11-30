@@ -76,9 +76,9 @@ list_t *get_ht (hashtable_t *ht, unsigned int *key) {
     unsigned int keyPos = hash(ht, key);
     list_t *tmp = ht->table[keyPos];
 
-	if (tmp == NULL) {
-		return NULL;
-	}
+    if (tmp == NULL) {
+        return NULL;
+    }
 
     if (tmp->key == *key) {
         return tmp;
@@ -95,7 +95,7 @@ list_t *get_ht (hashtable_t *ht, unsigned int *key) {
 int set_entry (hashtable_t *ht, unsigned int *key, int *value) {
     
     unsigned int keyPos = hash(ht, key);
-	list_t *tmp = ht->table[keyPos];	
+    list_t *tmp = ht->table[keyPos];    
 
     if (tmp == NULL) {
         ht->table[keyPos] = new_pair(key, value);
@@ -120,7 +120,7 @@ int delete_entry (hashtable_t *ht, unsigned int *key) {
     list_t *tmp = ht->table[keyPos];
     list_t *tmp_n;
 
-	if (tmp == NULL) {
+    if (tmp == NULL) {
         return -1;
     }
 
@@ -175,14 +175,14 @@ void print_ht (hashtable_t *ht) {
 }
 
 void unpackData(char *buffer, char *order, unsigned int *a, unsigned int *b, int* port, char *address) {
-	//strncpy(order, buffer, 4);
+    //strncpy(order, buffer, 4);
 
     unsigned short key;
     short value;
-	 order[0] = buffer[0]; 
-	 order[1] = buffer[1]; 
-	 order[2] = buffer[2]; 
-	 order[3] = buffer[3]; 
+    order[0] = buffer[0]; 
+    order[1] = buffer[1]; 
+    order[2] = buffer[2]; 
+    order[3] = buffer[3]; 
     key = ((unsigned char)(buffer[4]) << 8) | (unsigned char)buffer[5]; 
     *a = (unsigned int) key;
     value = ((unsigned char)(buffer[6]) << 8) | (unsigned char) buffer[7];
@@ -201,7 +201,15 @@ void packData(char *buffer, unsigned int a, unsigned int b) {
     buffer[7] = b;
 }
 
+void writeAddressToBuffer(unsigned char *buffer, struct sockaddr_in *address) {
+    uint32_t ipAddress = (*address).sin_addr.s_addr;
 
+    uint32_t *bufferPointer = (uint32_t*) &buffer[8];
+    *bufferPointer = ipAddress;
+
+    uint16_t *portPointer = (uint16_t*) &buffer[12];
+    *portPointer = (*address).sin_port;
+}
 
 int main(int argc, char *argv[])
 {
@@ -219,8 +227,8 @@ int main(int argc, char *argv[])
     char buffer[14];
     int port;
     char address[4];
-	
-	
+    
+    
     printf("TCP Server online\n\n");
     
     if (argc != 10) {
@@ -258,6 +266,7 @@ int main(int argc, char *argv[])
     inet_pton(AF_INET, addrSucc, &(suc_addr.sin_addr));
     memset(suc_addr.sin_zero, '\0', sizeof suc_addr.sin_zero);
 
+    printf("Listening on address %i at port %i\n", our_addr.sin_addr.s_addr, our_addr.sin_port);
     printf("Next server: %s at port %i\n", addrSucc, portSucc);
     printf("Accepting values from %i to %i\n", ourStart, ourName);
 
@@ -267,83 +276,85 @@ int main(int argc, char *argv[])
     len = sizeof(our_addr);
     bind(sockfd,(struct sockaddr *) &our_addr, len);
 
-	hashtable_t *ht = create_ht(256); 
+    hashtable_t *ht = create_ht(256); 
     
-	list_t *tmp;
+    list_t *tmp;
     
     printf("Listening for Client\n");
 
-	while(1) {
+    while(1) {
         memset(buffer, 0, sizeof buffer);
         port = 0;
         memset(address, 0, sizeof address);
-	  
+      
         recvfrom(sockfd, buffer, sizeof (buffer), 0, (struct sockaddr *) &their_addr, &their_len);
-        printf("Data received: %s\n", buffer);	
+        printf("Data received: %s\n", buffer);  
         unpackData(buffer, order, &key, &value, &port, address);
         printf("key: %u \n", key);
         printf("value: %u \n", value);
         unsigned int hashValue = hash(ht, &key);
         printf("hashValue: %u \n", hashValue);
 
-		// Anfrage von Client
-		if (port == 0) {
-		  
-		  // wir sind zustandig
-		  if (hashValue <= ourName && hashValue >= ourStart) {
-		    printf("Request from Client - my job\n");
-		  } else { // weiterleiten
+        // Anfrage von Client
+        if (port == 0) {
+          
+          // wir sind zustandig
+          if (hashValue <= ourName && hashValue >= ourStart) {
+            printf("Request from Client - my job\n");
+          } else { // weiterleiten
             printf("Request from Client - not my job\n");
-            buffer[8] = our_addr.sin_addr.s_addr;
-            buffer[12] = serverPort >> 8;
-            buffer[13] = serverPort;
+            writeAddressToBuffer(buffer, &our_addr);
             sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &suc_addr, sizeof suc_addr);
             printf("Request from Client - sent to next server\n");
             recvfrom(sockfd, buffer, sizeof buffer, 0, NULL, NULL);
+            printf("Received reply from server %i, port %i\n", *((uint32_t*)(&buffer[8])), *((uint16_t*)(&buffer[12])));
             sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, sizeof their_addr);
-		    continue;
-     		  }
-		} else {
-		  // weitergeleitet von Server
-		  if (hashValue <= ourName && hashValue >= ourStart) {
-            printf("Request from other server - my job\n");
+            continue;
+          }
+        } else {
+          // weitergeleitet von Server
+          if (hashValue <= ourName && hashValue >= ourStart) {
             // wir sind zustandig
-		  } else { 
-		    // weiterleiten
+            printf("Request from other server - my job\n");
+            writeAddressToBuffer(buffer, &our_addr);
+          } else { 
+            // weiterleiten
             printf("Request from other server - sent to next server\n");
             sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &suc_addr, sizeof suc_addr);
-		    continue;
-		  }
-		}
+            continue;
+          }
+        }
 
-		if (strncmp("GET ", order, 4) == 0) {
-			tmp = get_ht(ht, &key);
-			if (tmp == NULL) {
-				sendto(sockfd, "NOF\0" , sizeof "NOF\0", 0, (struct sockaddr *) &their_addr, their_len);
-			} else {
-				strcpy(buffer, "VAL ");
-				packData(buffer, tmp->key, tmp->value);
-				sendto(sockfd, buffer , sizeof (buffer), 0, (struct sockaddr *) &their_addr, their_len);
-			}			
-		} else if (strncmp("SET ", order, 4) == 0) {
-			int tmp = set_entry(ht, &key, &value);
-			if (tmp < 0) {
-				sendto(sockfd, "ERR\0" , sizeof "ERR\0", 0, (struct sockaddr *) &their_addr, their_len);
-			} else {
-				sendto(sockfd, "OK!\0", sizeof ("OK!\0"), 0, (struct sockaddr *) &their_addr, their_len);
-			}	
-		} else if (strncmp("DEL ", order, 4) == 0) {
-			int tmp = delete_entry(ht, &key);
-			if (tmp < 0) {
-				sendto(sockfd, "ERR\0" , sizeof "ERR\0", 0, (struct sockaddr *) &their_addr, their_len);
-			} else {
-				sendto(sockfd, "OK!\0", sizeof ("OK!\0"), 0, (struct sockaddr *) &their_addr, their_len);
-			}
-		} else {
-			printf("Order not found\n");
-			sendto(sockfd, "ERR\0" , sizeof "ERR\0", 0, (struct sockaddr *) &their_addr, their_len);
-		}
-	}
+        if (strncmp("GET", order, 3) == 0) {
+            tmp = get_ht(ht, &key);
+            if (tmp == NULL) {
+                strcpy(buffer, "NOF");
+            } else {
+                strcpy(buffer, "VAL ");
+                packData(buffer, tmp->key, tmp->value);
+            }           
+        } else if (strncmp("SET", order, 3) == 0) {
+            int tmp = set_entry(ht, &key, &value);
+            if (tmp < 0) {
+                strcpy(buffer, "ERR");
+            } else {
+                strcpy(buffer, "OK!");
+            }   
+        } else if (strncmp("DEL", order, 3) == 0) {
+            int tmp = delete_entry(ht, &key);
+            if (tmp < 0) {
+                strcpy(buffer, "NOF");
+            } else {
+                strcpy(buffer, "OK!");
+            }
+        } else {
+            printf("Order not found\n");
+            strcpy(buffer, "ERR");
+        }
+
+        // send prepared answer
+        sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, their_len);
+    }
 
     close(sockfd);
     

@@ -39,7 +39,7 @@ void unpack(unsigned char *buffer, unsigned int *key, unsigned int *value) {
 
 int getServer(unsigned int key, struct sockaddr *their_addr, int their_size, int sockfd) {
 	char order[8];
-	packData(order, "GET ", key, 0);
+	packData(order, "GET", key, 0);
 
 	sendto(sockfd, order, sizeof(order), 0, their_addr, their_size);
 
@@ -63,7 +63,7 @@ int getServer(unsigned int key, struct sockaddr *their_addr, int their_size, int
 
 int setServer(unsigned int key, unsigned int value, struct sockaddr *their_addr, int their_size, int sockfd) {
 	char order[8];
-	packData(order, "SET ", key, value);
+	packData(order, "SET", key, value);
 
 	sendto(sockfd, order, sizeof(order), 0, their_addr, their_size);
 
@@ -83,7 +83,7 @@ int setServer(unsigned int key, unsigned int value, struct sockaddr *their_addr,
 
 int delServer(unsigned int key, struct sockaddr *their_addr, int their_size, int sockfd) {
 	char order[8];
-	packData(order, "DEL ", key, 0);
+	packData(order, "DEL", key, 0);
 
 	sendto(sockfd, order, sizeof(order), 0, their_addr, their_size);
 
@@ -154,8 +154,7 @@ int main(int argc, char *argv[])
 	}
 
 	for (i = 0; i < n; i++) {
-    keys[i] = 70 * i;
-		a = rand() % 32768;
+		a = rand() % 65536;
     printf("key: %i \n", (unsigned int)keys[i]);
     printf("value: %i \n", a);
     setServer(keys[i], a, (struct sockaddr *) &their_addr, sizeof their_addr , sockfd);
