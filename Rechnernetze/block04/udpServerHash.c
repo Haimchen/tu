@@ -174,36 +174,40 @@ void print_ht (hashtable_t *ht) {
     printf("\n");
 }
 
-void unpackData(unsigned char *buffer, unsigned char *order, uint16_t *a, uint16_t *b, int* port, char *address) {
-    //strncpy(order, buffer, 4);
+void unpackData(unsigned char *buffer, unsigned char *order, uint16_t *key, uint16_t *value, int* port, char *address) {
+    uint16_t tmp;
 
-    uint16_t key;
-    uint16_t value;
     order[0] = buffer[0]; 
     order[1] = buffer[1]; 
     order[2] = buffer[2]; 
     order[3] = buffer[3]; 
-    key = ((buffer[4]) << 8) | buffer[5]; 
-    *a = key;
 
-    value = ((buffer[6]) << 8) |  buffer[7];
-    *b = value;
+    tmp = (buffer[4] << 8) | buffer[5]; 
+    *key = ntohs(tmp);
+
+    tmp = (buffer[6] << 8) | buffer[7];
+    *value = ntohs(tmp);
 
     address[0] = buffer[8];
     address[1] = buffer[9];
     address[2] = buffer[10];
     address[3] = buffer[11];
-    *port = (buffer[12]<<8) | buffer[13];
+    *port = (buffer[12] << 8) | buffer[13];
 }
 
 void packData(unsigned char *buffer, uint16_t a, uint16_t b) {
-    buffer[4] = a >> 8; // erste Hälfte von a
-    buffer[5] = a;
-    buffer[6] = b >> 8;
-    buffer[7] = b;
+    uint16_t tmp = htons(a);
+
+    buffer[4] = tmp >> 8; // erste Hälfte von tmp
+    buffer[5] = tmp;
+
+    tmp = htons(b);
+    buffer[6] = tmp >> 8;
+    buffer[7] = tmp;
 }
 
 void writeAddressToBuffer(unsigned char *buffer, struct sockaddr_in *address) {
+    // all values in *address are already in network byte order (see docs)
     uint32_t ipAddress = (*address).sin_addr.s_addr;
 
     uint32_t *bufferPointer = (uint32_t*) &buffer[8];
@@ -292,8 +296,8 @@ int main(int argc, char *argv[])
         recvfrom(sockfd, buffer, sizeof (buffer), 0, (struct sockaddr *) &their_addr, &their_len);
         printf("Data received: %s\n", buffer);  
         unpackData(buffer, order, &key, &value, &port, address);
-        printf("key: %u \n", key);
-        printf("value: %u \n", value);
+        printf("key: %i \n", key);
+        printf("value: %i \n", value);
         uint16_t hashValue = hash(ht, &key);
         printf("hashValue: %u \n", hashValue);
 

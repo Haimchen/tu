@@ -23,18 +23,28 @@
 #define MAX_BUFFER_LENGTH 100
 
 int packData(char *buffer, char *order, uint16_t key, uint16_t value) {
-    snprintf(buffer, sizeof order, "%s", order);
-    buffer[4] = key >> 8;
-    buffer[5] = key;
-    buffer[6] = value >> 8;
-    buffer[7] = value;
+    strcpy(buffer, order);
+    // snprintf(buffer, sizeof order, "%s", order);
+
+    uint16_t tmp = htons(key);
+    buffer[4] = tmp >> 8;
+    buffer[5] = tmp;
+
+    tmp = htons(value);
+    buffer[6] = tmp >> 8;
+    buffer[7] = tmp;
 
     return 0;
 }
 
 void unpack(unsigned char *buffer, uint16_t *key, uint16_t *value) {
-    *key = (buffer[4] << 8) | buffer[5];
-    *value = (buffer[6] << 8) | buffer[7];
+    uint16_t tmp;
+    
+    tmp = (buffer[4] << 8) | buffer[5];
+    *key = ntohs(tmp);
+
+    tmp = (buffer[6] << 8) | buffer[7];
+    *value = ntohs(tmp);
 }
 
 int getServer(uint16_t key, struct sockaddr *their_addr, int their_size, int sockfd) {
