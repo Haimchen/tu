@@ -1,0 +1,33 @@
+Sarah Köhler (sarah.c.koehler@gmail.com)
+Dora Szücs (szuucs.dora@gmail.com)
+
+
+
+Aufgabe 1c)
+
+Die Eigenwerte der Matrix B sind: [ 0.19998537  1.00008453  0.9900301 ]
+
+Das bedeutet, dass der größte Eigenwert (der zweite) nur wenig größer ist als der zweitgrößte Eigenwert (der letzte). Die Potenzmethode setzt voraus, dass der größte Eigenwert echt größer ist als der nächstgrößte. Da dies für die Matrix B zwar gegeben ist, aber nur um einen kleinen Betrag, funktioniert die Potenzmethode nicht so gut wie für die Matrix T, wo der größte Eigenwert deutlich größer ist, als der zweite. 
+
+Zum Vergleich die Eigenwerte von T: [ 0.91726977  0.1190059  -0.2862756 ]
+
+
+
+
+Aufgabe 2d)
+
+Erfolgsquote mit allen Eigenfaces:
+7 / 15
+
+Erfolgsquote mit k Eigenfaces:
+14 / 15
+
+D.h. die Erfolgsquote wird deutlich verbessert, wenn man nur die besten Eigenfaces zum Vergleichen verwendet.
+
+
+
+Aufgabe 2e)
+
+Geeigneter Grenzwert von err um Gesichter von anderen Bildern zu unterscheiden:
+
+Leider scheint die Skalierung unserer Score-Werte nicht ganz zu stimmen, da die Zahlen nicht zwischen 0 und 1 liegen. Mit unseren Werten wäre ein guter Grenzwert wohl um unter 500 (was vermutlich 0.5 sein sollte), auch wenn damit eventuell noch Bilder wie die Blume als Gesichter erkannt werden könnten.

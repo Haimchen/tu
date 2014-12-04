@@ -1,0 +1,8 @@
+Aufgabe 8
+
+a) Weil HTTP weit verbreitet und einfach ist und die vergleichsweise geringe Sicherheits bei einer öffentlichen API ohne sicherheitskritische Inhalte kein Problem darstellt.
+
+b) Eigentlich veralten die Daten sehr schnell, der Service nutzt aber einen Cache, wohl weil dies sich durch die große Anzahl der Zugriffe auch bei einer kurzen Lebensdauer (knapp über 3min)  lohnt.
+
+
+c) Der Service ist zustandslos, da frühere Aufrufe keinen Einfluss auf folgende Aufrufe des Services haben.

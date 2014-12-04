@@ -1,0 +1,118 @@
+
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÃÂ§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\bigskip
+\usepackage{booktabs}
+% fï¿œr deutsche Zeichen
+%\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage[applemac]{inputenc}
+
+
+\title{Arbeitsblatt 10}
+\author{Dora Szücs und Sarah Köhler}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+\section*{Aufgabe 1.2 - Induktionsbeweis}
+Zu zeigen: Das folgende Lemma ist korrekt:
+Sei < $v_1, ...,  v_r$> der Inhalt der Schlange Q während eines Durchlaufs der Breitensuche auf einem Graph G = (V, E), wobei $v_1$ Kopf und $v_r$ Ende der Schlange ist. Dann gilt: \\
+(a) $ d[v_r] \le d[v_1] + 1$ \\
+und\\
+(b) $ d[v_i] \le d[v_{i+1}]  $ für $ i = 1, 2, ..., r -1  $ \\
+
+Wir beweisen per Induktion über die Schleifendurchläufe, d.h. nach n Schleifendurchläufen gilt die Behauptung.
+
+\subsection*{I.A.}
+Für $ n = 0$, d.h. vor dem ersten Schleifendurchlauf gilt:
+Es befindet sich nur der Knoten s, der Startknoten, in der Schlange laut Zeile 1. Deswegen gilt \\
+$ d[v_r] = 0 \le 1 = d[v_1] + 1$ \\
+da sich nur ein Element in der Schlange befindet und somit $d[v_r] = d[v_1]$.
+\\
+Die zweite Bedingung ist für $n=0$ nicht erfüllbar, da nur ein Element in der Schlange ist und somit $d[v_i] = d[v_r] $ gelten müsste, was aber wegen des Definitionsbereichs von i nicht erlaubt ist ( $ i = 1, 2, ..., r -1  $).\\
+ \\
+Für $ n = 1$, d.h. nach dem ersten Schleifendurchlauf, muss man drei Fälle unterscheiden, je nach Anzahl der Nachbarn von Startknoten s. Hat s keine Nachbarn ist die Schlange nach dem ersten Durchlauf leer und der Algorithmus termininiert. Das Lemma trifft über eine leere Schlange keine Aussage, deswegen vernachlässigen wir diesen Fall. Hat s nur einen Nachbarn n, befindet sich nur dieser nach dem Schleifendurchlauf in der Queue und wir erhalten den selben Fall wie bei $ n = 0$.
+
+Hat s mehrere Nachbarknoten, werden diese in der Schleife alle der Schlange hinzugefügt, d.h. nun befindet sich mehr als ein Knoten in der Schlange. Da s der Startknoten war und alle Knoten als weiß initialisiert wurden, müssen alle Nachbarn von s noch weiß sein. Es werden deswegen alle grau gefärbt (Zeile 5 und 6) und hinten an die Schlange angehängt (Zeile 9). \\
+Für die Distanz eines beliebigen Nachbarn t von s gilt dann:\\
+(*) $d[t] = d[s] + 1 = 0 + 1 = 1$\\
+Der Startknoten s wird dagegen aus der Schlange entfernt (Zeile 12) und schwarz gefärbt.\\
+
+In der Schlange befinden sich nun alle Nachbarn t des Startknotens s, somit gilt auch:\\
+$ d[v_r] = d[v_1] \le d[v_1] + 1$ \\
+und \\
+$ d[v_i] \le d[v_{i+1}]  $ \\
+da alle Knoten , die momentan in der Schlange sind, nach (*) die gleiche Distanz haben.\\
+
+Für $ n = 1$ ist das Lemma also erfüllt.
+
+\subsection*{I.V.}
+Nach n Schleifendurchläufen gilt: \\
+(1) $ d[v_r] \le d[v_1] + 1$ \\
+(2) $ d[v_i] \le d[v_{i+1}]  $ für $ i = 1, 2, ..., r -1  $ \\
+
+\subsection*{I.B.}
+
+Nach $n+1$ Schleifendurchläufen soll gelten:  \\
+(1) $ d[v_r] \le d[v_1] + 1$ \\
+(2) $ d[v_i] \le d[v_{i+1}]  $ für $ i = 1, 2, ..., r -1  $ \\
+
+\subsection*{I.S.}
+Nach I.V. hat $v_1$ mindestens die Distanz $d[v_r] - 1$. \\
+Da nach I.V. außerdem für alle Knoten gilt: $ d[v_i] \le d[v_{i+1}] $\\
+haben die Knoten zwischen $v_1$ und $v_r$ die Distanz $d[v_r] - 1$ oder $d[v_r]$. \\
+
+Dabei gilt: $v_r$ ist der letzte Knoten im vorhergehenden Schleifendurchlauf (der laut I.V. das Lemma erfüllt) und $v_r'$ der letzte Knoten im aktuellen Schleifendurchlauf ($n+1$).
+\subsubsection*{Fall 1} $d[v_1] = d[v_r] - 1$\\
+Die Knoten, die in die Schlange eingefügt werden, bekommen die Distanz\\
+$d[v_1] + 1 = d[v_r] - 1 + 1 = d[v_r'] $.\\
+Teil (a) des Lemmas gilt weiterhin, denn für den neuen Endknoten $v_r$ gilt: \\
+$ d[v_r'] = d[v_1] + 1 \le d[v_1] + 1 $ \\
+Teil (b) des Lemmas gilt auch, da die neuen Knoten $v_{r+1}$ bis $v_r'$ die selbe Distanz haben wie $v_r$.
+
+\subsubsection*{Fall 2} $d[v_1] = d[v_r]$\\
+Die neuen Knoten in der Schlange haben die Distanz \\
+$d[v_1] + 1 = d[v_r] + 1 = d[v_r']$ \\
+
+Teil (a) des Lemmas gilt, denn\\
+$ d[v_r'] = d[v_1] + 1 \le d[v_1] + 1$\\
+Auch Teil (b) des Lemmas gilt, da die Knoten von $v_1$ bis $v_r$ die gleiche Distanz haben ($d[v_r]$) und die Knoten von $v_{r+1}$ bis $v_r'$ alle die Distanz $d[v_r] + 1$ haben.\\
+ \\
+
+Für beide Fälle gilt, dass auch am Ende des Schleifendurchlaufs noch beide Teile des Lemmas erfüllt sind:
+Wegen Zeile 12 wird $v_1$ entfernt.
+Teil (a) gilt dann immer noch, denn $v_2$ ist nun das erste Element der Schlange und dafür gilt: \\
+$d[v_2] = d[v_r']$ oder $d[v_2] = d[v_r'] - 1$\\
+Beide Werte erfüllen (a).
+
+Auch Teil (b) gilt dann immer noch, denn dies soll für $ i = 1, 2, ..., r -1$ gelten, also muss es ebenso für $ i = 2, 3, ..., r-1$ gelten.
+
+
+\subsubsection*{Fazit} Somit lässt sich sagen, dass beide Teile des Lemmas in beiden Fällen gelten und aus I.A. und I.S. ergibt sich, dass das Lemma für alle Schleifendurchläufe erfüllt ist.
+
+
+
+\section*{Aufgabe 3.3 - Kürzeste Wege mit Bellman-Ford}
+
+\subsection*{Probleme}
+Verändert man das Kantengewicht der Kante (D, B) zu 1, existiert ein Zyklus mit negativem Wert. Der Bellman-Ford-Algorithmus wird dann diesen Zyklus nicht mehr verlassen, da jeder Durchlauf die Gesamtkosten des Pfades weiter reduziert.
+
+Allerdings kann man auch sagen, dass sich in einem Graphen, in welchem ein negativer Zyklus existiert, gar keine kürzesten Pfade bestimmen lassen. Somit würde Bellman-Ford nicht fehlschlagen sondern korrekterweise keine Lösung liefern, da keine existiert.
+
+\subsection*{Aufwand im Vergleich zu Dijkstra}
+Da in Dijkstras-Algorithmus jeder Knoten, der schwarz gefärbt wurde nicht mehr betrachtet wird, bewegt sich der Aufwand im Bereich $ \mathcal{O} (n)$ wobei n die Anzahl der Knoten im zu betrachtenden Graphen ist.
+Dagegen überprüft der Bellman-Ford-Algorithmus auch die bereits besuchten Knoten und aktualisiert gegebenenfalls die Distanzen. Deswegen ist der Aufwand höher und liegt im Bereich von $ \mathcal{O} (n*v)$ wobei n wieder die Anzahl der Knoten ist und v die Anzahl der Kanten.
+
+\end{document} 

@@ -1,0 +1,60 @@
+# Pascalsches Dreieck
+
+# $a0 = n
+# $a1 = k
+# $v0 = ergebnis
+
+
+pascal:
+bqe	$a0, $a1, anker	# if (n = k) goto anker
+bqe	$a1, $0, anker	# if ( k = 0) goto anker
+
+addi	$sp, $sp, -12		# Platz für 3 Register
+sw	$ra, 0($sp)		# $ra sichern
+addi	$s0, $a0, 0		# $s0 = n 
+sw	$s0, 4($sp)		# n speichern
+addi	$s1, $a1, 0		# $s1 = k
+sw	$s1, 8($sp)		# k speichern
+
+add 	$a0, $a0, -1		# Parameter $a0 = n-1
+
+jal 	pascal			# 1. rekursiver Aufruf pascal(n-1, k)
+
+
+lw	$ra, 0($sp)		# $ra laden
+lw	$s0, 4($sp)		# $s0 = n laden
+add 	$a0, $s0, $0		# $a0 = $s0 = Parameter n
+lw	$s1, 8($sp)		# $s1 = k laden
+add 	$a1, $s1, $0		# $a1 = $s1
+addi	$sp, $sp, 12		# Speicher freigeben
+
+
+addi	$sp, §sp, -16		# Platz für 4 Register 
+sw	$ra, 0($sp)		# $ra sichern
+addi	$s0, $a0, 0		# $s0 = n
+sw 	$s0, 4($sp)		# n sichern: 
+addi 	$s1, $a1, 0		# $s1 = k
+sw	$s1, 8($sp)		# k sichern
+addi 	$s2, $v0, 0		# $s2 = Ergebnis des 1. rekursiven Aufrufs
+sw	$s2, 12($sp)		# ergebnis sichern
+
+addi	$a1, $a1, -1		# Parameter: $a1 = k-1
+addi 	$a0, $a0, -1 		# Parameter: $a0 = n-1
+
+jal	pascal
+
+lw	$ra, 0($sp)		# $ra laden
+lw	$s0, 4($sp)		# $s0 = n laden
+lw	$s1, 8($sp)		# $s1 = k laden
+lw	$s2, 12($sp)		# $s2 = ergebnis 1 laden
+add 	$t0, $s2, $0		# $t0 = $s2 = ergebnis 1
+addi	$sp, $sp, 16		# Speicher freigeben
+
+
+add 	$v0, $v0, $t0		# ergebnis 2 + ergebnis 1
+jr	$ra			# Rücksprung
+
+anker:
+addi 	$v0, $0, 1		# $v0 = 1
+jr	$ra			# return
+

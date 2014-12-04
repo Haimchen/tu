@@ -1,0 +1,87 @@
+
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÂ§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\bigskip
+\usepackage{booktabs}
+% f�r deutsche Zeichen
+%\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage[applemac]{inputenc}
+
+
+\title{Arbeitsblatt 10}
+\author{Dora Szücs und Sarah Köhler}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+\section*{Aufgabe 1.2 - Induktionsbeweis}
+Zu Zeigen: Das folgende Lemma ist korrekt:
+Sei < v1, ..., vr > der Inhalt der Schlange Q während eines Durchlaufs der Breitensuche auf einem Graph G = (V, E), wobei v1 Kopf und vr Ende der Schlange ist. Dann gilt d[vr] ≤ d[v1] + 1
+und
+d[vi] ≤ d[vi+1] für i = 1,2, ..., r − 1.
+
+Wir beweisen per Induktion über die Schleifendurchläufe.
+
+\subsection*{I.A.}
+
+Sei 
+\begin{equation*}
+    f(n) = \frac{2}{n^3} * \left(6n^4*\frac{\log 4n}{4}+n^3\log n\right)
+\end{equation*}
+ Zu zeigen:
+\begin{equation}
+  f(n)  \in  \Omega  (n \log n)
+\end{equation}
+D.h. per Definition:
+\begin{align*} 
+& f(n) = \frac{2}{n^3} * \left(6n^4*\frac{\log 4n}{4}+n^3\log n\right()    \in   \Omega   (n \log n) \\
+\Leftrightarrow \  &   \exists   c > n, n_0  \in   \mathbb{N}:  \forall  n \ge  n_0 : f(n) \ge c * (n \log n) \\
+\end{align*}
+Durch Umformen erhalten wir:
+\begin{align*} 
+\frac{2}{n^3}\left(6n^4*\frac{\log 4n}{4}+n^3\log n\right) & \ge c * (n \log n)\\
+\frac{2}{n^3} * \frac{1}{n \log n} * \left(6n^4*\frac{\log 4n}{4}+n^3\log n\right) & \ge c\\
+\frac{2}{n^4 \log n} * \left(\frac{6n^4 * \log 4n}{4}+n^3\log n\right) & \ge c\\
+\frac{2*6n^4 * \log 4n}{4n^4 \log n} + \frac{2n^3\log n }{n^4 \log n} & \ge c\\
+\frac{3 \log 4n}{\log n} + \frac{2}{n} & \ge c\\
+\frac{3 *(\log 4 + \log n)}{\log n} + \frac{2}{n} & \ge c\\
+\frac{3 \log 4}{\log n} + \frac{3 \log n}{\log n} + \frac{2}{n} & \ge c\\
+\frac{3 \log 4}{\log n} + 3 + \frac{2}{n}  & \ge c\\
+\end{align*}
+Da für die Berechnung des Aufwandes die Entwicklung für große Werte von n interessiert, berechnen wir den Grenzwert:
+\begin{align*}
+\lim_{n\rightarrow\infty}  \left( \frac{3 \log 4}{\log n} + 3 + \frac{2}{n}\right) &  = 0 + 3 +0\\
+& \Rightarrow 3 \ge c
+\end{align*}
+
+Damit lässt sich der Wert des Faktors c bestimmen und wir erhalten:
+\begin{equation*}
+\forall n \in \mathbb{N} .   n \ge n_0 : f(n) \ge c * (n \log n)  \mbox{ mit }  c < 3
+\end{equation*}
+Somit ist bewiesen, dass die Annahme korrekt war und es gilt $ f(n) \in \Omega (n \log n) $.
+
+
+\section*{Aufgabe 3.3 - Kürzeste Wege mit Bellman-Ford}
+
+\subsection*{Probleme}
+Verändert man das Kantengewicht der Kante (D, B) zu 1, existiert ein Zyklus mit negativem Wert. Der Bellman-Ford-Algorithmus wird dann diesen Zyklus nicht mehr verlassen, da jeder Durchlauf die Gesamtkosten des Pfades weiter reduziert.
+
+Allerdings kann man auch sagen, dass sich in einem Graphen, in welchem ein negativer Zyklus existiert, gar keine kürzesten Pfade bestimmen lassen. Somit würde Bellman-Ford nicht fehlschlagen sondern korrekterweise keine Lösung liefern, da keine existiert.
+
+\subsection*{Aufwand im Vergleich zu Dijkstra}
+Da in Dijkstras-Algorithmus jeder Knoten, der schwarz gefärbt wurde nicht mehr betrachtet wird, bewegt sich der Aufwand im Bereich $ \mathcal{O} (n)$ wobei n die Anzahl der Knoten im zu betrachtenden Graphen ist.
+Dagegen überprüft der Bellman-Ford-Algorithmus auch die bereits besuchten Knoten und aktualisiert gegebenenfalls die Distanzen. Deswegen ist der Aufwand höher und liegt im Bereich von $ \mathcal{O} (n*v)$ wobei n wieder die Anzahl der Knoten ist und v die Anzahl der Kanten.
+
+\end{document}  

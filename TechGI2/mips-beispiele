@@ -1,0 +1,168 @@
+Folie 33
+
+# a0 = A; a1 = h
+lw	t0, 1200(a0)	# t0 = A[300]
+add	t0, t0, a1	# t0 += h
+sw	t0, 1200(a0)	# A[300] = t0
+
+
+Folie 42
+
+# t0 = i, t1 =j; v0 = h
+bne	t0, t1, endif	# if (i != j) goto endif
+add	v0, t0, t1	# h = i + j
+endif:
+
+
+Folie 43
+
+# t0 = i, t1 =j; v0 = h; s0 = g, s1 = f
+bne	t0, t1, else	# if (i != j) goto else
+add	s1, s0, v0	# f = g+h
+j	endif		goto endif
+else:
+sub	s1, s0, v0	# f = g-h
+endif:
+
+
+
+Folie 44
+
+# s0 = i; s1 = k; s2 = save []
+while:
+sll	t0, s0, 2	#4*i
+add 	t0, t0, s2	# &save[i]
+lw 	t0, 0(t0)	# save[i]
+bne	t0, s1, endwhile	# if save[i] != k goto endwhile
+addi	s0, s0, 1	# i++
+j	while
+endwhile:
+
+
+Folie 47
+
+# sum = v0; a[] = a0, a1 = n
+add 	v0, zero, zero	# v0 = sum = 0
+add 	t0, zero, zero	# t0 = i = 0
+for:
+bge	t0, a1, endfor	# if i >= n goto endfor
+sll	t1, t0, 2	# t1 = 4*i
+add 	t1, a0, t1	# t1 = &a[i]
+lw	t1, 0(t1)	# t1 = a[i]
+add 	v0, v0, t1	# sum = sum + a[i]
+addi	t0, t0, 1	# i++
+j 	for		# goto for
+endfor:
+
+Folie 49 
+
+# a[] = a0, n = a1, min = v0
+addi 	t0, zero, 1 	# t0 = i = 1
+lw	v0, 0(a0)	# v0 = min = a[0]
+for:
+slt	t1, t0, a1	# if (i < n) t1 = 1 
+beq	t1, zero, endfor 	# if t1 == 0 goto endfor
+sll	t2, t0, 2	# t2 = 4*i
+add 	t2, t2, a0	# t2 = &a[i]
+lw	t2, 0(t2)	# t2 = a[i]
+slt	t1, t2, v0	# if (a[i] < min) t1 = 1
+beq	t1, zero, endif	# if (t1 == 0)  goto endif
+add 	v0, t2, zero	# min = t2 = a[i]
+endif:
+addi	t0, t0, 1 	# i++
+j	for
+endfor:
+
+
+Folie 61
+
+# s0 = a, s1 = b, s2 = c, s3 = d
+main:
+add 	a0, s0, zero	# a0 = a
+add 	a1, s1, zero	# a1 = b
+jal	fun1		# goto fun1
+add 	a0, s0, s1	# a0 = a + b
+jal	fun2		# goto fun2
+add 	s2, v0, zero 	# s2 = c = v0 
+add 	a0, s2, zero	# a0 = c
+add 	a1, s3, zero	# a1 = d
+jal	fun1		# goto fun1
+jr 	ra		# jump back
+
+fun1:
+??
+jr 	ra		# goto main
+
+fun2:
+mul	v0, a0, a0	# return a0 * a0
+jr	ra		# goto main
+
+
+Folie 62 / swap
+
+# a0 = v[], a1 = k
+swap:
+sll 	t0, a1, 2	# t0 = k * 4
+add 	t0, a0, t0	# t0 = &a[k]
+lw 	t1, 0(t0)	# t1 = a[k]
+sll	t2, a1, 2	# t2 = k * 4
+add 	t2, a0, t2	# t2 = &a[k]
+addi 	t2, t2, 4 	# t2 = &a[k+1]
+lw	t3, 0(t2)	# t3 = a[k+1]
+sw 	t3, 0(t0)	# a[k] = a[k+1]
+sw 	t1, 0(t2)	# a[k+1] = tmp
+jr 	ra
+
+Folie 68
+
+# a0 = x
+poly:
+addi 	sp, sp, -8 	# platz für 2 register auf dem stack
+sw 	ra, 4(sp)	# ra auf den stack legen
+sw 	s0, 0(sp)	# s0 auf den stack
+add 	s0, a0, zero 	# s0 = a0
+jal 	square		# goto square(x)
+add 	v0, v0, s0	# v0 = v0 + x
+addi	v0, v0, 1 	# v0 ++
+lw 	ra, 4(sp)	# ra wiederherstellen
+lw	s0, 0(sp)	# s0 wiederherstellen
+addi 	sp, sp, 8	# sp zurücksetzen
+jr 	ra
+
+square:
+...
+jr 	ra
+
+
+Folie 69
+
+# a0 = n
+fact:
+addi 	t0, zero, 1 	# t0 = 1
+bge 	a0, t0, anchor	# if (n >= 1) goto anchor
+addi 	sp, sp, -8 	# platz für zwei register auf dem stack
+sw 	ra, 0(sp)	# ra auf den stack
+sw 	s0, 4(sp)	# s0 auf den stack
+add 	s0, a0, zero 	# s0 = n
+addi 	a0, a0, -1 	# a0 = n-1
+jal 	fact		# fact (n-1)
+mul 	v0, v0, s0 	# v0 = v0 * s0 = fact(n-1) * n
+lw	ra, 0(sp)	# sp wiederherstellen
+lw	s0, 4(sp)	# s0 wiederherstellen
+addi 	sp, sp, 8	# sp zurücksetzen
+jr 	ra
+anchor:
+addi 	v0, zero, 1 	# v0 = 1
+jr 	ra
+
+
+
+
+
+
+
+
+
+
+
+

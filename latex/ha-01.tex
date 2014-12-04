@@ -1,0 +1,35 @@
+\documentclass[11pt]{letter}
+
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+%\usepackage[]{}
+
+
+\begin{document}
+\address{Herrn Otto Nielson\\ Großer Onkel-Straße 11\\ 99999 Bullerbü}
+\signature{Heidi Hinkelstein \\ Große Kuchenmeisterin}
+
+\begin{letter}{Dr. G. Nathaniel Picking \\
+Acme Exterminators\\ 33 Swat Street \\
+Hometown, Illinois 62301}
+
+\date{22. Oktober 2014}
+\opening{Lieber Otto,}
+
+setzt man das Komma nach \verb-\opening{Lieber Otto}- außerhalb der geschweiften Klammern, rutscht es eine Zeile tiefer und . Das liegt daran, dass sämtlicher Text zwischen der Anrede (\verb#\opening{...}#) und der Grußformel (\verb,\closing{...},) als Inhalt des Briefes gesetzt wird und somit mit Abstand zur Anrede und in eine neue Zeile (wie normalerweise der erste Satz des Briefes).
+
+Dies sind zwei  Leerzeichen und dies sind drei   Stück. Wie Sie sehen, sehen Sie nichts. Das heißt die Anzahl der eingegebenen Leerzeichen hat keinen Einfluss auf den Abstand zwischen zwei Wörtern, der bei Latex vermutlich so bestimmt wird, dass ein besonders harmonisches Gesamtbild entsteht. 
+
+Jedes
+dieser
+Wörter
+steht
+in
+einer
+Zeile.
+Ein einzelner Zeilenumbruch ist im Ergebnis nicht mehr sichtbar, vermutlich weil so der Quellcode übersichtlicher geschrieben werden kann, ohne dass dies einen Einfluss auf das Ergebnis hat. Ebenso haben auch mehrere freie Zeilen zwischen Absätzen keine sichtbaren Auswirkungen. 
+
+\closing{Viele Grüße,}
+\end{letter}
+\end{document}

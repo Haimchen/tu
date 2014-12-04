@@ -1,0 +1,2 @@
+#!/bin/zsh
+sshfs sarahkoe@sshgate.tu-berlin.de:/home/users/s/sarahkoe/irb-ubuntu/Dokumente ./remote-uni -oreconnect

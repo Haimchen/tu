@@ -16,9 +16,12 @@ mpgi2/mpgi2-ha
 *.aux
 *.log
 *.synctex.gz
-
+*.fdb_latexmk
+*.fls
 
 # for Mac
-*.DS_Store
+.DS_Store
 
+# Python
+*.pyc
 

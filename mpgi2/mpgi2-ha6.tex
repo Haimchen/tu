@@ -1,0 +1,58 @@
+
+\documentclass[12pt]{amsart}
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} % or letter or a5paper or ... etc
+% \geometry{landscape} % rotated page geometry
+
+% See the ``Article customise'' template for come common customisations
+
+\title{Blatt 6 - Gruppenaufgabe}
+\author{Sarah Köhler und Dora Szücs}
+%\date{} % delete this line to display the current date
+
+%%% BEGIN DOCUMENT
+\begin{document}
+
+\maketitle
+%\tableofcontents
+
+\section*{Aufgabe 2.3 - LinkedList vs. Array}
+\subsection*{Vorteile von LinkedLists}
+
+\begin{itemize}
+\item Linked List ist eine dynamische Datenstruktur, d.h. Elemente können beliebig und in konstanter Zeit eingefügt und gelöscht werden. 
+
+\item Die Länge der Liste muss nicht festgelegt werden. Wenn man bei Arrays ein neues Element einfügen oder ein Element löschen möchte, muss man ein neues Array mit unterschiedlicher Größe erstellen, und die Daten kopieren.
+
+\item Spezielle Listen, wie zyklische und doppelt-verkettete Listen können je nach Aufgabe vorteilhafter sein (sie brauchen aber mehr Speicherplatz) 
+
+\item Es ist einfacher, mit generischen Listen zu arbeiten, als mit generischen Arrays, denn es ist nicht möglich, ein generisches Array zu instanziieren. 
+\item Mit Hilfe eines Iterators kann über die gesamte Liste iteriert werden ohne dass die Größe vorher bekannt sein muss. 
+\item Das Zusammenfügen mehrere Listen ist deutlich einfacher als das Zusammenfügen von Arrays: Bei Listen müssen nur wenige Zeiger umgesetzt werden, während bei Arrays vermutlich ein neues erzeugt werden muss.
+\end{itemize}
+
+\subsection*{Nachteile von LinkedLists}
+\begin{itemize}
+\item Man kann auf Elemente der Liste nicht direkt (z.B. durch Index) zugreifen, d.h. man muss über die Liste iterieren um ein bestimmtes Element zu finden.
+
+\item Die Suche nach Daten kann aufwändig sein.
+
+\item Verweise auf andere Listenelemente brauchen zusätzlichen Speicherplatz.
+\end{itemize}
+
+\subsection*{Einsatzbereiche} 
+\newline
+Arrays sind von Vorteil, wenn:
+\begin{itemize}
+\item Die Anzahl der Objekte vorhersehbar konstant ist bzw. beim Erstellen bekannt.
+\item Häufiger Zugriff auf einzelne Elemente (über den Index) erforderlich ist
+\item der verfügbare Speicherplatz sehr begrenzt ist
+\item Daten gleicher Art und Größe gespeichert werden sollen
+\end{itemize}
+LinkedLists sind von Vorteil, wenn:
+\begin{itemize}
+\item Häufig Elemente hinzugefügt und entfernt werden (vor allem aus der Mitte
+\item Die benötigte Größe beim Erstellen unbekannt ist
+\item Spezielle Formen von LinkedLists wie Stack oder Queue (oder Priority Queue) bieten zusätzliche Funktionen und können gegebenenfalls leichter zu nutzen sein.
+\end{itemize}
+\end{document}

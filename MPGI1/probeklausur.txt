@@ -1,0 +1,143 @@
+-- Übungsklausur MPGI 1
+
+-- Aufgabe 1:
+
+1. Produkttyp
+2. Induzierte Signatur von book:
+
+-- Sorte
+SORT book
+
+-- Konstruktor
+FUN book : person ** denotation ** nat -> book
+
+-- Selektoren
+FUN author : book -> person
+FUN title : book -> denotation
+FUN year : book -> nat
+
+
+-- Diskriminator
+FUN book? : book -> bool
+
+
+-- Aufgabe 2: Suchbäume
+2.1
+
+SIGNATURE BinSearchTree[data1, data2, <]
+
+SORT data1    	-- keys
+SORT data2		-- values
+
+FUN < : data1 ** data1 -> bool
+
+FUN makeTree : data1 ** data2 -> bst     -- SORT bst fehlt
+
+
+IMPLEMENTATION BinSearchTree
+
+DATA bst == node(key : data1, left : bst, right : bst)
+			leaf(key : data1, value : data2)
+
+
+DEF makeTree(key, value) == leaf(key, value)
+	
+
+2.2
+702, 986, 986, 1203, 1203, 2044, 2044, 2775, 2775, 3708, 3708, 3800, 3800
+
+2.3 
+FUN asLists : bst -> seq[data1] ** seq[data2]  						-- muss bst[data1, data2, <] geschrieben werden?
+
+DEF asLists(node(key, left, right)) == asLists(left) ++ asLists(right)
+DEF asLists(leaf(key, value)) == (key :: <> , value :: <>)        -- testen!!
+
+2.4 
+
+FUN update : bst ** data1 ** data2 -> bst
+DEF update(node(key, left, right), newkey, newval) == IF newkey < key THEN node(key, update(left, newkey, newval), right)
+														ELSE node(key, left, update(right, newkey, newval))
+														FI
+DEF update(leaf(key, value), newkey, newval) == IF newkey < key THEN node(key, leaf(newkey, newval), leaf(key, value))
+												IF key < newkey THEN node (newkey, leaf(key, value), leaf(newkey, newval))
+												ELSE leaf(key, newval)
+												FI
+
+
+-- Aufgabe 3: Listenfunktionale
+
+3.1
+FUN getBooks : denotation ** denotation ** seq[book] -> seq[book]
+DEF getBooks(first, last, list) == filter( \\ b . rightAuthor?(b))(list)
+				WHERE
+				rightAuthor == \\ b. first = first(author(b)) and last = last(author(b))
+
+3.2
+
+FUN printTitles : seq[book] -> denotation
+DEF printTitles(books) == reduce(\\ t, z . t ++ ", " ++ z, "")(map(\\ b. title(b))(books))      -- Komma am Ende zu viel?
+
+3.3
+
+FUN authorsAge : seq[book] -> seq[pair[denotation, nat]]
+DEF authorsAge(books) == map(\\b. title(b) & age(b))(books)
+						WHERE
+						age == \\b. year(b) - birth(author(b))
+
+
+-- Aufgabe 4 : I/O
+
+FUN parseList : seq[token] -> seq[person]
+DEF parseList(list) == pers ++ (parseList(rest))
+						WHERE  
+						(pers, rest) == parsePerson(list) 
+DEF parseList(<>) == <>
+
+FUN parsePerson : seq[token] -> person ** seq[token]
+DEF parsePerson(name(last) :: comma :: name(first) :: open :: num(year) :: close :: semicolon :: rest) ==
+							(person(first, last, year), rest)
+
+
+-- Aufgabe 5 : Ein - und Ausgabe
+
+FUN multiplikator : com[void]
+DEF multiplikator == ask("How many numbers?") & (\\ count.
+					getVals(!(count), <>) & ( \\ vals. 
+					writeLine(result(vals))
+					))
+
+
+FUN getVals : nat -> com[seq[denotation]]
+DEF getVals(i, seq) ==	IF i > 0 THEN ask("next Number:") & (\\n. 
+									getVals(i - 1, n :: seq))
+						ELSE succeed(seq)
+						FI
+
+FUN result : seq[denotation] -> nat
+DEF result(list) == reduce(*, 1)(map(!)(list))
+
+-- Aufgabe 6 : Aufwand
+
+verschränkte Rekursion
+
+A(g) = A(f(n-1)) + A(+)
+	= A(f(n-1)) + b1
+
+A(f) 	= A(pm) + A(g) + A(f(n-1)) + A(+)
+		= b2 + A(f(n-1)) + b1 + A(f(n-1)) + b3
+		= 2*A(f(n-1)) + b
+
+-> 2. Gleichung mit
+c = 2
+k = 0
+
+=> A(f) e O(2^n)
+
+
+
+
+
+
+
+
+

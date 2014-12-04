@@ -1,0 +1,101 @@
+						Ha 1 - Dora Szücs (), Sarah Köhler()
+
+
+Aufgabe 1. 
+
+a. Funktion, die zwei Zahlen ganzzahlig miteinander dividiert und das Ergebnis ohne Rest zurückgibt
+
+	int a 		// Divident (Zähler)
+	int b 		// Divisor (Nenner)
+	int c 		// Rückgabewert
+		
+		int result =	0
+					         
+		while (Divident >= Divisor)(){
+				Divident = Divident - Divisor;
+				result = result+1;
+		}
+		
+MIPS:
+
+divide:
+	# $a0, $a1, $v0 beinhaltet Divisor, Divident, result
+	
+	add $v0, $zero, $zero		# $v0=result=0
+	
+	while:
+	blt $a1, $a0, endwhile		# if ($a1) Divident < Divisor($a0) goto endwhile
+	
+	sub $a1, $a1, $a0			# Divident = Divident - Divisor;
+	addi $v0, $v0, 1			# result = result+1; 
+	
+	j while
+	
+	endwhile:
+	jr $ra
+
+
+b. Funktion, die die Kompressionsrate einer beliebigen binären Zeichenfolge errechnet
+Argumente der Funktion: Eingabearray mit der binären Zeichenfolge, Größe des Arrays
+Rückgabewert: ganzzahlige (ggf. abgerundete) Kompressionsrate
+
+int array[]			// int Array
+int length			// Länge des Eingabearrays
+int new				// Länge der kompressierten Datenmenge als Array
+
+int new = 2	
+	for (int i = 0; i<length-2; i++) {
+		if (array[i] != array[i+1]){			
+		new++
+		}
+	}
+
+int result = divide(length, new);
+
+MIPS:
+		# $a0, $a1, $v0 beinhaltet array[], length, result
+		
+		addi $v0, $zero, 2			# $v0 = result = 2
+		add $t0, $zero, $zero		# $t0 = i = 0
+		subi $t1, $a1, 2			# $t1= $a1-2 = length-2 
+		
+		for: 
+		
+		bge $t1, $t0, endfor		# if $t1 >= $t0 (i>=length-2) goto endfor			
+		
+		sll $t2, $t0, 2				# $t2 = 4*i
+		add $t2, $a0, $t2			# $t2 = &array[i]
+		addi $t3, $t2, 4			# $t3 = &array[i+1]
+		lw $t2, 0($t2)				# $t2 = array[i]
+		lw $t3, 0($t3)				# $t3 = array[i+1]
+		
+		# if:  	
+		beq $t2, $t3, endif			# if array[i] = array[i+1] goto endif
+		addi $v0, $v0, 1			# result++
+
+		endif: 
+		
+		addi $t0, $t0, 1			# i++
+		
+		j for
+		
+		endfor:
+		
+		addi $sp, $sp, -4			# Stack-Reservierung für eine Variable
+		sw $ra, 4($sp)				# $ra auf Stack speichern
+		
+		move $a0, $v0				# $a0 = result
+		
+		jal divide					# divide Funktion aufrufen
+		
+		lw $ra, 4($sp)				# Rücksprungadresse wiederherstellen
+		addi $sp, $sp, 4			# Platz auf dem Stack freigeben
+
+		jr $ra
+
+
+Aufgabe 2
+
+
+
+

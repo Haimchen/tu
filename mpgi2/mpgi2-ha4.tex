@@ -1,0 +1,77 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[12pt]{amsart}
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} % or letter or a5paper or ... etc
+% \geometry{landscape} % rotated page geometry
+\usepackage{booktabs}
+
+
+% See the ``Article customise'' template for come common customisations
+
+\title{Hausaufgabe 4}
+\author{Dora Szücs und Sarah Köhler}
+\date{} % delete this line to display the current date
+
+%%% BEGIN DOCUMENT
+\begin{document}
+
+\maketitle
+%\tableofcontents
+
+\section*{Aufgabe 4.1}
+\subsection*{Algorithmus}
+
+\begin{tabbing}
+better(Points)\\
+\>  distance $ \leftarrow  0$  \\
+\> for i $ \leftarrow $ 1 To length(Points) do\\
+\> \> distance $\leftarrow distance + \sqrt{X-Coord(Points[i])^2 + Y-Coord(Points[i])^2}\\
+\> end for
+\> distance $\leftarrow $ distance / length(Points) \\
+\> if distance $ < $ 0.1 then \\
+\> \> return true \\
+\> else \\
+\> \> return false \\
+\> end if \\
+Leave house. \\
+\end{tabbing}
+
+\subsection*{Korrektheitsbeweis}
+
+\subsubsection*{Schleifeninvariante}
+
+Zum Beweis der Korrektheit der Berechnungen innerhalb der for-Schleife dient die folgende Schleifeninvariante:
+
+
+\fbox{%
+  \parbox{0.9\textwidth}{%
+  Zu Beginn jedes Schleifendurchlaufs enthält die Variable distance die Summe der  Abweichungen (vom Mittelpunkt) der ersten 1 bis (i -1) Punkte des Eingabearrays.}}
+
+\section*{Aufgabe 4.2}
+
+Zur Berechnung des Aufwandes betrachten wir die einzelnen, relevanten Zeilen des Algorithmus (in Pseudocode-Darstellung). Dabei ist n die Länge des Eingabearrays
+% Requires the booktabs if the memoir class is not being used
+\begin{table}[htbp]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{@{} lcr @{}} % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+     % \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+     Nr. & Code & Aufwand \\
+      \midrule
+      2      & distance $ \leftarrow $ 0  & 1 \\
+      3       & for i $ \leftarrow $ 1 to length(Points) do     &  n \\
+      4       & distance $ \leftarrow $ distance + $ \sqrt{X-Coord(Points[i])^2 + Y-Coord(Points[i])^2} $ & n \\
+      6       & distance $ \leftarrow $ distance / length(Points)  & 1\\
+      7 	& if distance $<$ 0.1 then   &  1 \\
+      8 	& return true & 1 \\
+      \midrule
+        & Summe & 2n +4
+      % \bottomrule
+   \end{tabular}
+   %\caption{Remember, \emph{never} use vertical lines in tables.}
+   \label{tab:booktabs}
+\end{table}
+Aus der Tabelle ergibt sich ein gesamter Aufwand von $ 2n + 4 $, das bedeutet, dass der Aufwand der Funktion better in $ \Theta (n) $ liegt.
+\end{document}

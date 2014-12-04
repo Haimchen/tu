@@ -1,0 +1,92 @@
+
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÃ‚Â§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+% für deutsche Zeichen
+%\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage[applemac]{inputenc}
+
+
+\title{Arbeitsblatt 3}
+\author{Dora Szücs und Sarah Köhler}
+\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+\section{Aufgabe 1.3 - Untere Schranken}
+Sei 
+\begin{equation*}
+    f(n) = \frac{2}{n^3}(6n^4*\frac{\log 4n}{4}+n^3\log n)
+\end{equation*}
+ Zu zeigen:
+\begin{equation}
+  f(n)  \in  \Omega  (n log n)
+\end{equation}
+D.h. per Definition:
+\begin{align*} 
+f(n) = \frac{2}{n^3}(6n^4*\frac{\log 4n}{4}+n^3\log n)    \in   \Omega   (n \log n) \\
+\Leftrightarrow \exists   c > n, n_0  \in   \mathbb{N}:  \forall  n \ge  n_0 : f(n) \ge c * (n \log n) \\
+\end{align*}
+Durch umformen erhalten wir:
+\begin{align*} 
+\frac{2}{n^3}(6n^4*\frac{\log 4n}{4}+n^3\log n)  \ge c * (n \log n)\\
+\frac{2}{n^3} * \frac{1}{n \log n} (6n^4*\frac{\log 4n}{4}+n^3\log n) \ge c\\
+\frac{2}{n^4 \log n} (\frac{6n^4 * \log 4n}{4}+n^3\log n) \ge c\\
+\frac{2*6n^4 * \log 4n}{4n^4 \log n} + \frac{2n^3\log n }{n^4 \log n} \ge c\\
+\frac{3 \log 4n}{\log n} + \frac{2}{n} \ge c\\
+\frac{3 *(\log 4 + \log n}{\log n} + \frac{2}{n} \ge c\\
+\frac{3 \log 4}{\log n} + \frac{3 \log n}{\log n} + \frac{2}{n} \ge c\\
+\frac{3 \log 4}{\log n} + 3 + \frac{2}{n} \ge c\\
+\end{align*}
+Da für die Berechnung des Aufwandes die Entwicklung für große Werte von n interessiert, berechnen wir den Grenzwert:
+\begin{align*}
+\lim_{n\rightarrow\infty}  ( \frac{3 \log 4}{\log n} + 3 + \frac{2}{n}) = 0 + 3 +0 = 3\\
+\Rightarrow 3 \ge c
+\end{align*}
+
+Damit lässt sich der Wert des Faktors c bestimmen und wir erhalten:
+\begin{equation*}
+\forall n \in \mathbb{N} .   n \ge n_0 : f(n) \ge c * (n \log n)  \mbox{ mit }  c < 3
+\end{equation*}
+Somit ist bewiesen, dass die Annahme korrekt war und es gilt $ f(n) \in \Omega (n \log n) $.
+
+
+\section{Aufgabe 1.5 - Aufwandsberechnung}
+
+Für die gegebene Methode scheint der Best Case ein bereits sortiertes Array zu sein, der worst Case dagegen ein unsortiertes Array. In der Tabelle sind beide Fälle und der jeweilige Aufwand pro Anweisung angegeben:
+
+% Requires the booktabs if the memoir class is not being used
+\begin{table}[htbp]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{@{} lcr @{}} % Column formatting, @{} suppresses leading/trailing space
+      \toprule
+      \multicolumn{2}{c}{Item} \\
+      \cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      Animal    & Description & Price (\$)\\
+      \midrule
+      Gnat      & per gram & 13.65 \\
+                & each     &  0.01 \\
+      Gnu       & stuffed  & 92.50 \\
+      Emu       & stuffed  & 33.33 \\
+      Armadillo & frozen   &  8.99 \\
+      \bottomrule
+   \end{tabular}
+   \caption{Remember, \emph{never} use vertical lines in tables.}
+   \label{tab:booktabs}
+\end{table}
+
+\end{document}  
