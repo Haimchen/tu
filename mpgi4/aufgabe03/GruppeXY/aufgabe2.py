@@ -45,6 +45,7 @@ def interpolateSpline(x, y) :
         else: 
             A[i*4+2, 0:4] = [6*x[0], 2, 0, 0]
             A[i*4+3, i*4:(i+1)*4] = [6*x2, 2, 0, 0]
+         
     # solve linear system for the coefficients of the spline
     coeffs = np.linalg.solve(A, b)
 
@@ -55,6 +56,46 @@ def interpolateSpline(x, y) :
 
     return spline
 
+def interpolatePeriodicSpline(x, y) :
+    """
+    Intepolate the Runge function using a spline.
+
+    :param n: number of interpolation points
+    :return: list of local polynomials as np.poly1d objects
+    """
+    n = len(x)
+
+    dim = 4 * (n - 1)
+    b = np.zeros((dim, 1))
+    A = np.zeros((dim, dim))
+
+    for i in range(n-1):
+        print(y[i])
+        x1 = x[i]
+        x2 = x[i+1]
+        y1 = y[i]
+        y2 = y[i+1]
+        b[i*4:(i+1)*4, 0] = [y1, y2, 0, 0]
+
+        A[i*4, i*4:(i+1)*4] = [pow(x1,3), pow(x1,2), x1, 1] 
+        A[i*4+1, i*4:(i+1)*4] = [pow(x2,3), pow(x2,2), x2, 1]
+        if (i != n-2):
+            A[i*4+2, i*4:(i+2)*4] = [3*pow(x2,2), 2 * x2, 1, 0, -3*pow(x2,2), -2 * x2, -1, 0, ]
+            A[i*4+3, i*4:(i+2)*4] = [6*x2, 2, 0, 0, -6*x2, -2, 0, 0]
+        else: 
+            A[i*4+2, 0:4] = [3 * pow(x[0],2), 2 * x[0], 1, 0]
+            A[i*4+2, i*4:(i+1)*4] = [-3 * pow(x2,2), -2 * x2, -1, 0]
+            A[i*4+3, 0:4] = [6 * x[0], 2, 0, 0]
+            A[i*4+3, i*4:(i+1)*4] = [-6 * x2, -2, 0, 0]
+    # solve linear system for the coefficients of the spline
+    coeffs = np.linalg.solve(A, b)
+
+    # extract local pieces
+    spline = []
+    for k in range(n-1):
+        spline.append(np.poly1d(coeffs[k*4:(k+1)*4, 0]))
+
+    return spline
 
 def interpolateCubicNatural() :
     """
@@ -79,7 +120,7 @@ def interpolateCubicNatural() :
 
 def interpolateCubicPeriodic() :
     """
-    Interpolate keyframes using a cubic spline with natural boundary conditions.
+    Interpolate keyframes using a cubic spline with periodic boundary conditions.
 
     :return: local cubic interpolants as python list
     """
@@ -88,13 +129,13 @@ def interpolateCubicPeriodic() :
 
     # for all parameters
     for i in range(11):
-
+        y = []
         # TODO: i-ten Parameter extrahieren.
+        for k in range(len(keyframe)):
+            y.append(keyframe[k][i])
 
-        # TODO: Interpolation
-        interpolants = []
+        interpolants = interpolatePeriodicSpline(keytime, y)
         S.append(interpolants)
-
     return S
 
 
@@ -135,8 +176,8 @@ S_natural = interpolateCubicNatural()
 S_periodic = interpolateCubicPeriodic()
 
 # decide which cubic interpolation to use
-S = S_natural
-# S = S_periodic
+# S = S_natural
+S = S_periodic
 
 # decide on interpolation method
 # stickguy.animate( keytime, keyframe, interpolateLinear)
