@@ -9,10 +9,16 @@ def pcubic(x, y, yp):
     :param yp: derivative values of interpolation points
     :return: interpolation polynomial as np.poly1d object
     """
-  
+    #print("x is", x)
+    print("y is ", y)
+    print("yp ", yp)
     a = 0
     # TODO: Kubisches Interpolationspolynom erzeugen
+    vec = np.reshape(np.array((y, yp)), -1, 1)    
+    m = np.array([[pow(x[0],3), pow(x[0],2), x[0], 1], [3*pow(x[0],2), 2 * x[0], 1, 0], [pow(x[1],3), pow(x[1],2), x[1], 1],  [3*pow(x[1],2), 2 * x[1], 1, 0]])    
 
+    a = np.linalg.solve(m, vec)
+    print("vec ", vec)
     return np.poly1d(a)
 
 def pcubicInterpolationRunge( n = 8) :
@@ -25,14 +31,16 @@ def pcubicInterpolationRunge( n = 8) :
 
     # Determine input data for interpolation
     # TODO: Interpolationspunkte generieren sowie benoetigte Ableitungen
-    sx = sy = syp = 0
+    sx = np.linspace(-5, 5, n, endpoint=True)
+    sy = 1 / (1 + (sx * sx))
+    syp = -2 * sx / (pow(1 + pow(sx, 2), 2))
 
     # Compute and plot piecewise interpolants
     ps = []
     for i in range(n-1):
         # compute local interpolant
         # TODO: Stueckweisen Interpolanten berechnen
-        ps.append( [])
+        ps.append(pcubic(sx[i:i+2], sy[i:i+2], syp[i:i+2]))
 
     return sx, sy, syp, ps
 

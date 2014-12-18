@@ -11,10 +11,26 @@ def lagrange_intpoly(x, y):
     """
 
     assert(len(x) == len(y))
+    n = len(x)
     
-    p = np.poly1d([1, 2, 3])
     # TODO: Kontruktion des Interpolationspolynoms
+  
+    for j in range (0, n):
+        factor = 1
+        arr = [] 
+        for k in range(0, n):
+            if (k == j):
+                continue;
+            arr.append(x[k])
+            factor = factor * (1/(x[j]-x[k]))
+        lj = np.poly1d(arr, True)
+        lj = lj * factor * y[j]
+        if (j == 0):
+            p = lj
 
+        else:
+            p = p + lj
+                
     return p
 
 def interpolateRungeLagrange() :
@@ -28,7 +44,6 @@ def interpolateRungeLagrange() :
     for n in range(3,12):
 
         # generate interpolating polynomial
-        # TODO: Interpolationspunkte generieren und Interpolationspolynom erzeugen
         x = np.linspace(-5, 5, n, endpoint=True) 
         y = 1 / (1 + (x * x))
         polynomial = lagrange_intpoly(x, y)

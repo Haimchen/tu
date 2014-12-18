@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# TODO: Erstellen Sie einen Plot der Runge-Funktion.
+# Runge fucnction
+
 # x values in [-5,5]
 x = np.linspace(-5, 5, 256, endpoint=True) 
 # calculate y values using Runge function
