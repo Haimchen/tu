@@ -17,6 +17,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <math.h>
 
 #define MAX_BUFFER_LENGTH 100
 
@@ -217,6 +218,54 @@ void writeAddressToBuffer(unsigned char *buffer, struct sockaddr_in *address) {
 	*portPointer = (*address).sin_port;
 }
 
+void packFTData(unsigned char *buffer, uint16_t start, uint16_t end, struct sockaddr_in our_addr) {
+	uint16_t tmp = htons(start);
+	memset(buffer, 0, sizeof buffer);
+
+	// write order Code
+	strcpy(buffer, "FTI");
+	// write start value
+	uint32_t *bufferPointer = (uint32_t*) &buffer[3];
+	*bufferPointer = tmp;
+	// write end value;
+	bufferPointer = (uint32_t*) &buffer[5];
+	tmp = htons(end);
+	*bufferPointer = tmp;
+	// write our address
+	writeAddressToBuffer(buffer, &our_addr);
+}
+
+void add_entry_to_ft(struct sockaddr_in fingertable[], unsigned int size_ft, int ourName, uint16_t start, uint16_t end, int port, char address[]) {
+	unsigned int finger_val;
+	unsigned int i;
+
+	for (i = 0; i < size_ft; ++i)
+	{
+		finger_val = (unsigned int)(ourName + pow((float)2, (float)i)) % (unsigned int)(pow(2, size_ft));
+
+		if (finger_val >= start && finger_val <= end)
+		{
+			fingertable[i].sin_port = htons(port);
+			inet_pton(AF_INET, address, &(fingertable[i].sin_addr));
+		}
+	}
+}
+
+void findNextServer(struct sockaddr_in fingertable[], uint16_t hashValue, unsigned int size_ft, int ourName, struct sockaddr_in suc_addr) {
+	unsigned int index = 0;
+	unsigned int finger_val;
+
+	int i;
+	for (i = 0; i < size_ft; ++i)
+	{
+		finger_val = (unsigned int)(ourName + pow((float)2, (float)i)) % (unsigned int)(pow(2, size_ft));
+		if (finger_val <= hashValue) {
+			index = i;
+		}
+	}
+	suc_addr = fingertable[index];
+}
+
 int main(int argc, char *argv[])
 {
 	int sockfd;
@@ -233,6 +282,9 @@ int main(int argc, char *argv[])
 	unsigned char buffer[14];
 	int port;
 	char address[4];
+	unsigned int m = 8;
+	struct sockaddr_in fingertable[m];
+	uint16_t finger_val;
 
 	printf("TCP Server online\n\n");
 
@@ -281,8 +333,24 @@ int main(int argc, char *argv[])
 	hashtable_t *ht = create_ht(256); 
 
 	list_t *tmp;
+	printf("Waiting for other Servers to start...\n");
+	sleep(4);
+	printf("Sending Values for Fingertable...\n");
 
-	printf("Listening for Client\n");
+	packFTData(buffer, ourStart, ourName, our_addr);
+	sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &suc_addr, sizeof suc_addr);
+	/*
+		finger_val = (ourName + pow(2, i)) % (pow(2, m));
+		packTestData(buffer, finger_val);
+		writeAddressToBuffer(buffer, our_addr);
+		sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &suc_addr, sizeof suc_addr);
+		recvfrom(sockfd, buffer, sizeof buffer, 0, NULL, NULL);
+		unpackData(buffer, NULL, NULL, NULL, &port, address);
+		fingertable[i].sin_port = htons(port);
+		inet_pton(AF_INET, address, &(fingertable[i].sin_addr));
+	*/
+
+	printf("Server ready! Listening\n");
 
 	while(1) {
 		memset(buffer, 0, sizeof buffer);
@@ -293,8 +361,22 @@ int main(int argc, char *argv[])
 
 		printf("Data received: %s\n", buffer);  
 		unpackData(buffer, order, &key, &value, &port, address);
-		printf("key: %i \n", key);
-		printf("value: %i \n", value);
+
+		// value is Fingertable init
+		if (strncmp("FTI", order, 4) == 0) {
+			// message is from us
+			if(key == ourStart) {
+				continue;
+			}
+			// daten in FT eintragen
+			add_entry_to_ft(fingertable, m, ourName, key, value, port, address);
+			//weiterleiten
+			sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &suc_addr, sizeof suc_addr);
+			continue;
+
+		}
+		// printf("key: %i \n", key);
+		// printf("value: %i \n", value);
 		uint16_t hashValue = hash(ht, &key);
 		printf("hashValue: %u \n", hashValue);
 
@@ -307,6 +389,9 @@ int main(int argc, char *argv[])
 			} else { // weiterleiten
 				printf("Request from Client - not my job\n");
 				writeAddressToBuffer(buffer, &our_addr);
+
+				// TODO: choose server to send to
+				findNextServer(fingertable, hashValue, m, ourName, suc_addr);
 				sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &suc_addr, sizeof suc_addr);
 				printf("Request from Client - sent to next server\n");
 				recvfrom(sockfd, buffer, sizeof buffer, 0, NULL, NULL);
@@ -325,6 +410,9 @@ int main(int argc, char *argv[])
 			} else { 
 				// weiterleiten
 				printf("Request from other server - sent to next server\n");
+
+				// TODO choose server
+				findNextServer(fingertable, hashValue, m, ourName, suc_addr);	
 				sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &suc_addr, sizeof suc_addr);
 				continue;
 			}

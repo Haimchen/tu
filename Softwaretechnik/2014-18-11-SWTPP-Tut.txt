@@ -1,0 +1,51 @@
+Tutorium 18.11.2014
+***************************
+
+Aufgabe 1
+
+Entity: enthalten nur Daten
+Control: enthalten komplexe Methoden
+Boundary: Klassen, über die Akteur auf Control-Klassen zugreift (werden häufig weggelassen)
+
+Bsp. zu Klassendiagramm aus Blatt 4
+Order: Entity (keine Methoden, außer getter/setter)
+Motorcycle: Entity
+Customer: Entity
+AdminAccount: Control (Schnittstelle für die Person Admin um von außerhalb des Systems darauf zugreifen zu können)
+OrderViewer: Control (neue Klasse: erlaubt den Employees die Order zu sehen)
+
+Boundary: Wäre z.B. neue Klasse "AdminInterface" über die der Admin auf den AdminAccount zugreifen kann (bezeichnet dann die Geräte, die der Admin benutzt) -> wird aber gerne weggelassen
+-> steht außerhalb des Systems!
+genauso: EmployeeInterface (Boundary): Gerät über das die Employees auf das System zugreifen
+
+Tuning / Repair brauchen keine eigene Entity, da sie Spezialisierungen zu Order sind : Sinn der Generalisierung, dass nicht jede Eigenschaft bei den Unterklassen extra aufgeführt werden muss.
+
+
+Aufgabe 2
+
+OCL = Object Constraint Language
+-> ergänzt UML
+-> ermöglicht die eindeutige Einschränkung von Beziehungen, Atrributen etc in UML-Diagrammen
+-> Notation unterscheidet nicht zwischen Attributen und Assoziationen! 
+
+a) customer.name = "Harry"  ("Der Name des Kunden ist Harry")
+	harry.name ("Der Name des Kunden harry")
+
+b) harry.motorcycle (Menge!)
+
+c) harley.customer   -> keine Menge, weil jedes Motorcycle 0..1 Customer hat! (Navigation auch vom Motorcycle in Richtung Customer möglich)
+
+d) Im Kontext des Admin:
+context AdminAccount
+a)	self.order												# self = der AdminAccount
+b)	self.order -> select(order : Order | order.assignment > 31.10.2014) -> select(ord : Order | ord.assignemt < 1.12.2014)
+c)
+d)	self.order -> including(tune404) 						# alle Aufträge und zusätzlich Auftrag tune404
+e)	self.order -> select(o : Order | not o.isFinished) 		# select = filter
+	-> collect(o : Order | o.motorcycle) 					# collect = map
+	-> union(hardy.motorcycle)								# union = Vereinigung von zwei Mengen
+
+	self.order -> reject(o: Order | o.isFinished) ....		# alterativ: Reject negiert das Prädikat automatisch
+
+
+	

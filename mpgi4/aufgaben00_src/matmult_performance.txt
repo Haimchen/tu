@@ -1,0 +1,8 @@
+Sarah Köhler (sarah.c.koehler@gmail.com)
+Dora Szücs (szuucs.dora@gmail.com)
+
+Aufgabe 1b)
+***************
+Die Kurve der naiven Implementierung mit for-Schleifen verläuft linear. Auch die numpy-Implementierung verläuft annähernd linear (zumindest eine Zeit lang, ab einer gewissen Matrizen-Größe entstehen Abweichungen). Somit befinden sich beide Funktionen in der selben Komplexitätsklasse und haben linearen Aufwand. Allerdings beginnt der Aufwand bei unserer eigenen Funktionen mit einem wesentlich größeren Ausgangswert (y-Achsenabschnitt) und scheint zudem deutlich steiler anzusteigen. Dies kann allerdings nicht ganz klar festgestellt werden, da die Kurve der numpy-Implementierung für größere Matrizen nicht mehr linear verläuft.
+
+Als Fazit lässt sich deutlich feststellen, dass die numpy-Implementierung um ein Vielfaches schneller arbeitet als die naive Implementierung.

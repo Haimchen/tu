@@ -1,0 +1,8 @@
+Messergebnisse
+
+Test mit 4 Servern ohne Fingertable: 
+Durchschnittliche Dauer über 1000 Anfragen: 0.572952 ms
+
+
+Test mit 4 Servern und Fingertable:
+Durchschnittliche Dauer über 1000 Anfragen: 0.346786 ms

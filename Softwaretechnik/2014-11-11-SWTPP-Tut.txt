@@ -1,0 +1,27 @@
+Tutorium 11.11.2014
+********************
+
+Aggregation: lieber weglassen, weil nicht eindeutig definiert
+
+Pfeils sollten eigentlich einzigartige Namen haben (pro Diagramm) -> Eindeutig und leichter zu beschreiben
+
+4)
+a)
+Strukturdiagramme:
+- Klassendiagramm
+- Objektdigramm (= instanziiertes Klassendigramm)
+- Paketdiagramme
+= beschreiben statischen Aufbau des Systems ("Was gibt es?")
+
+Verhaltensdiagramme:
+- Use Case Diagramm
+- Sequenzdiagramme
+= Beschreibung der dynamischen Vorgänge im System ("Wer macht was?")
+
+b) 
+Vorteile von UML
+- Analyse und Entwurfsphase
+- einfache, grafische Notation -> auch für Nicht-Programmierer zu verstehen
+
+
+HA: zweites Sequenzdiagramm erstellen
