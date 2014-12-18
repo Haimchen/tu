@@ -1,1 +1,1 @@
-{"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/sarah/Documents/tu/Rechnernetze/ubuntu_vm","disabled":false},"/home/vagrant/files/rechnernetze":{"guestpath":"/home/vagrant/files/rechnernetze","hostpath":"/Users/sarah/Documents/tu/Rechnernetze","disabled":false}}}
+{"virtualbox":{"/home/vagrant/files/rechnernetze":{"guestpath":"/home/vagrant/files/rechnernetze","hostpath":"/Users/sarah/Documents/TU/Rechnernetze","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/sarah/Documents/TU/Rechnernetze/ubuntu_vm","disabled":false}}}

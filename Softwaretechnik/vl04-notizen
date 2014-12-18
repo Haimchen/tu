@@ -1,0 +1,35 @@
+Softwaretechnik 
+
+VL 04 - 30.10.2014
+*********************
+
+F 8: Bei Objektorientierten Sprachen ist das Klassendiagramm von zentraler Bedeutung
+Bsp. OnlineShop: Klasse Kunde, Warenkorb...
+Spezifikation des Objektes ist Designentscheidung (z.B. Dreieck durch drei Eckpunkte oder Höhe und zwei Punkte definieren)
+Man muss nicht alle Diagrammtypen für jedes System verwenden
+
+F11:
+Artefakten = physikalische Informationseinheiten (Teile des echten, physischen Systems) -> Geräte
+
+F 12:
+Oft im Bezug auf Java verwendet, aber auch für jede andere OO-Sprache geeignet
+
+F 15:
+rot markiert sind "Kandidaten für Klassen" --> Klasse Produkt, Shop, Person
+
+F 19
+Methoden als Attribute oder Attribute als Funktionen (Attribute als konstante Funktionen)
+
+F 20:
+Linien sind einfach Assoziationsbeziehungen (gerichtet, erkennbar an Pfeil)
+
+F 22:
+Multiplizitäten: Zahlen an den Objekten drücken aus, wie viele Instanzen von jeder Klasse es geben darf (Shop muss mind einen Angestellten haben, beliebig viele Kunden und mindestens eins, aber beliebig viele Produkte)
+
+F 24:
+Navigierbarkeit: Wie Objekte über einen Link von einem zum anderen Navigieren dürfen. Bsp: Shop hat Angestellte, diese dürfen auf Attribute und Methoden des Shops zugreifen
+
+F 28:
+Aggregation: Klasse hat Unterklassen, besondere Rolle dieser Assoziation
+Komposition: Spezialfall der Aggregation, physische Existenz hängt von Existenz der Oberklasse ab (Produkte brauchen Shop, Kunden aber z.B. können auch ohne existieren)
+

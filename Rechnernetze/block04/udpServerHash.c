@@ -271,7 +271,7 @@ int main(int argc, char *argv[])
 	inet_pton(AF_INET, addrSucc, &(suc_addr.sin_addr));
 	memset(suc_addr.sin_zero, '\0', sizeof suc_addr.sin_zero);
 
-	printf("Listening on address %i at port %i\n", our_addr.sin_addr.s_addr, our_addr.sin_port);
+	printf("Listening on address %i at port %i\n", ntohl(our_addr.sin_addr.s_addr), ntohs(our_addr.sin_port));
 	printf("Next server: %s at port %i\n", addrSucc, portSucc);
 	printf("Accepting values from %i to %i\n", ourStart, ourName);
 
@@ -310,13 +310,15 @@ int main(int argc, char *argv[])
 				printf("Request from Client - sent to next server\n");
 				recvfrom(sockfd, buffer, sizeof buffer, 0, NULL, NULL);
 				printf("Received reply from server %i, port %i\n", *((uint32_t*)(&buffer[8])), *((uint16_t*)(&buffer[12])));
-				sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, sizeof their_addr);
+				sendto(sockfd, buffer, 8, 0, (struct sockaddr *) &their_addr, sizeof their_addr);
 				continue;
 			}
 		} else {
 			// weitergeleitet von Server
 			if (hashValue <= ourName && hashValue >= ourStart) {
 				// wir sind zustandig
+				their_addr.sin_port = htons(port);
+				inet_pton(AF_INET, address, &(their_addr.sin_addr));
 				printf("Request from other server - my job\n");
 				writeAddressToBuffer(buffer, &our_addr);
 			} else { 
@@ -327,22 +329,22 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		if (strncmp("GET", order, 3) == 0) {
+		if (strncmp("GET", order, 4) == 0) {
 			tmp = get_ht(ht, &key);
 			if (tmp == NULL) {
 				strcpy(buffer, "NOF");
 			} else {
-				strcpy(buffer, "VAL ");
+				strcpy(buffer, "VAL");
 				packData(buffer, tmp->key, tmp->value);
 			}           
-		} else if (strncmp("SET", order, 3) == 0) {
+		} else if (strncmp("SET", order, 4) == 0) {
 			int tmp = set_entry(ht, &key, &value);
 			if (tmp < 0) {
 				strcpy(buffer, "ERR");
 			} else {
 				strcpy(buffer, "OK!");
 			}   
-		} else if (strncmp("DEL", order, 3) == 0) {
+		} else if (strncmp("DEL", order, 4) == 0) {
 			int tmp = delete_entry(ht, &key);
 			if (tmp < 0) {
 				strcpy(buffer, "NOF");
@@ -355,7 +357,7 @@ int main(int argc, char *argv[])
 		}
 
 		// send prepared answer
-		sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, their_len);
+		sendto(sockfd, buffer, 8, 0, (struct sockaddr *) &their_addr, their_len);
 	}
 
 	close(sockfd);

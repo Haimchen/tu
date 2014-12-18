@@ -1,0 +1,32 @@
+\documentclass[11pt]{paper}
+
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[fleqn]{amsmath} 
+%\usepackage[]{}
+
+
+\begin{document}
+
+\begin{align}
+P {y \ge 0 \land m = y} Äquivalenz \\
+{1 = x^0 \land y \ge 0} Äquivalenz \\
+{1 = x^(m-y) \land y \ge 0} Ersetzungsaxiom \\
+z := 1 \\
+{z = x^(m - y) \land y \ge 0} Schleifeninvariante I \\
+while y > 0 do \\
+{z = x^(m - y) \land y \ge 0 \land y > 0} Invariante und Schleifenbedingung erfüllt
+{z * x = x^(m - y + 1) \land y > 0} Ersetzungsaxiom & Äquivalenz
+z := z * x
+{z = x^(m - y + 1) \land  y > 0} Ersetzungsaxiom
+y := y - 1
+{z = x^(m - y) \land y \ge 0} Invariante
+{z = x^(m - y) \land y \ge 0 \land \lnot (y > 0)} Invariante und negierte Schleifenbedingung
+{z = x^(m - y) \land y \ge 0 \land y \le 0} Äquivalenz
+{z = x^(m - y) \land y = 0} Äquivalenz
+Q {z = x^m}
+
+\end{align}
+
+\end{document}

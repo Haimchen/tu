@@ -1,0 +1,94 @@
+SWTPP Tutorium 25.11.2014
+********************************
+
+OCL - Blatt 5 Aufgabe 3
+***********************
+
+harry, hardy : Customer
+harley : Motorcycle
+tune404 : Order
+
+a) harry.name <> hardy.name
+
+b) harry.motorcycle -> includes(harley)
+
+c) tune404.motorcycle -> size() = 1
+
+d) Kontext des Admin / SystemController:
+	a) self.Motorcycle -> includesAll(harry.Motorcycle)
+	b) self.order -> select(o : Order | o.instanceOf(Tuning)) -> exists(t : Tuning | not t.isFinished)
+	c) self.order -> select(o : Order | o.instanceOf(Repair)) -> forall(r : Repair | r.isFinished)
+	d) hardy.motorcycles -> collect(m : Motorcycle | m.order) -> asSet() -> select(o : Order | o.instanceOf(Repair)) -> forall(r : Repair | r.isFinished)
+
+	asSet() wandelt Bag in Set um (löscht doppelte Einträge)
+
+Aufgabe 4 : OCL Invarianten
+*******************************
+
+TMRW : Date
+a) Die Daten aller Aufträge sind vor der Variable TMRW
+	context Order inv:
+	self.assignment < TMRW
+
+	-> es darf keine Order geben, die diese Invariante verletzt
+e) context SystemController inv:
+	self.motorcycle -> size() = 
+	self.motorcycle -> collect(m : Motorcycle | m.license) -> asSet() -> size()
+
+
+__________________________________________________________
+
+Blatt 6
+************
+
+Aufgabe 1
+**********
+
+a) context Order inv:
+	self.instanceOf(Repair) or
+	self.instanceOf(Tuning)
+
+b) context Motorcycle inv:
+	self.order -> select(o : Order | o.instanceOf(Repair)) -> Size() <= 1
+	and
+	self.order -> select(o : Order | o.instanceOf(Tuning)) -> Size() <= 1
+
+
+
+Aufgabe 2 - Contracts
+*********
+Invarianten: statisch
+System ist aber dynamisch -> Methodenaufrufe
+--> Precondition und Postcondition geben Bedingungen für Methodenaufrufe und -ergebnisse an
+=> Design by Contract
+
+Precondition = require = Anforderungen/Voraussetzungen
+Postcondition = ensure = Ergebnisse der Funktion (wie ändert die Funktion den Systemzustand)
+
+Allgemeine Syntax:
+
+context Klasse :: Methode(Atrribut : Typ) : Rückgabetyp
+	pre:
+		bla...
+	post: 
+		bla...
+
+c) context OrderViewer :: acceptOrder(orderId : int, emplId : int) :	void		# :: gibt den Namespace an
+	pre:
+		self.emplAcc -> exists(e : EmplAcc | e.id = emplId)
+		and
+		self.order -> exists(o : Order | o.id = orderId)
+		and
+		not self.emplAcc -> collect(e : EmployeeAcc | e.order) -> exists(o : Order | o.id = orderId)
+	post:
+		self.emplAcc -> select(e : EmplAcc | e.id = emplId) -> collect(e : EmplAcc | e.Order) -> exists(o : Order | o.id = orderId)
+
+a) context OrderViewer :: finishOrder(orderId : int, emplId : int) : void
+	pre: 
+		self.emplAcc -> select(e : EmplAcc | e.id = emplId) -> collect(e : EmplAcc | e.Order) -> exists(o : Order | o.id = orderId)
+		and
+		self.emplAcc -> exists(e : EmplAcc | e.id = emplId)						# implizit in der ersten Bedinung enthalten
+		and
+		self.order -> exists(o : Order | o.id = orderId)						# implizit auch in der ersten Bedingung
+	post:
+		self.order -> exists(o : Order | o.id = orderId and o.isFinished)

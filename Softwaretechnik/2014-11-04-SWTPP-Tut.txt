@@ -1,0 +1,74 @@
+Tutorium 4.11.2014
+*********************
+
+Aufgabe 1
+**********
+Include - Verbindung zwischen Funktionen/Use Cases, wenn diese sich gegenseitig benötigen o.Ä.
+
+Extend - Mehrere ähnliche Funktionen werden zu einer übergeordneten zusammengefasst (Payment und die Untergruppen "EC-Payment" und Credit Card Payment)
+
+Aufgabe 2
+***********
+Sequenzdiagramme (siehe Skizze)
+
+Aufgabe 3
+**********
+Klassen & Klassendiagramme:
+
+- Auftrag
+- Kunde
+- Mitarbeiter
+
+
+Kunde (Kategorie:):
+- Name
+- Adresse
+- Telefonnummer
+- Aufträge
+- Auftrag erstellen()
+- neuer Kunde()
+
+Mitarbeiter (Kategorie: Actor):
+- ID
+- Aufträge
+- Auftrag fertigstellen(Auftrag)
+- Auftrag bearbeiten()
+
+Auftrag (Kategorie:):
+- Typ (Tuning, Reparatur)
+- Beschreibung
+- Kennzeichen
+- Datum
+- fertig
+- Kunde
+
+Tutoriumslösung:
+*****************
+* attribute
++ public method
+- private method
+
+Motorcycle
+* license: String
+
+Order
+* isTuning: Boolean
+* dateStamp: date
+* isFinished: boolean
+* orderId: int
+
+Customer
+* name: String
+* adress: String
+* tel: Long
+
+Employee
+* id: int
++ setFinished(orderId : int): void
+
+
+Admin
++ addEmployee(): int
++ addCustomer(name : String, adress : String, tel : long): void
++ addOrder(isTuning: boolean): void
++ addMotorcycle(license : String)
