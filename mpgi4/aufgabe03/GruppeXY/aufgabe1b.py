@@ -28,7 +28,6 @@ def interpolateRungeLagrange() :
     for n in range(3,12):
 
         # generate interpolating polynomial
-        # TODO: Interpolationspunkte generieren und Interpolationspolynom erzeugen
         x = np.linspace(-5, 5, n, endpoint=True) 
         y = 1 / (1 + (x * x))
         polynomial = lagrange_intpoly(x, y)
