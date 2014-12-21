@@ -1,5 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+"""
+Sarah Köhler (sarah.c.koehler@gmail.com)
+Dora Szücs (szuucs.dora@gmail.com)
+"""
 
 def lagrange_intpoly(x, y):
     """
@@ -12,9 +16,8 @@ def lagrange_intpoly(x, y):
 
     assert(len(x) == len(y))
     n = len(x)
-    
-    # TODO: Kontruktion des Interpolationspolynoms
-  
+
+    # construct interpolation polynomial
     for j in range (0, n):
         factor = 1
         arr = [] 

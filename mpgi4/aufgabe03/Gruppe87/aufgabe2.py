@@ -1,6 +1,10 @@
  # -*- coding: utf-8 -*-
 import numpy as np
 import stickguy
+"""
+Sarah Köhler (sarah.c.koehler@gmail.com)
+Dora Szücs (szuucs.dora@gmail.com)
+"""
 
 # 21 key frames to be interpolated
 
@@ -30,7 +34,6 @@ def interpolateSpline(x, y) :
     A = np.zeros((dim, dim))
 
     for i in range(n-1):
-        print(y[i])
         x1 = x[i]
         x2 = x[i+1]
         y1 = y[i]
@@ -70,7 +73,6 @@ def interpolatePeriodicSpline(x, y) :
     A = np.zeros((dim, dim))
 
     for i in range(n-1):
-        print(y[i])
         x1 = x[i]
         x2 = x[i+1]
         y1 = y[i]
@@ -109,7 +111,7 @@ def interpolateCubicNatural() :
     # for all parameters
     for i in range(11):
         y = []
-        # TODO: i-ten Parameter extrahieren.
+        # get i-th paramter
         for k in range(len(keyframe)):
             y.append(keyframe[k][i])
 
@@ -130,7 +132,7 @@ def interpolateCubicPeriodic() :
     # for all parameters
     for i in range(11):
         y = []
-        # TODO: i-ten Parameter extrahieren.
+        # get i-th parameter
         for k in range(len(keyframe)):
             y.append(keyframe[k][i])
 
@@ -176,8 +178,8 @@ S_natural = interpolateCubicNatural()
 S_periodic = interpolateCubicPeriodic()
 
 # decide which cubic interpolation to use
-# S = S_natural
-S = S_periodic
+S = S_natural
+# S = S_periodic
 
 # decide on interpolation method
 # stickguy.animate( keytime, keyframe, interpolateLinear)

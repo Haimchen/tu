@@ -1,8 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
+"""
+Sarah Köhler (sarah.c.koehler@gmail.com)
+Dora Szücs (szuucs.dora@gmail.com)
+"""
 
 
-# Runge fucnction
+# Runge function
 
 # x values in [-5,5]
 x = np.linspace(-5, 5, 256, endpoint=True) 

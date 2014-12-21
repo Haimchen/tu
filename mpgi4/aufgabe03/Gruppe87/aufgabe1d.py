@@ -1,5 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+"""
+Sarah Köhler (sarah.c.koehler@gmail.com)
+Dora Szücs (szuucs.dora@gmail.com)
+"""
 
 n = 8
 
