@@ -1,0 +1,13 @@
+SWTPP Tutorium - 13.01.2015
+***************************
+
+Model Checking mit jABC + GEAR (Modelcheck Plugin)
+
+
+Use Case Diagramm:
+- include und extend nicht nötig - nur einfache Modellierung der Abläufe (keine Bedinungen etc!)
+
+
+Literatur:
+- Design Patterns. Elements of Reusable Object-Oriented Software. Gamma et al.
+- Effective Java. Bloch, Joshua (Anwendung der Design Patterns in Java)
