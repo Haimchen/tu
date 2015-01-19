@@ -21,12 +21,9 @@
 
 #define MAX_BUFFER_LENGTH 100
 
-const long NSEC_TO_SEC = 1000000000; 
 struct timespec diff(struct timespec start, struct timespec end)
 {
-
 	struct timespec temp;
-    /*
 	if ((end.tv_nsec - start.tv_nsec)<0) {
 		temp.tv_sec = end.tv_sec - start.tv_sec - 1;
 		temp.tv_nsec = 1000000000 + end.tv_nsec - start.tv_nsec;
@@ -34,28 +31,22 @@ struct timespec diff(struct timespec start, struct timespec end)
 		temp.tv_sec = end.tv_sec - start.tv_sec;
 		temp.tv_nsec = end.tv_nsec - start.tv_nsec;
 	}
-    */
-    long startlong = start.tv_nsec + start.tv_sec * NSEC_TO_SEC;
-    long endlong = end.tv_nsec + end.tv_sec * NSEC_TO_SEC;
-
-    long result = endlong - startlong;
-    temp.tv_nsec = result % NSEC_TO_SEC;
-    temp.tv_sec = result / NSEC_TO_SEC;
 	return temp;
 }
 
 long delayFunc(struct timespec time1, struct timespec time2, struct timespec time3, struct timespec time4) {
 
+    //return diff(diff(time4, time1), diff(time3, time2));
     struct timespec tmp = diff(diff(time2,time3), diff(time1,time4));
-    return tmp.tv_nsec + NSEC_TO_SEC * tmp.tv_sec;
+    return tmp.tv_nsec + 1000000000 * tmp.tv_sec;
 }
 
 long offsetFunc(struct timespec time1,  struct timespec time2, struct timespec time3, struct timespec time4) {
 
     struct timespec tmp1 = diff(time1, time2);
-    long offset = tmp1.tv_nsec + NSEC_TO_SEC * tmp1.tv_sec;
+    long offset = tmp1.tv_nsec + 1000000000 * tmp1.tv_sec;
     tmp1 = diff(time4, time3);
-    offset += tmp1.tv_nsec + NSEC_TO_SEC * tmp1.tv_sec;
+    offset += tmp1.tv_nsec + 1000000000 * tmp1.tv_sec;
     offset /= 2;
     return offset;
 
@@ -107,25 +98,24 @@ int main(int argc, char *argv[])
 
     char buffer[20];
 
-    const int N = 50;
+    const int N = 10;
     int i;
 
-    struct timespec time1, time2, time3, time4, tmp1, tmp2;
+    struct timespec time1, time2, time3, time4, tmp1, tmp2, time5;
   
     long delay[N];
     long offset[N];
     
     for (i = 0; i < N; i++){
         
-        clock_gettime(CLOCK_REALTIME, &time1);
     
+        clock_gettime(CLOCK_REALTIME, &time1);
         sendto(sockfd, "REQ", 4, 0, (struct sockaddr *) &their_addr, their_len);
 	    printf("t1: %lu %lu \n", time1.tv_sec, time1.tv_nsec);
 
         recvfrom(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, &their_len);
-        
         clock_gettime(CLOCK_REALTIME, &time4);
-
+        
         // checken of korrekte Antwort oder Fehler
         if(strncmp("RES", buffer, 4) != 0){
             printf("ERROR: Unknown Reply\n");
@@ -137,11 +127,14 @@ int main(int argc, char *argv[])
 
         extractTimeVal(&time2.tv_sec, &buffer[4]);
         extractTimeVal(&time2.tv_nsec, &buffer[8]);
-        extractTimeVal(&time3.tv_sec, &buffer[12]);
-        extractTimeVal(&time3.tv_nsec, &buffer[16]);
 
         printf("t2: %lu %lu \n", time2.tv_sec, time2.tv_nsec);
-        printf("t3: %lu %lu \n", time3.tv_sec, time3.tv_nsec);
+
+	
+	recvfrom(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, &their_len);
+	extractTimeVal(&time3.tv_sec, &buffer[4]);
+	extractTimeVal(&time3.tv_nsec, &buffer[8]);
+	printf("t3: %lu %lu \n", time3.tv_sec, time3.tv_nsec);
 
         delay[i] = delayFunc(time1, time2, time3, time4);
         offset[i] = offsetFunc(time1, time2, time3, time4);
@@ -160,6 +153,7 @@ int main(int argc, char *argv[])
     printf("The best result over %i requests is:\n", N);
     printf("delay: %ld  ns\n", delay[j]);
     printf("offset: %ld ns\n", offset[j]);
+
 
     /* ******************************************************************
     Close socket

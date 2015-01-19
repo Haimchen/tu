@@ -37,6 +37,18 @@ int packData(char buffer[], struct timespec time2, struct timespec time3) {
     return 0;
 }
 
+int packData2(char buffer[], struct timespec time2) {
+	
+	snprintf(buffer, 4, "%s", "RES");
+	unsigned int temp;
+    temp = htonl((unsigned int) time2.tv_sec); 
+    memcpy(&buffer[4], &temp, 4 );
+    temp = htonl((unsigned int) time2.tv_nsec); 
+    memcpy(&buffer[8], &temp, 4 );
+
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
     int sockfd;
@@ -78,34 +90,34 @@ int main(int argc, char *argv[])
     printf("Listening for Client\n");
     
     char request[4];
-	unsigned char buffer[21];
+	unsigned char buffer[20];
 	struct timespec time2, time3;
 
 	while(1) {
     	recvfrom(sockfd, request, sizeof request, 0, (struct sockaddr *) &their_addr, &their_len);
 		
-        // Sleep for testing purposes
-        // usleep(500 * 1000);
-    	
-        clock_gettime(CLOCK_REALTIME, &time2);
+	
+        //usleep(500 * 1000);
+    	clock_gettime(CLOCK_REALTIME, &time2);
 		printf("t2: %lu %lu \n", time2.tv_sec, time2.tv_nsec);
-        uint8_t package = request[3];
 
         // checken ob wirklich eine Anfrage (REQ) gesendet wurde
-        if(strncmp("REQ", request, 3) != 0){
+        if(strncmp("REQ", request, 4) != 0){
             printf("ERROR: Unknown Request\n");
             continue;
         }
-        // Sleep for testing purposes
-        usleep(500 * 1000);
-        // sleep(2);
-        // usleep(10);
-
+        
+		// Sleep for testing purposes
+        // usleep(500 * 1000);
+    
 		clock_gettime(CLOCK_REALTIME, &time3);
         
         packData(buffer, time2, time3);
-        buffer[20] = package;
         
+        sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, their_len);
+
+        clock_gettime(CLOCK_REALTIME, &time3);
+        packData2(buffer, time3);
         sendto(sockfd, buffer, sizeof buffer, 0, (struct sockaddr *) &their_addr, their_len);
 		printf("t3: %lu %lu \n", time3.tv_sec, time3.tv_nsec);
 	}

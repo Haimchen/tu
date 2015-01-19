@@ -1,0 +1,47 @@
+Testergebnisse über jeweils 50 Anfragen:
+
+Ohne Sleep:
+Delay: 29037 ns
+Offset: 3085 ns
+
+
+500ms Sleep zwischen Zeitnahmen auf dem Server:
+Delay: 134703 ns
+Offset: -37684 ns
+
+Der Delay wird minimal größer, allerdings nicht um 500ms. Dass er überhaupt größer wird liegt vermutlich an der Zeit, die der Prozessor zum Wechseln zwischen einzlenen Threads benötigt. Während der Wartezeit kann der Prozessor zusätzlich zu anderen Prozessen wechseln, wodurch die Verzögerung erklärt werden kann. Dafür spricht, dass der Delay immer um das etwa 10-fache größer wird, unabhängig von der tatsächlichen Wartezeit (es gibt keinen Unterschied zwischen 2 sec und 500ms).
+
+***********************************************************************
+
+500ms Sleep vor jeder Zeitnahme auf dem Server:
+Delay: 500241833 ns
+Offset: 250023519 ns
+
+Die erste Wartezeit zählt für die Berechnung zum Delay, was gut daran zu erkennen ist, dass dieser ca um 500 Millisekunden länger ist, als bei der vorigen Messung. Das bedeutet, dass die Annahme verletzt ist, dass der Delay symmetrisch ist, was auch die Berechnung des Offset stört.
+
+
+
+************************************************************************
+
+Letzte Teilaufgabe: Zusätzlicher Zeitstempel wie bei PTP
+
+Vorteile: Zeit, die zum Senden benötigt wird, kann sehr genau berechnet werden (alles was auf Client- und Serverseite geschieht, wird herausgerechnet!)
+Neues Problem: Wir wissen nicht genau, wann die Nachricht vom Server exakt gesendet wurde. Zu diesem Zeitpunkt müsste der zweite Zeitstempel genommen werden.
+
+Die Messung bzw. Berechnung des Offsets wird nicht besser (d.h. näher an 0, was der ideale Wet wäre, da es sich um Messungen der selben Clock handelt) im Vergleich zu ohne Sleep, d.h. der Wert befindet sich immer noch im Bereich von wenigen Tausend ns.
+Das lässt sich aber damit erklären, dass der Delay immer noch nicht symmetrisch ist:
+
+Beispielmessung (Zeiten in s und ns seit Epoche):
+t1: 1421576365 271740571
+t4: 1421576365 271789321
+t2: 1421576365 271765181
+t3: 1421576365 271787322
+delay: 26609  ns
+offset: 11305 ns
+
+Delay 1 (Hinrichtung) t2-t1 = 24610 ns 
+Delay 2 (Rückrichtung) t4-t3 = 1999 ns
+Delay = Delay 1 + Delay 2 = 26609 ns
+Wir können hier Delay 1 und 2 berechnen, weil die Zeiten auf beiden Seiten gleich sind, bei unterschiedlichen Clocks wäre das nicht möglich.
+
+Offset ist (Delay 1 - Delay 2)/2 = 24610 - 1999 = 11305,5 ns, also das, was auch in der Messung berechnet wurde. Wenn der Delay symmetrisch wäre, wäre der Offset 0, was korrekt wäre.
