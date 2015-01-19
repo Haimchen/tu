@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<model version="2.1">
+  <id>8d9de7bb-c963-48f7-8087-37d86e9696c5</id>
+  <name>&lt;New&gt;</name>
+  <changecounter>4</changecounter>
+  <sib>
+    <id>ecd67913-ea83-4e1b-a253-f4b8fd2bc0a1</id>
+    <name>ShowBranchingDialog_2</name>
+    <label>add task</label>
+    <sib-uid>gui-sibs/ShowBranchingDialog</sib-uid>
+    <taxonomy>de.jabc.sib.common.gui.ShowBranchingDialog</taxonomy>
+    <position>136.5,93.0</position>
+    <parameter name="dialogTitle">
+      <string>Title</string>
+    </parameter>
+    <parameter name="messageText">
+      <string>Do you want to add tasks?</string>
+    </parameter>
+    <parameter name="messageType">
+      <de.metaframe.common.sib.parameter.ListBox>
+        <ListBoxFoundation>
+          <list>
+            <string>Plain</string>
+            <string>Information</string>
+            <string>Question</string>
+            <string>Warning</string>
+            <string>Error</string>
+          </list>
+          <selected>2</selected>
+        </ListBoxFoundation>
+      </de.metaframe.common.sib.parameter.ListBox>
+    </parameter>
+    <branch>no</branch>
+    <branch>yes</branch>
+    <finalbranches>cancel</finalbranches>
+    <finalbranches>error</finalbranches>
+    <userobject key="ABC$START">
+      <boolean>true</boolean>
+    </userobject>
+  </sib>
+  <sib>
+    <id>65d3b2fa-7755-4613-b62c-66a9225204ec</id>
+    <name>ShowInputDialog_2</name>
+    <label>which task</label>
+    <sib-uid>gui-sibs/ShowInputDialog</sib-uid>
+    <taxonomy>de.jabc.sib.common.gui.ShowInputDialog</taxonomy>
+    <position>206.0,33.0</position>
+    <parameter name="dialogTitle">
+      <de.metaframe.common.sib.parameter.ContextExpression>
+        <ContextExpressionFoundation>
+          <expression>Title</expression>
+          <clazz>java.lang.Object</clazz>
+          <classMutable>false</classMutable>
+        </ContextExpressionFoundation>
+      </de.metaframe.common.sib.parameter.ContextExpression>
+    </parameter>
+    <parameter name="initialValue">
+      <de.metaframe.common.sib.parameter.ContextExpression>
+        <ContextExpressionFoundation>
+          <expression></expression>
+          <clazz>java.lang.String</clazz>
+          <classMutable>true</classMutable>
+        </ContextExpressionFoundation>
+      </de.metaframe.common.sib.parameter.ContextExpression>
+    </parameter>
+    <parameter name="messageText">
+      <de.metaframe.common.sib.parameter.ContextExpression>
+        <ContextExpressionFoundation>
+          <expression>Which task?</expression>
+          <clazz>java.lang.Object</clazz>
+          <classMutable>false</classMutable>
+        </ContextExpressionFoundation>
+      </de.metaframe.common.sib.parameter.ContextExpression>
+    </parameter>
+    <parameter name="messageType">
+      <de.metaframe.common.sib.parameter.ListBox>
+        <ListBoxFoundation>
+          <list>
+            <string>Plain</string>
+            <string>Information</string>
+            <string>Question</string>
+            <string>Warning</string>
+            <string>Error</string>
+          </list>
+          <selected>2</selected>
+        </ListBoxFoundation>
+      </de.metaframe.common.sib.parameter.ListBox>
+    </parameter>
+    <parameter name="possibleValues">
+      <list/>
+    </parameter>
+    <parameter name="selection">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>task</key>
+          <scope>LOCAL</scope>
+          <scopeMutable>true</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>cancel</finalbranches>
+    <finalbranches>error</finalbranches>
+    <finalbranches>ok</finalbranches>
+  </sib>
+  <edge>
+    <source>ecd67913-ea83-4e1b-a253-f4b8fd2bc0a1</source>
+    <target>65d3b2fa-7755-4613-b62c-66a9225204ec</target>
+    <point>165.0,120.0</point>
+    <point>240.0,60.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>yes</branch>
+  </edge>
+  <sib>
+    <id>44385c45-7ba2-4bbd-bc7d-1eaab1eb6fc5</id>
+    <name>AddElement_1</name>
+    <label>add task</label>
+    <sib-uid>collection-sibs/AddElement</sib-uid>
+    <taxonomy>de.jabc.sib.common.collection.AddElement</taxonomy>
+    <position>31.5,33.0</position>
+    <parameter name="collection">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>List</key>
+          <scope>DECLARED</scope>
+          <scopeMutable>true</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <parameter name="element">
+      <de.metaframe.jabc.framework.sib.parameter.ContextKey>
+        <ContextKeyFoundation>
+          <key>task</key>
+          <scope>LOCAL</scope>
+          <scopeMutable>true</scopeMutable>
+        </ContextKeyFoundation>
+      </de.metaframe.jabc.framework.sib.parameter.ContextKey>
+    </parameter>
+    <finalbranches>error</finalbranches>
+    <finalbranches>false</finalbranches>
+    <finalbranches>true</finalbranches>
+  </sib>
+  <edge>
+    <source>65d3b2fa-7755-4613-b62c-66a9225204ec</source>
+    <target>44385c45-7ba2-4bbd-bc7d-1eaab1eb6fc5</target>
+    <point>240.0,60.0</point>
+    <point>60.0,60.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>ok</branch>
+  </edge>
+  <edge>
+    <source>44385c45-7ba2-4bbd-bc7d-1eaab1eb6fc5</source>
+    <target>ecd67913-ea83-4e1b-a253-f4b8fd2bc0a1</target>
+    <point>60.0,60.0</point>
+    <point>165.0,120.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>true</branch>
+  </edge>
+  <sib>
+    <id>b094cdc3-df2d-4948-96b0-e4adc37b7aee</id>
+    <name>Noop</name>
+    <label>Noop</label>
+    <sib-uid>basic-sibs/Noop</sib-uid>
+    <taxonomy>de.jabc.sib.common.basic.Noop</taxonomy>
+    <position>323.0,93.0</position>
+    <finalbranches>default</finalbranches>
+  </sib>
+  <edge>
+    <source>ecd67913-ea83-4e1b-a253-f4b8fd2bc0a1</source>
+    <target>b094cdc3-df2d-4948-96b0-e4adc37b7aee</target>
+    <point>165.0,120.0</point>
+    <point>345.0,120.0</point>
+    <labelposition>500.0,0.0</labelposition>
+    <branch>no</branch>
+  </edge>
+  <values/>
+  <branch>
+    <name>default</name>
+    <branch>default</branch>
+    <sib>b094cdc3-df2d-4948-96b0-e4adc37b7aee</sib>
+  </branch>
+</model>
