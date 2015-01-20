@@ -1,8 +1,8 @@
-#Mon Jan 19 22:10:30 CET 2015
-SaveModel.path=/models
-jabc.project.sibpath.0=<classpath>
+#Tue Jan 20 17:47:04 CET 2015
 ID=c057d805-5a14-42ff-8f01-4d48296970a4
+jabc.project.sibpath.0=<classpath>
+SaveModel.path=/models
 SIBCreator.path.link=-1
-SIBTree.treeLayout=false
 jabc.project.name=Aufgabe3
+SIBTree.treeLayout=false
 jabc.project.definition=1.0
