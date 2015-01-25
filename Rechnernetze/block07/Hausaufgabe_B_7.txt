@@ -1,0 +1,60 @@
+a)	62856
+	Statistics > Summary
+b)	611 Bytes
+	Statistics > Summary > nach den Addressen filtern (e) und abschreiben
+c)	D-LinkCo_fc:75:2b	|	66.171.184.188, 12.203.193.161,  134.220.3.28,  136.159.5.20,   142.55.211.243,
+							154.11.129.59,  159.33.166.3,    172.176.84.86, 172.189.93.240, 193.217.169.172
+							196.192.101.87, 199.71.40.129,   199.71.40.137, 202.120.136.29, 202.156.187.206
+							203.81.205.210, 207.126.111.225, 207.188.7.81,  208.187.91.202, 208.38.45.168
+							..... die Addresse des Gerätes ändert sich sehr häufig. Ein aufschreiebn aller Addressen 
+							ist daher unmöglich.
+	Delllnc_c7:76:0e	|	192.168.0.4
+	Broadcast			|	192.168.0.255
+	IbmCorp_43:ca:fe	|	102.168.0.2
+	Statistics > Endpoint
+d)	173
+	Statistics > IP Statistics > IP- Adresses > Kopieren und Zeilen zählen/ bei Textverabreitungsprogramm anzeigen
+f)	100 %
+	Statistics > IP Statistics > IP Protocoll Types > Ablesen
+g)	90.08 %
+	Statistics > IP Statistics > IP Protocoll Types > Ablesen
+h)	Analytics Protocoll hierarchy
+	VSS-Monotoring ethernet trailer, Malformed Packet (unter Data, Compuserve GIF), Compuserve GIF, BitTorrent, Real Time Streaming Protocol
+i)	Analytics > Protocoll hierarchy
+	Domain Name Service (Malformed Packet), Malformed Packet, Data, NetBIOS Datagram Service, NetBIOS Name Service, Malformed Package, Data
+j)	Analytics > Protocoll hierarchy
+	Ethernet
+k)	Analytics > Protocoll hierarchy
+	IPv4, Adress Resolution Protocoll
+l)	Analytics > Protocoll hierarchy
+	34
+m)	Analytics > IP Address > Filter mit ip.ttl == 48 / 128 bzw ip.ttl >= 200
+	48 ms	105
+	128 ms	26757
+	200 ms	23
+	Die TTL sagt etwas über die Anzahl der Stationen aus, die ein Paket zu seinem Zielort maximal haben darf.
+	Wenn die TTL sehr klein ist, wird das Paket sehr schnell verworfen.
+	Ist sie zu lang, können mögliche Fehler bei der Übertragung später gefunden werden.
+	ANscheinend hat sich eine TTL von 128 als beste Angabe herausgestellt, weshalb es zu dieser Verteilung kam.
+n)	Paket aufrufen
+	a)	14 Bytes (zählen der Anzahl von Bytes des Headers)
+	b)	20 Bytes (wie bei Ethernet, nur mit dem IP Header)
+	c)	Total Length - Header length = Datagramm Length (1360 Bytes) oder Total Length (1380)
+	d)	20 Bytes (zählen der Bytes im Header)
+	e)	1336 Bytes (ablesen des Wertes bei Data)
+
+
+q)	Filtern nach SSH und IP's heraussuchen
+	Ja, zwischen 192.168.0.4(Dell) und 136.159.5.20 (D-Link).
+r)	Filter: dns and udp and ip and eth and frame
+	Unter den DNS Anfragen ist eine Anfrage dabei, die die Adresse fxfeeds.mozilla.org abruft.
+	Dieser Server wird von FireFox benutzt, um die Bookmark-Liste abzurufen.
+	Das lässt darauf schließen, dass als Browser FireFox zum Einsatz kam.
+s)	Filter: rtsp and tcp and ip and eth and frame
+	rtsp://a1651.v87522.c8752.g.vr.akamaistream.net:554/ondemand/7/1651/8752/1137095087000/origin.media.cbc.ca/newsworld/real/clips/rm-newsworld/debate_060110.rm?title="Harper%20fends%20off%20attacks%20from%20Duceppe%2c%20Martin%20in%20final%20debate"&author="CBC%20News"&copyright="CBC%20News"
+	Dieser Link wurde dort abgerufen. Der Film heißt also vermutlich: Harper fends off attacks from Duceppe Martin in final Debate
+	Eine Google Suche ergab folgenden Artikel: http://www.cbc.ca/news/canada/harper-fends-off-attacks-from-duceppe-martin-in-final-debate-1.608436
+	Das Video scheint jedoch nicht mehr verfügbar zu sein.
+t)	Ja, über BitTorrent, wie man in Aufgabe h) sehen kann.
+	Filter: bittorrent and tcp and ip and eth and frame
+	Es wurde wahrscheinlich eine Datei weitergegeben. Welche dies war. lässt sich aber nicht herausfinden.
