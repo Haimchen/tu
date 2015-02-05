@@ -219,9 +219,16 @@ public class ConferenceServlet extends HttpServlet {
 		    		}
 	    		break;
 			case("addReviewer"):
-				result = chairController.assignReviewer(request.getParameter("user"),
-						request.getParameter("paper"),
-						(Conference) request.getSession().getAttribute("currentConference"));
+				try {
+					result = chairController.assignReviewer(request.getParameter("user"),
+					request.getParameter("paper"),
+					(Conference) request.getSession().getAttribute("currentConference"));
+				} catch (Exception exception){
+					result = exception.getMessage();
+				}
+				if (result != "") {
+					request.getSession().setAttribute("errortext", result);
+				}
 				nextJSPPage = CONFERENCEDETAIL_PAGE;
 				break;
 	    		
@@ -280,7 +287,9 @@ public class ConferenceServlet extends HttpServlet {
                 formatter.parse("07/01/2015"), 
                 6);
 		
-		conferences.get(0).addSubmittedPaper(new Paper("p1 title"));
+		Paper paper1 = new Paper("p1 title");
+		paper1.setAuthor(u1);
+		conferences.get(0).addSubmittedPaper(paper1);
 		
 		chairController.createConferenceDEBUG(u1,
 				"c3", 
