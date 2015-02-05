@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import de.tuberlin.pes.swtpp.ha03.example.control.ChairController;
 import de.tuberlin.pes.swtpp.ha03.example.control.UserController;
 import de.tuberlin.pes.swtpp.ha03.example.model.Conference;
+import de.tuberlin.pes.swtpp.ha03.example.model.Paper;
 import de.tuberlin.pes.swtpp.ha03.example.model.User;
 
 
@@ -188,6 +189,7 @@ public class ConferenceServlet extends HttpServlet {
 		    			// open create conference page for existing conference
 				nextJSPPage = CONFERENCEDETAIL_PAGE;
 	    		request.getSession().setAttribute("currentConference", chairController.getConference(request.getParameter("selectedConference"))); 
+	    		request.getSession().setAttribute("users", users);
 	    		break;
 			case("ChairCreateConference"): 
 	    			// receive data for new conference
@@ -204,7 +206,7 @@ public class ConferenceServlet extends HttpServlet {
 		                         formatter.parse(request.getParameter("confReviewDeadline")),
                                 Integer.parseInt(request.getParameter("confMaxPages")));	
 	    			} catch (Exception e) {
-	    				result = "Ungültige Eingabe: " + e.getMessage();
+	    				result = "Ungï¿½ltige Eingabe: " + e.getMessage();
 	    			}
 	    			
 		    		if (result == "") {
@@ -216,6 +218,13 @@ public class ConferenceServlet extends HttpServlet {
 		    			request.getSession().setAttribute("errortext", result);
 		    		}
 	    		break;
+			case("addReviewer"):
+				result = chairController.assignReviewer(request.getParameter("user"),
+						request.getParameter("paper"),
+						(Conference) request.getSession().getAttribute("currentConference"));
+				nextJSPPage = CONFERENCEDETAIL_PAGE;
+				break;
+	    		
 	    		// TODO: More conference use cases
 	    		
 	    		//////////////////////////
@@ -270,6 +279,8 @@ public class ConferenceServlet extends HttpServlet {
                 formatter.parse("05/01/2015"), 
                 formatter.parse("07/01/2015"), 
                 6);
+		
+		conferences.get(0).addSubmittedPaper(new Paper("p1 title"));
 		
 		chairController.createConferenceDEBUG(u1,
 				"c3", 

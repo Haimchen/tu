@@ -1,9 +1,11 @@
 package de.tuberlin.pes.swtpp.ha03.example.control;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
 import de.tuberlin.pes.swtpp.ha03.example.model.Conference;
+import de.tuberlin.pes.swtpp.ha03.example.model.Paper;
 import de.tuberlin.pes.swtpp.ha03.example.model.User;
 
 /**
@@ -40,9 +42,22 @@ public class ChairController {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Implements the Use Case "create conference". The conference was successfully registered in the system when the result is "". If the data supplied did not meet the requirements, 
+	 * Returns User object with given ID.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public User getUserById(String id) {
+		for (User user: users) {
+			if (user.getId().equalsIgnoreCase(id)) return user;
+		}
+		return null;
+	}
+	/**
+	 * Implements the Use Case "create conference". The conference was successfully registered in the system when the result is "". 
+	 * If the data supplied did not meet the requirements, 
 	 * the result holds the first error message.
 	 * 
 	 * @param chair
@@ -56,21 +71,44 @@ public class ChairController {
 	 * @return error message or empty String
 	 */
 	public String createConference(User chair, String id, String name, String description, Date dateOfConference, Date submitDeadline, Date reviewDeadline, int maxPages) 
-	{
-		// TODO check parameters
+	{		
+		// create Conference
+		Conference newConference = new Conference(name, id, description, dateOfConference, submitDeadline, reviewDeadline, maxPages);
 		
-		Conference conference = new Conference(name, id);
+		// check if ID is unique
+		for(Conference conference : conferences){
+			Boolean equals = newConference.equals(conference);
+			if(equals){
+				return "ID already exists";
+			}
+		}
 		
-		chair.addHostedConference(conference);
-		conferences.add(conference);
+		// check Dates
+		Boolean submitDeadlineValid = newConference.isSubmitDeadlineValid();
+		if(!submitDeadlineValid){
+			return "Submission Deadline is in the past";
+		}
 		
-		// TODO more...
+		Boolean reviewDeadlineValid = newConference.isReviewDeadlineValid();
+		if(!reviewDeadlineValid){
+			return "Review Deadline is to close to Submission Deadline.";
+		}
+		
+		Boolean dateOfConferenceValid = newConference.isDateValid();
+		if(!dateOfConferenceValid){
+			return "Date of Conference is to close to Review Deadline!";
+		}
+	
+		// Conference is valid and can be added
+		chair.addHostedConference(newConference);
+		conferences.add(newConference);
 		
 		return "";
 	}
 	
 	/**
-	 * Implements the Use Case "create conference", but the dates which are entered are not compared to current date. Just for debugging: Create conferences that are already behind deadlines.
+	 * Implements the Use Case "create conference", but the dates which are entered are not compared to current date. 
+	 * Just for debugging: Create conferences that are already behind deadlines.
 	 * 
 	 * @param chair
 	 * @param id
@@ -85,6 +123,24 @@ public class ChairController {
 	public String createConferenceDEBUG(User chair, String id, String name, String description, Date dateOfConference, Date submitDeadline, Date reviewDeadline, int maxPages) {
 		// TODO implement ... 
 		return "Not yet implemented";
+	}
+	
+	/**
+	 * Implements the use case "assign reviewer".
+	 * @param reviewer
+	 * @param paper
+	 */
+	public String assignReviewer(String reviewerId, String paperTitle, Conference conference){
+		User reviewer = getUserById(reviewerId);
+		Paper paper = conference.getPaperByTitle(paperTitle);
+		
+		User author = paper.getAuthor();
+		if (author!= null && author.equals(reviewer)){
+			return "Author can not be added as reviewer!";
+		}
+		
+		reviewer.addPaperToReview(paper);
+		return "";
 	}
 	
 }
