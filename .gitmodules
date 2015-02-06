@@ -1,0 +1,3 @@
+[submodule "Softwaretechnik/ha03/ConferencePortalStub"]
+	path = Softwaretechnik/ha03/ConferencePortalStub
+	url = git@gitlab.tubit.tu-berlin.de:sarah.c.koehler/conferenceportal.git
