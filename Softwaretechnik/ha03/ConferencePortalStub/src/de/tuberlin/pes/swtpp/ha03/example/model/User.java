@@ -1,5 +1,6 @@
 package de.tuberlin.pes.swtpp.ha03.example.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class User {
@@ -9,7 +10,10 @@ public class User {
 	private String contactInfo = "";
 
 	private LinkedList<Conference> hostedConferences;
-	// TODO: add more attibutes that represent associations of class model
+	private ArrayList<Paper> writtenPapers;
+	private ArrayList<Review> writtenReviews;
+	private ArrayList<Paper> papersToReview;
+
 
 	public User(String name, String id, String pwd) {
 		this.name = name;
@@ -17,6 +21,24 @@ public class User {
 		this.pwd = pwd;
 		
 		hostedConferences = new LinkedList<Conference>();
+		papersToReview = new ArrayList<Paper>();
+		writtenPapers = new ArrayList<Paper>();
+		writtenReviews = new ArrayList<Review>();
+	}
+	
+	public Boolean equals(User otherUser){
+		return otherUser.getId().equals(this.getId());
+	}
+	
+	public void addPaperToReview(Paper paper){
+		if (isReviewingPaper(paper)){
+			return;
+		}
+		this.papersToReview.add(paper);
+	}
+	
+	public Boolean isReviewingPaper(Paper paper){
+		return papersToReview.contains(paper);
 	}
 	
 	public String getName() {
@@ -59,5 +81,29 @@ public class User {
 	 */
 	public void informUser(String message) {
 		System.out.println("User " + id + "(" + name + ") -> Message: " + message);
+	}
+
+	public ArrayList<Paper> getWrittenPapers() {
+		return writtenPapers;
+	}
+
+	public void setWrittenPapers(ArrayList<Paper> writtenPapers) {
+		this.writtenPapers = writtenPapers;
+	}
+
+	public ArrayList<Paper> getPapersToReview() {
+		return papersToReview;
+	}
+
+	public void setPapersToReview(ArrayList<Paper> papersToReview) {
+		this.papersToReview = papersToReview;
+	}
+
+	public ArrayList<Review> getWrittenReviews() {
+		return writtenReviews;
+	}
+
+	public void setWrittenReviews(ArrayList<Review> writtenReviews) {
+		this.writtenReviews = writtenReviews;
 	}
 }

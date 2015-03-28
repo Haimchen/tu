@@ -7,7 +7,9 @@
 <!-- Import java classes of our project -->
 <%@ page import="de.tuberlin.pes.swtpp.ha03.example.model.User" %>
 <%@ page import="de.tuberlin.pes.swtpp.ha03.example.model.Conference" %>
+<%@ page import="de.tuberlin.pes.swtpp.ha03.example.model.Paper" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.LinkedList" %>
 
 
 <%@include file="head.jsp" %>
@@ -113,9 +115,31 @@ if (currentConference == null) {%>
 	</form>
 
 <% } else { %>
-
+<% LinkedList<User> users = (LinkedList<User>) session.getAttribute("users"); %>
 Hier könnten Konferenz-Use-Cases für eine bestehende Konferenz untergebracht oder schon abgeschlossene Konferenzen angezeigt werden.
+<h2>Zugeordnete Paper</h2>
+<ul>
+<% for(Paper paper : currentConference.getSubmittedPapers()){ %>
+<li><% out.println(paper.getTitle() + ": "); %> 
+	<% for(User user : users){
+		if (user.isReviewingPaper(paper)){
+			out.println(user.getName());
+		}
+		else{ %>
+			<form> 
+				<input type="hidden" name="usecase"	value="addReviewer" />
+				<input type="hidden" name="user"	value="<% out.print(user.getId()); %>" />
+				<input type="hidden" name="paper"	value="<% out.print(paper.getTitle()); %>" />
+				<input type="submit" value="Add <% out.print(user.getName()); %>" />
+			 </form>
+		<%  }}
+		%>
 
+</li>
+
+
+<% } %>
+</ul>
 <% } %>
 
 <form>
