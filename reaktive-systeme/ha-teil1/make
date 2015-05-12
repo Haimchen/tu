@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+pdflatex ha-teil1.tex && \
+open ha-teil1.pdf
