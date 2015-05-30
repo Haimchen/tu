@@ -122,7 +122,6 @@ def_task* tqueue_peek(TaskQueue *queue)
 		return NULL;
 	}
 	if (tqueue_size(queue) == 0) {
-		printf("Queue is empty\n");
 		return NULL;
 	}
 	return queue->root->value;
@@ -139,7 +138,6 @@ def_task* tqueue_poll(TaskQueue *queue)
 		return NULL;
 	}
 	if (tqueue_size(queue) == 0) {
-	printf("Queue is empty\n");
 	return NULL;
 	}
 

@@ -108,6 +108,7 @@ int main()
     arrive_MLF(2, 3);
 
 
+    printf("%i\n", running_task);	// should print: 2
     tick_MLF();
     printf("%i\n", running_task);	// should print: 2
     tick_MLF();

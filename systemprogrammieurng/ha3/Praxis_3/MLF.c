@@ -2,6 +2,7 @@
 #include "task.h"
 #include "TaskQueue.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int nextQueue;
 int currentTimeslot;
@@ -45,32 +46,25 @@ void arrive_MLF(int id, int length){
 
 void tick_MLF()
 {
-  // check if process is running
-  // if yes, goto tick, if no check queues
-  // check if running process is finished
-  // if yes, check queues and find next process
-  // assign next process, but no tick!
-  //if no process in queues, idle
-
   if (current_task != NULL) {
     // reduce all time-values
     currentTimeslot --;
     current_task->length --;
+    printf("Task %i is running\n", current_task->id);
 
-    if (currentTimeslot <= 0) {
-      if (current_task->length <= 0) {
-        // free memory
-        free(current_task);
-      } else {
-        // to next queue
-        tqueue_offer(queues[nextQueue], current_task);
-      }
-    } else {
+    if (currentTimeslot > 0 && current_task->length > 0) {
       return;
     }
+
+    if (current_task->length <= 0) {
+      // free memory
+      free(current_task);
+      current_task = NULL;
+    } else {
+      // to next queue
+      tqueue_offer(queues[nextQueue], current_task);
+    }
   }
-  // get next task,
-  // switch task, idle if task is NULL
 
   // find next Task
   for (int i = 0; i < numQueues; i++){
