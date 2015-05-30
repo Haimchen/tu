@@ -18,7 +18,7 @@ void free_LCFS()
 
 void arrive_LCFS(int id, int length)
 {
-	length = length;
+	length = length -1;
 	if (running_task == -1) {
 		switch_task(id);
 	} else {
@@ -34,5 +34,10 @@ void tick_LCFS()
 
 void finish_LCFS()
 {
-	switch_task(pqueue_poll(queue));
+  int task = pqueue_poll(queue);
+  if (task > -1) {
+	switch_task(task);
+  } else {
+    switch_task(IDLE);
+  }
 }

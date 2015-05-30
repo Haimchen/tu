@@ -4,6 +4,7 @@ BIN = scheduler
 # - end each line with a '\' to avoid errors
 SRC = \
 	PrioQueue.c \
+	TaskQueue.c \
 	task.c \
 	LCFS.c \
 	SRTN.c \
