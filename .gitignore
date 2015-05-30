@@ -20,8 +20,10 @@ mpgi2/mpgi2-ha
 *.fls
 
 # for Mac
-.DS_Store
+**/.DS_Store
 
 # Python
 *.pyc
 
+# Stochastik Buch
+stochastik/Stochastik-Buch/*
