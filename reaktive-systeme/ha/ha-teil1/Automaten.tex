@@ -1,0 +1,78 @@
+\documentclass[a4paper,10pt]{scrartcl}
+
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+
+\RequirePackage{etoolbox}
+\usepackage{xifthen}
+\usepackage{Macros}
+
+\usepackage[arrow, matrix, curve]{xy}
+
+\begin{document}
+
+ \begin{minipage}[t]{0.49\linewidth-2.38pt}
+ \makebox[\linewidth]{
+ \begin{xy}
+  \xymatrix
+  {
+   & H \ar[dl]_{b} \ar[dr]^{\Out{b}{}} \ar[dd]^{\tau} &\\
+   H_1 \ar[dr]_{\Out{b}{}} & & H_2 \ar[dl]^{b} \\
+   & H_3 &
+  }
+ \end{xy}
+ }
+ \end{minipage}
+ %
+ \begin{minipage}[t]{0.49\linewidth-2.38pt}
+  \makebox[\linewidth]{
+  \begin{xy}
+  \xymatrix
+  {
+   H \ar@/^/[rr]^{a} \ar@/_/[rr]^{\tau} \ar@/^/[dd]^{a} \ar@/_/[dd]_{b} \ar[dr]^{\Out{b}{}} && H_3 \\
+   & H_2 \ar@/^/[ur]|-{b} \ar@/_/[ur]|-{a} & \\
+   H_1 \ar@/_ 1cm/[rruu]_{\Out{b}{}}
+  }
+ \end{xy}
+ }
+ \end{minipage}
+ \vspace{3\bigskipamount}
+    
+  \begin{minipage}{0.4\linewidth-7.112pt}
+   \makebox[\linewidth]{  
+    \begin{xy}
+     \xymatrix
+     {
+     & \Pro{CS} \ar [d]^{\Out{pub}{}} \\
+     & \Pro{CS_1} \ar[d]^{\Out{coin}{}} \\
+     & \Pro{CS_2} \ar `l/20pt[ul] `/20pt[uu]^{\In{coffee}{}} [uu] 
+     }
+    \end{xy}
+   }
+  \end{minipage}
+   % 
+  \begin{minipage}{0.4\linewidth-7.112pt}
+   \makebox[\linewidth]{
+    \begin{xy}
+      \xymatrix
+      {
+      & \Pro{VM'} \ar[d]^{\In{coin}{}} \ar[dl]^{\In{coin}{}} &  \\
+      \Pro{VM'_1} \ar@(u,l) [ur]^{\Out{coffee}{}} & \Pro{VM'_2} \ar[d]^{\In{coin}{}} & \\
+      & \Pro{VM'_3} \ar `r/20pt[ru] `[uu]_{\Out{tea}{}} [uu] & \\
+      }
+    \end{xy}
+   }
+  \end{minipage}
+  %
+  \begin{minipage}{0.2\linewidth-0.22pt}
+   \makebox[\linewidth]{
+    \begin{xy}
+      \xymatrix
+      {
+      s \ar@(r,u)_{a} \ar@(l,d)_{b}
+      }
+    \end{xy}
+   }
+  \end{minipage}
+    
+\end{document}

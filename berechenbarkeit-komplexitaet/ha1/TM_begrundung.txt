@@ -1,0 +1,5 @@
+Die Turing Maschiene arbeitet deterministisch. Die Zustände q0, ..., q3 überschreiben die erste Hälfte des Eingabewortes mit A und B (a wird A, b wird B) und die zweite Hälfte mit 1 und 2 (a wird 1, b wird 2). Dabei überschreibt die TM zuerst das erste und letzte Zeichen des Wortes, dann das zweite und vorletzte Zeichen usw.
+
+Wenn jedes Zeichen ersetzt wurde und die TM die Mitte des Wortes gefunden hat, fängt sie an, die Zeichen zu vergleichen. Ein abgearbeitetes Zeichen in der zweiten Hälfte wird mit *, in der erten Hälfte mit dem Blank-Symbol überschrieben. Wenn z.B. in der zweiten Hälfte eine 1 gelesen wird (Übergang von q0 in q4 oder von q7 in q4), geht die TM zum Anfang des Wortes zurück (q4 und q6) und überprüft, ob das aktuelle erste Zeichen eine A ist (Übergang von q6 in q7). Wenn nicht, geht die TM in einen Fangzustand.
+
+Die TM akzeptiert das Wort, wenn auf dem Band nur noch Sterne und Blank-Symbole stehen.

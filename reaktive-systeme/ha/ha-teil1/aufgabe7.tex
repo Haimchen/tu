@@ -1,0 +1,24 @@
+\section*{Aufgabe 7: Schwache Bisimulation}
+
+\subsection*{a)}
+Zu zeigen: $i \wbisim j$
+
+Sei $\MC{B} = \{(i,j),(i_1,j_1),(i_2,j_1),(i_1,j_3),(i_1,j_4),(i_3,j_3),(i,j_2),(i_4,j_3),(i_4,j_4)\}$. \\
+Zu zeigen: $\MC{B}$ ist eine schwache Bisimulation.
+
+\begin{compactitem}
+\item \ShowBisim{\MC{B}}{i,j}{{a,i_1,j_1},{a,i_2,j_1}}{{a,j_1,i_1}}
+\item \ShowBisim{\MC{B}}{i_1,j_1}{{b,i_1,j_3},{c,i_1,j_4}}{{\tau,j_3,i_1}}
+\item \ShowBisim{\MC{B}}{i_2,j_1}{{\tau,i_3,j_3},{d,i,j_2}}{{\tau,j_3,i_1},{d,j_2,i}}
+\item \ShowBisim{\MC{B}}{i_1,j_3}{{b,i_1,j_3},{c,i_1,j_4}}{}
+\item \ShowBisim{\MC{B}}{i_1,j_4}{{b,i_1,j_3},{c,i_1,j_3}}{}
+\item \ShowBisim{\MC{B}}{i_3,j_3}{{b,i_4,j_3},{c,i_3,j_4}}{{b,j_3,i_4},{c,j_4,i_3}}
+\item \ShowBisim{\MC{B}}{i,j_2}{{a,i_2,j_1},{a,i_1,j_1}}{{\tau,j,i}}
+\item \ShowBisim{\MC{B}}{i_4,j_3}{{c,i_4,j_4},{b,i_3,j_3}}{{c,j_4,i_4},{b,j_3,i_3}}
+\item \ShowBisim{\MC{B}}{i_4,j_4}{{b,i_3,j_3},{c,i_4,j_3}}{{c,j_3,i_4},{b,j_3,i_3}}
+\end{compactitem}
+Somit ist $\MC{B}$ eine schwache Bisimulation. Da $(i, j) \in \MC{B}$ kann gefolgert werden, dass $i$ und $j$ schwach bisimilar sind.
+
+\subsection*{b)} $i \not\approx k$, weil in $k$ auch nach der ersten c-Aktion noch eine d-Aktion möglich ist, in $i$ aber nach dem ersten c kein Weg mehr zu einer d-Aktion exisitiert.
+
+\subsection*{c)} $j \not\approx k$, weil in $k$ auch nach der ersten c-Aktion noch eine d-Aktion möglich ist, in $i$ aber nach dem ersten c kein Weg mehr zu einer d-Aktion exisitiert.

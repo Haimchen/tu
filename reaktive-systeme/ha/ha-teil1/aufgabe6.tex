@@ -1,0 +1,24 @@
+\section*{Aufgabe 6: Starke Bisimulation}
+
+\subsection*{a)}
+ $q_6$ und $p_1$ sind stark bisimilar. Eine passende Relation ist:
+
+$\mathcal{B} = \{(p_1, q_6), (p_2, q_5), (p_3, q_9), (p_4, q_3), (p_5, q_3), (p_6, q_4), (p_6, q_7), (p_4, q_1), (p_5, q_2) \}$
+
+\subsection*{b)} $q_6$  wird von $p_1$ stark simuliert, siehe Relation $ \mathcal{B} $ aus  a)
+
+\subsection*{c)} $p_1$  wird von $ q_6$ stark simuliert, siehe Relation $ \mathcal{B} $ aus  a)
+
+\subsection*{d)} $q_6$ und $ p_1$ simulieren sich gegenseitig stark, siehe Relation $ \mathcal{B} $ aus  a)
+
+\subsection*{e)} $q_1 \bisim p_4$, d.h. es existiert eine starke Bisimulation:
+
+Sei $\mathcal{R} = \{ (q_1, p_4), (q_3, p_5), (q_2, p_5), (q_4, p_6), (q_7, p_6), (q_8, p_4) \}$ \\
+Beweis, dass $\mathcal{R}$ eine starke Bisimulation ist:
+
+\ShowBisim{\MC{R}}{q_1,p_4}{{a,q_3,p_5},{b,q_2,p_5}}{{a, q_3,p_3}}
+
+\ShowBisim{\MC{R}}{q_3,p_5}{{b,q_4,p_6},{b,q_7,p_6}}{{a, e, f}}
+
+\ShowBisim{\MC{R}}{q_2,p_5}{{b,q_4,p_6}}{{b, p_6,q_4}}
+Somit ist $\mathcal{R}$ eine starke Bisimulation. Da außerdem $(q_1, p_4) \in \mathcal{R}$ ist bewiesen, dass $q_1 \bisim p_4$ gilt.

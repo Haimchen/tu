@@ -1,0 +1,33 @@
+SWTPP Tutorium 10.02.2015
+***************************
+
+Tipps für Klausur:
+- Zeit ist knapp bemessen (90 min)
+- es gibt kürzere und längere Aufgaben
+- alle Aufgaben sind unabhängig voneinander lösbar
+
+- Vorbereitung: Hausaufgaben und Tutorienaufgaben anschauen (Aufgabentypen)
+- vermutlich kein Java-Code, eventuell Tests (mit Junit?)
+- Klausur ist ohne Zettel lösbar (keine zu speziellen Fragen zu erwarten)
+- Zettel: Dinge, die man gerne vergisst + wichtige Definitionen (Hoare, OCL)
+
+- Diagramme: nicht zu detailliert (nur was genau aus der Aufgabenstellung hervorgeht, zusätzliches gibt keine Punkte)
+
+Hoare-Kalkül
+-------------
+if-else
+while -> Invariante!
+arithmetische Ausdrücke
+-> Ersetzungsregel!
+
+
+{I}
+while B do
+	{I and B}
+
+	y = y + 1
+
+	{I}
+{I and not B}
+
+Folien TU Chemnitz zur Erklärung (ausführlicher als in der Vorlesung besprochen)

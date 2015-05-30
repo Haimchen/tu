@@ -1,0 +1,36 @@
+\section*{Aufgabe 2}
+\subsection*{a)}
+
+\begin{equation*}
+  \left( \Proc, \Act, \CCSTrans{\alpha} | \alpha \in \Act \right)
+\end{equation*}
+
+\begin{align*}
+  \Proc =& \left\{ H, H_1, H_2,H_3,H_4,H_5,H_6,H_7,H_8 \right\} \\
+  \Act =& \left\{ a, \Out{a}{}, b, c,  \Out{b}{},\Out{c}{},\tau  \right\} \\
+  \CCSTrans{a} =& \left\{ \left( H, H_1 \right), \left( H, H_3 \right), \left( H_3, H_4 \right), \left( H_2, H_5 \right), \left( H_1, H_4 \right), \left( H_6, H_7 \right) \right\} \\
+  \CCSTrans{\Out{a}{}} =& \left\{ \left( H_1, H_2 \right), \left( H_4, H_5 \right), \left( H_7, H_8 \right) \right\} \\
+  \CCSTrans{b} =& \left\{ \left( H_3, H_6 \right), \left( H_4, H_7 \right), \left( H_5, H_8\right)  \right\} \\
+  \CCSTrans{\Out{b}{}} =& \emptyset \\
+  \CCSTrans{c} =& \left\{ \left( H_3, H_6 \right), \left( H_4, H_7 \right), \left( H_5, H_8\right)  \right\} \\
+  \CCSTrans{\Out{c}{}} =& \emptyset
+\end{align*}
+
+\subsection*{b)}
+
+\begin{align*}
+  \Pro{H} &\CCSDef a.\Pro{H_1} | a.\Pro{H_3} \\
+  \Pro{H_1} &\CCSDef a.\Pro{H_41} |\Out{a}{}.\Pro{H_2} | \tau . \Pro{H_5} \\
+  \Pro{H_3} &\CCSDef a.\Pro{H_4} | b.\Pro{H_6} + c.\Pro{H_6} \\
+  \Pro{H_4} &\CCSDef \Out{a}{}.\Pro{H_5} | b.\Pro{H_7} + c.\Pro{H_7}\\
+  \Pro{H_2} &\CCSDef a.\Pro{H_5}  \\
+  \Pro{H_5} &\CCSDef b.\nil | c.\nil \\
+  \Pro{H_6} &\CCSDef a.\Pro{H_7} \\
+  \Pro{H_7} &\CCSDef \Out{a}{}.\Pro{H_8}|  \\
+\end{align*}
+
+\subsection*{c)}
+
+\begin{align*}
+  \Pro{H} \CCSDef a.\left( a.\nil | \Out{a}{}.\nil | \left( b.\nil + c.\nil \right) \right)
+\end{align*}
