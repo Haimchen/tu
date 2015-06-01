@@ -59,6 +59,7 @@ void tqueue_free(TaskQueue *queue)
 		for (i = 1; i <= queue->size; i++) {
 			pointer = queue->root;
 			queue->root = queue->root->next;
+      free(pointer->value);
 			free(pointer);
 		}
 	}

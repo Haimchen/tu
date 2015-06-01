@@ -50,14 +50,14 @@ int main()
       printf("SJN is not implemented yet. Quitting.\n");
       }*/
 
-  /*if (init_SRTN())
+  if (init_SRTN())
   {
     arrive_SRTN(0, 1);
     arrive_SRTN(1, 7);
     arrive_SRTN(2, 3);
 
 
-    //printf("%i\n", running_task);	// should print: 0
+    printf("%i\n", running_task);	// should print: 0
     tick_SRTN();
     printf("%i\n", running_task);	// should print: 2
     tick_SRTN();
@@ -98,9 +98,7 @@ int main()
   {
     printf("SRTN is not implemented yet. Quitting.\n");
   }
-  return 0;
-}
-*/
+
   if (init_MLF(1,3))
   {
     arrive_MLF(0, 1);

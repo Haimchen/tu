@@ -30,8 +30,8 @@ PrioQueue* pqueue_new()
 {
 	// allocate memory for priority queue
 	PrioQueue *pq = (PrioQueue*) malloc(sizeof(PrioQueue));
-	
-	// check if priority queue is created	
+
+	// check if priority queue is created
 	if (pq == NULL) {
 		printf("Couldn't create Priority Queue\n");
 		exit(1);
@@ -45,7 +45,7 @@ PrioQueue* pqueue_new()
 Delete a priority queue and free all allocated memory
 */
 void pqueue_free(PrioQueue *queue)
-{	
+{
 	// check if queue exists
 	if (queue == NULL) {
 		printf("Queue doesn't exist\n");
@@ -58,7 +58,7 @@ void pqueue_free(PrioQueue *queue)
 		for (i = 1; i <= queue->size; i++) {
 			pointer = queue->root;
 			queue->root = queue->root->next;
-			free(pointer);		
+			free(pointer);
 		}
 	}
 	// free queue after all elements are gone
@@ -76,7 +76,7 @@ int pqueue_offer(PrioQueue *queue, int priority, int value)
 		return -1;
 	}
 
-	// create new element 
+	// create new element
 	q_elem* new_elem = (q_elem*) malloc(sizeof(q_elem));
 
 	// check if element is created
@@ -98,7 +98,7 @@ int pqueue_offer(PrioQueue *queue, int priority, int value)
 	}
 
 	// insert at front
-	if (queue->root->priority < priority) {		
+	if (queue->root->priority < priority) {
 		new_elem->next = queue->root;
 		queue->root = new_elem;
 		queue->size++;
@@ -107,14 +107,14 @@ int pqueue_offer(PrioQueue *queue, int priority, int value)
 
 	q_elem* pointer = queue->root;
 	while (pointer->priority >= priority) {
-			
+
 		// insert at the end
 		if (pointer->next == NULL) {
 			pointer->next = new_elem;
 				queue->size++;
 				return value;
 			}
-		// place found between two elements 
+		// place found between two elements
 		if (pointer->next->priority < priority) {
 			new_elem->next = pointer->next;
 			pointer->next = new_elem;
@@ -126,20 +126,34 @@ int pqueue_offer(PrioQueue *queue, int priority, int value)
 	return -1;
 }
 /*
-Return the value of the first element in the priority queue
+return the value of the first element in the priority queue
 without removing it
 */
 int pqueue_peek(PrioQueue *queue)
 {
-	if (queue == NULL) {
-		printf("Queue doesn't exist\n");
-		return -1;
-	}
-	if (pqueue_size(queue) == 0) {
-		printf("Queue is empty\n");
-		return -1;
-	}
-	return queue->root->priority;
+if (queue == NULL) {
+  printf("queue doesn't exist\n");
+  return 0;
+}
+if (pqueue_size(queue) == 0) {
+  return 0;
+}
+return queue->root->value;
+}
+/*
+return the priority of the first element in the priority queue
+without removing it
+*/
+int pqueue_peek_prio(PrioQueue *queue)
+{
+if (queue == NULL) {
+  printf("queue doesn't exist\n");
+  return 0;
+}
+if (pqueue_size(queue) == 0) {
+  return 0;
+}
+return queue->root->priority;
 }
 
 /*
@@ -152,18 +166,17 @@ int pqueue_poll(PrioQueue *queue)
 		return -1;
 	}
 	if (pqueue_size(queue) == 0) {
-	printf("Queue is empty\n");
 	return -1;
 	}
 
 	q_elem* pointer = queue->root;
-	
+
 	queue->root = queue->root->next;
 
-	int ret_val = pointer->value; 
+	int ret_val = pointer->value;
 	free(pointer);
 	queue->size = queue->size - 1;
-	
+
 	return ret_val;
 }
 

@@ -44,6 +44,12 @@ int pqueue_offer(PrioQueue *queue, int priority, int value);
  */
 int pqueue_peek(PrioQueue *queue);
 
+/*
+return the priority of the first element in the priority queue
+without removing it
+*/
+int pqueue_peek_prio(PrioQueue *queue);
+
 /**
  * Retrieves and REMOVES the value with the highest priority from the queue.
  *
@@ -62,7 +68,7 @@ int pqueue_size(PrioQueue *queue);
  * Prints the current values in the queue to stdout.
  *
  * The elements get printed in the following form:
- * 
+ *
  * (<prio>,<value>)(<prio>,<value>) ...
  *
  * with the head of the queue as first element.
@@ -70,7 +76,7 @@ int pqueue_size(PrioQueue *queue);
 void pqueue_print(PrioQueue *queue);
 
 /**
- * Iterates over all elements in the queue and passes 
+ * Iterates over all elements in the queue and passes
  * the priority and value to the supplied function.
  *
  * func: A function expecting the priority and value as const pointers.

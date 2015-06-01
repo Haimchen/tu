@@ -29,7 +29,6 @@ int init_MLF(int time_step, int num_queues)
 }
 
 void free_MLF()
-  // TODO? free memory for task structs?
 {
   for (int i = 0; i < numQueues; i++) {
     tqueue_free(queues[i]);
@@ -40,7 +39,6 @@ void arrive_MLF(int id, int length){
   def_task* new_task = (def_task*) malloc(sizeof(def_task));
   new_task->length = length;
   new_task->id = id;
-  // TODO ? check if memory was allocated successfully
   tqueue_offer(queues[0], new_task);
 }
 
@@ -50,7 +48,8 @@ void tick_MLF()
     // reduce all time-values
     currentTimeslot --;
     current_task->length --;
-    printf("Task %i is running\n", current_task->id);
+    // debug output: print current task
+    // printf("Task %i is running\n", current_task->id);
 
     if (currentTimeslot > 0 && current_task->length > 0) {
       return;
