@@ -17,7 +17,7 @@ STAAT CHAR(20) NOT NULL
 CREATE TABLE FLUG(
 FID SMALLINT NOT NULL PRIMARY KEY,
 STARTDATUM DATE NOT NULL,
-FLUGZEUGTYP SMALLINT NOT NULL, 
+FLUGZEUGTYP SMALLINT NOT NULL,
 STARTFLUGHAFEN SMALLINT NOT NULL,
 ZIELFLUGHAFEN SMALLINT NOT NULL,
 CONSTRAINT FGK_FLUGZEUGTYP FOREIGN KEY (FLUGZEUGTYP) REFERENCES FLUGZEUGTYP(FTID),
@@ -35,46 +35,46 @@ CONSTRAINT FGK_FLUG FOREIGN KEY(FID) REFERENCES FLUG(FID),
 PRIMARY KEY(PID, FID)
 );
 
--- DatensŠtze Person
+-- DatensÂŠtze Person
 
-insert into Person(PID, Name) values 
-(2, 'Til'), 
-(3, 'Matthias'), 
-(4, 'Goetz'), 
-(5, 'Daniel'), 
-(6, 'Jan'), 
-(7, 'Veronica'), 
-(8, 'Tom'), 
-(9,'Franka'), 
-(10, 'Karoline'), 
-(11, 'Robert'), 
-(12, 'Will'), 
-(13, 'Brad'), 
+insert into Person(PID, Name) values
+(2, 'Til'),
+(3, 'Matthias'),
+(4, 'Goetz'),
+(5, 'Daniel'),
+(6, 'Jan'),
+(7, 'Veronica'),
+(8, 'Tom'),
+(9,'Franka'),
+(10, 'Karoline'),
+(11, 'Robert'),
+(12, 'Will'),
+(13, 'Brad'),
 (14, 'Denzel');
 
--- DatensŠtze Flugzeugtyp
-insert into Flugzeugtyp(FTID, AnzahlPlaetze) values 
-(1, 400), 
-(2, 300), 
-(3,50), 
-(4, 345), 
+-- DatensÂŠtze Flugzeugtyp
+insert into Flugzeugtyp(FTID, AnzahlPlaetze) values
+(1, 400),
+(2, 300),
+(3,50),
+(4, 345),
 (5, 78);
 
--- Daten fŸr Flughafen
-insert into Flughafen(FHID, Stadt, Staat) values 
-(1, 'Berlin', 'Deutschland'), 
-(2,'Barcelona', 'Spanien'), 
-(3, 'Palma de Mallorca', 'Spanien'), 
-(4, 'Athen', 'Griechenland'), 
-(5, 'MŸnchen', 'Deutschland'), 
-(6, 'Hamburg', 'Deutschland'), 
+-- Daten fÂŸr Flughafen
+insert into Flughafen(FHID, Stadt, Staat) values
+(1, 'Berlin', 'Deutschland'),
+(2,'Barcelona', 'Spanien'),
+(3, 'Palma de Mallorca', 'Spanien'),
+(4, 'Athen', 'Griechenland'),
+(5, 'MÃ¼nchen', 'Deutschland'),
+(6, 'Hamburg', 'Deutschland'),
 (7, 'Dresden', 'Deutschland'),
-(8, 'Rom', 'Italien'), 
+(8, 'Rom', 'Italien'),
 (9, 'Paris', 'Frankreich');
 
 
 -- Flugdaten
-insert into Flug(FID, Startdatum, Flugzeugtyp, Startflughafen, Zielflughafen) values 
+insert into Flug(FID, Startdatum, Flugzeugtyp, Startflughafen, Zielflughafen) values
 (1,'2015-04-02', 2, 5, 8),
 (2,'2015-04-06', 4, 4, 1),
 (3,'2015-07-21', 5, 1, 3),
@@ -88,16 +88,16 @@ insert into Flug(FID, Startdatum, Flugzeugtyp, Startflughafen, Zielflughafen) va
 (11, '2015-04-20', 4, 9, 2),
 (12, '2015-05-02', 3, 8, 4);
 
--- DatensŠtze bucht
+-- DatensÂŠtze bucht
 insert into bucht(PID, FID, Preis) values
 (7, 7, 100),
-(7, 10, 130), 
-(11, 1, 330), 
-(11, 9, 220), 
+(7, 10, 130),
+(11, 1, 330),
+(11, 9, 220),
 (11, 5, 300),
-(11, 10, 90), 
-(11, 7, 230), 
+(11, 10, 90),
+(11, 7, 230),
 (14, 11, 700),
-(2, 12, 300), 
-(3, 12, 300), 
+(2, 12, 300),
+(3, 12, 300),
 (4,12, 300);
