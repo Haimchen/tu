@@ -1,0 +1,124 @@
+
+R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+During startup - Warning messages:
+1: Setting LC_CTYPE failed, using "C" 
+2: Setting LC_COLLATE failed, using "C" 
+3: Setting LC_TIME failed, using "C" 
+4: Setting LC_MESSAGES failed, using "C" 
+5: Setting LC_MONETARY failed, using "C" 
+[R.app GUI 1.65 (6931) x86_64-apple-darwin13.4.0]
+
+WARNING: You're using a non-UTF8 locale, therefore only ASCII characters will work.
+Please read R for Mac OS X FAQ (see Help) section 9 and adjust your system preferences accordingly.
+> demo()
+starting httpd help server ... done
+> help.start()
+If the browser launched by '/usr/bin/open' is already running, it is *not* restarted, and you must switch to its window.
+Otherwise, be patient ...
+> x <- rnorm(50)
+> y <- rnorm(x)
+> plot(x,y)
+> ls()
+[1] "x" "y"
+> rm(x,y)
+> ls(9)
+character(0)
+> ls()
+character(0)
+> trees(9)
+Error: could not find function "trees"
+> trees
+   Girth Height Volume
+1    8.3     70   10.3
+2    8.6     65   10.3
+3    8.8     63   10.2
+4   10.5     72   16.4
+5   10.7     81   18.8
+6   10.8     83   19.7
+7   11.0     66   15.6
+8   11.0     75   18.2
+9   11.1     80   22.6
+10  11.2     75   19.9
+11  11.3     79   24.2
+12  11.4     76   21.0
+13  11.4     76   21.4
+14  11.7     69   21.3
+15  12.0     75   19.1
+16  12.9     74   22.2
+17  12.9     85   33.8
+18  13.3     86   27.4
+19  13.7     71   25.7
+20  13.8     64   24.9
+21  14.0     78   34.5
+22  14.2     80   31.7
+23  14.5     74   36.3
+24  16.0     72   38.3
+25  16.3     77   42.6
+26  17.3     81   55.4
+27  17.5     82   55.7
+28  17.9     80   58.3
+29  18.0     80   51.5
+30  18.0     80   51.0
+31  20.6     87   77.0
+> coef(trees)
+NULL
+> plot(trees)
+> heights <- trees.Height
+Error: object 'trees.Height' not found
+> heights <- trees.height
+Error: object 'trees.height' not found
+> heights <- trees$height
+> ls()
+[1] "heights"
+> girth <- trees$Girth
+> ls(9)
+character(0)
+> ls()
+[1] "girth"   "heights"
+> cov(heights, girth)
+Error: is.numeric(x) || is.logical(x) is not TRUE
+> cov(girth, height)
+Error in is.data.frame(y) : object 'height' not found
+> cov(girth, heights)
+Error in cov(girth, heights) : 
+  supply both 'x' and 'y' or a matrix-like 'x'
+> heights <- trees$Height
+> cov(girth, heights)
+[1] 10.38333
+> covgh <- cov(gith, heights)
+Error in is.data.frame(x) : object 'gith' not found
+> covgh <- cov(girth, heights)
+> vol <- trees$Volume
+> covgv <- cov(girth, vol)
+> sigg <- sd(girth)
+> sigh <- sd(heights)
+> sigv <- sd(vol)
+> print(covgh)
+[1] 10.38333
+> pccgh <- (covgh / sigg * sigh)
+> print(pccgh)
+[1] 21.08277
+> pccgh <- (covgh / (sigg*sigh))
+> print(pccgh)
+[1] 0.5192801
+> pccgv <- (covgv / (sigg*sigv))
+> print(pccgv)
+[1] 0.9671194
+> 
