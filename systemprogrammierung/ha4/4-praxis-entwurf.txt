@@ -1,0 +1,107 @@
+4.1
+a)
+Konzept A  ist ein Single Threath welches Round Robin verwendet. Wohingegen Konzept B ein Multithreating-Konzept ist  welches Die Prozesse parallel ausführt.
+Konzept A ist Nebenläufig, Konzept B ist echt parralel.
+b.
+Sie dürfen nicht Abhängig voneinader sein. Sie dürfen nicht dieselben Resourcen verwenden und sich nicht einen Speicherbereich teilen. Für Konzept B muss der Prozessor Multithreating beherschen
+c)
+Sie ist notwenig wenn von einander Abhängig sind also der eine Threath die Ergenisse von dem andere benötigt. Dieselben Resourcen verwenden. 
+
+4.2
+a 
+Ja es ist ein „Race-Contition“, da hier entscheidend ist das die 2 Threaths nacheinander ausgegeben wird. Wenn es unverändernt bleibt könnte es zu folgenden Ausgaben kommen: N J A E I N, N J E I A N.
+
+
+Lock_Objekt file_lock
+
+T1:while(1){
+    lock(file_lock);
+      fprintf(f,"J");
+      fprintf(f,"A");
+    unlock(file_lock);
+}
+
+
+T2:
+while(1){
+     lock(file_lock);  
+      fprintf(f,"N");
+      fprintf(f,"E");
+      fprintf(f,"I");
+      fprintf(f,"N");
+    unlock(file_lock);
+}
+
+4.2.b
+Ja es ist eine "Race-Comtition", da wenn das die Sperre freigegeben wird beide Prozesse gleichzeit versuchen die Sperre zu setzen. z.B. JAJAJAJANEIN,JAJANEINJAJA etc..
+4.2 c
+
+Lock_Objekt file_lock;
+signal_Objekt JA_fertig;
+signal_Objekt NEIN_fertig;
+
+
+NEIN_fertig = true;
+
+T1:while(1){
+    wait(NEIN_fertig)
+    lock (file_lock)
+     fprintf(f,"J");
+     fprintf(f,"A");
+     signal_Objekt (JA_fertig)
+    unlock(file_lock);
+}
+
+
+T2:
+while(1){
+    wait(JA_fertig)
+    lock (file_lock)
+      fprintf(f,"N");
+      fprintf(f,"E");
+      fprintf(f,"I");
+      fprintf(f,"N");
+      signal_Objekt (NEIN_fertig)
+    unlock(file_lock);
+}
+
+4.2d
+In der Lösung von c muss immer abwechselt JA und NEIN stehen. Wärend bei 4b es nicht sichergestellt ist das die Prozesse abwechselt aufgerufen werden.
+
+Aufgabe Spurios Wakeup
+ein Wake_up, der nicht durch das Stattfinden des Events ausgelöst wird.
+
+
+Lock_Objekt file_lock;
+signal_Objekt JA_fertig;
+signal_Objekt NEIN_fertig;
+int i = 0; 
+
+
+NEIN_fertig = true;
+
+T1:while(1){
+  while ( i == 1){
+    wait(NEIN_fertig)}
+    lock (file_lock)
+     fprintf(f,"J");
+     fprintf(f,"A");
+     i = 1
+     signal_Objekt (JA_fertig);
+    unlock(file_lock);
+}
+
+
+T2:
+while(1){
+ while ( i == 0){
+    wait(JA_fertig)}
+    lock (file_lock)
+      fprintf(f,"N");
+      fprintf(f,"E");
+      fprintf(f,"I");
+      fprintf(f,"N");
+      i = 0;
+      signal_Objekt (NEIN_fertig)
+    unlock(file_lock);
+}

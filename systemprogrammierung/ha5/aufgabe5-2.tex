@@ -1,0 +1,490 @@
+\documentclass[12pt]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+% No indent at begin of paragraph
+\setlength{\parindent}{0pt}
+% line break after subsubsection heading
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+    {\normalfont\itshape}}
+    \makeatother
+
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} %
+
+\begin{document}
+\section*{Aufgabe 5.2}
+
+Belegungsmatrix $B$, Restanforderungsmatrix $R$ und freie Ressourcen $f$
+für  Zeitpunkte $ t \in [1, 24]$ (Zustand jeweils zu Beginn der Zeitscheibe):
+
+\subsubsection*{t = 1}
+
+$ B =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+4 \\ % B
+4 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+\subsubsection*{t = 2}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 0 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 0 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+4 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+
+\subsubsection*{t = 3}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 4 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 0 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+0 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+\subsubsection*{t = 4}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 4 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+0 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+
+\subsubsection*{t = 5}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 4 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+3 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+1 \\ % A
+0 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+
+\subsubsection*{t = 6}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+3 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+1 \\ % A
+0 \\ % B
+3 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+
+\subsubsection*{t = 7}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+3 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+0 \\ % A
+0 \\ % B
+3 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+\subsubsection*{t = 8}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+0 \\ % B
+3 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+\subsubsection*{t = 9}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 4 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+0 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+
+
+
+\subsubsection*{t = 10}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 4 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+0 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_3$ - $P_2$ - $P_1$
+
+
+\subsubsection*{t = 11}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 4 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+0 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_3$ - $P_2$ - $P_1$
+
+
+\subsubsection*{t = 12}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 4 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+4 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_3$ - $P_2$ - $P_1$
+
+
+\subsubsection*{t = 13}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+2 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 4 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+2 \\ % A
+4 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_3$ - $P_2$ - $P_1$
+
+
+\subsubsection*{t = 14}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+2 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 4 & 0 \\ % $P_3$
+0 & 3 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+2 \\ % A
+1 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_3$ - $P_2$ - $P_1$
+
+
+\subsubsection*{t = 15}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+2 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 4 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+2 \\ % A
+4 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_3$ - $P_2$ - $P_1$
+
+
+\subsubsection*{t = 19}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+2 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 0 & 0 \\ % $P_3$
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+\end{pmatrix},
+f =
+\begin{pmatrix}
+2 \\ % A
+4 \\ % B
+4 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_3$ - $P_2$ - $P_1$
+
+
+\subsubsection*{t = 21}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 2 & 0 \\
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+4 \\ % B
+4 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand
+, $P_2$ blockiert,
+Ausführungsreihenfolge: $P_2$ - $P_1$
+
+\end{document}

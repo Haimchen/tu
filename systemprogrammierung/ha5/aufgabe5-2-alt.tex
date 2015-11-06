@@ -1,0 +1,303 @@
+\documentclass[12pt]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+% No indent at begin of paragraph
+\setlength{\parindent}{0pt}
+% line break after subsubsection heading
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+    {\normalfont\itshape}}
+    \makeatother
+
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} %
+
+\begin{document}
+\section*{Aufgabe 5.2}
+
+Belegungsmatrix $B$, Restanforderungsmatrix $R$ und freie Ressourcen $f$
+für  Zeitpunkte $ t \in [1, 24]$ (Zustand jeweils zu Beginn der Zeitscheibe):
+
+\subsubsection*{t = 1}
+
+$ B =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+R =
+\begin{pmatrix}
+2 & 4 & 3 & 0 \\
+3 & 1 & 2 & 0 \\
+3 & 0 & 4 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+4 \\ % B
+4 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand mit
+Ausführungsreihenfolge P1 - P2 - P3 - P4
+
+\subsubsection*{t = 2}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 0 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 0 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+2 & 4 & 0 & 0 \\
+3 & 1 & 2 & 0 \\
+3 & 0 & 4 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+4 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand mit
+Ausführungsreihenfolge  P1 - P2 - P3 - P4
+
+
+\subsubsection*{t = 3}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 4 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 0 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+2 & 0 & 0 & 0 \\
+3 & 1 & 2 & 0 \\
+3 & 0 & 4 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+0 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand mit
+Ausführungsreihenfolge  P1 - P2 - P3 - P4
+
+\subsubsection*{t = 4}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 4 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+2 & 0 & 0 & 0 \\
+3 & 1 & 2 & 0 \\
+3 & 0 & 3 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+0 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+sicherer Zustand mit
+Ausführungsreihenfolge: P1 - P2 - P3 - P4
+
+
+\subsubsection*{t = 5}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+0 & 4 & 3 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+2 & 0 & 0 & 0 \\
+3 & 1 & 2 & 0 \\
+3 & 0 & 3 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+4 \\ % A
+0 \\ % B
+0 \\ % C
+4    % D
+\end{pmatrix} $ \\
+Allokation würde zu unsicherem Zustand führen, deswegen wird P3 blockiert und Zuweisung nicht ausgeführt.
+
+
+\subsubsection*{t = 7}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 0 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+3 & 1 & 2 & 0 \\
+3 & 0 & 3 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+0 \\ % B
+3 \\ % C
+4    % D
+\end{pmatrix} $ \\
+P3 bleibt blockiert, sicherer Zustand mit
+Ausführungsreihenfolge: P1 - P2 - P4 - P3
+
+
+
+\subsubsection*{t = 10}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 2 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+3 & 1 & 0 & 0 \\
+3 & 0 & 3 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+0 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+P3 bleibt blockiert, sicherer Zustand mit
+Ausführungsreihenfolge: P1 - P2 - P4 - P3
+
+
+\subsubsection*{t = 11}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+1 & 4 & 0 & 0 \\ % $P_1$
+0 & 0 & 2 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+3 & 1 & 0 & 0 \\
+3 & 0 & 3 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+3 \\ % A
+0 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+Allokation kann nicht ausgeführt werden, da sonst ein unsicherer Zustand eintreten würde.
+P2 blockiert, P3 bleibt blockiert.
+
+\subsubsection*{t = 13}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+2 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 2 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 0 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+3 & 1 & 0 & 0 \\
+3 & 0 & 3 & 0 \\
+0 & 3 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+2 \\ % A
+4 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+P2 und P3 bleiben blockiert, sicherer Zustand mit
+Ausführungsreihenfolge: P1 - P2 - P3 - P4
+
+
+\subsubsection*{t = 14}
+
+$ B =
+\begin{pmatrix}
+% A & B & C & D
+2 & 0 & 0 & 0 \\ % $P_1$
+0 & 0 & 2 & 0 \\ % $P_2$
+0 & 0 & 1 & 0 \\ % $P_3$
+0 & 3 & 0 & 0    % P_4
+\end{pmatrix},
+R =
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+3 & 1 & 0 & 0 \\
+3 & 0 & 3 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix},
+f =
+\begin{pmatrix}
+2 \\ % A
+1 \\ % B
+1 \\ % C
+4    % D
+\end{pmatrix} $ \\
+P2 und P3 bleiben blockiert, sicherer Zustand mit
+Ausführungsreihenfolge: P1 - P2 - P3 - P4
+
+
+Spätere Allokationsschritte werden nicht mehr ausgeführt, da P2 und P3 weiterhin blockiert sind.
+\end{document}

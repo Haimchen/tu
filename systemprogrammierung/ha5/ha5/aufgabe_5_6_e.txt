@@ -1,0 +1,61 @@
+﻿kurz:
+T1: 2*D 1*B 1*A 1*C
+T2: 3*B 3*A
+T3: 3*A
+T4: 3*B 3*C
+
+
+Idee:
+T1 nimmt 2*D
+T3 versucht 3*A zu nehmen
+T1, T2 und T3 versuchen 1*B bzw. 3*B zu nehmen -> ein Prozess nimmt das Betriebsmittel B und führt seine ganze Arbeit aus. Die anderen Prozessen warten, ohne Betriebsmittel zu blockieren. Falls der Prozess fertig ist, passiert dasselbe wieder mit 2 Prozessen.
+
+Es ist egal, wann T3 3*A nehmen kann. Er wird entweder schnell fertig oder wartet eine Zeit lang auf 3*A, blockiert aber keine andere Betriebsmittel.
+
+
+case T1:
+      usleep(10000);
+	  allocate_r(t, D, 2);	// 2*D
+      usleep(10000);
+	  allocate_r(t, B, 1);	// 1*B
+      usleep(10000);
+      allocate_r(t, A, 1);	// 1*A
+      allocate_r(t, C, 1);	// 1*C
+	  usleep(50000);
+      release_r(t, A, 1);
+	  release_r(t, B, 1);
+      usleep(10000);
+      release_r(t, C, 1);
+      release_r(t, D, 2);
+      break;
+
+case T2:
+      usleep(10000);
+      allocate_r(t, B, 3);	// 3*B
+      usleep(10000);
+	  allocate_r(t, A, 2);	// 3*A
+      allocate_r(t, A, 1);
+      usleep(50000);
+      release_r(t, A, 3);
+      usleep(10000);
+      release_r(t, B, 3);
+      break;
+	  
+case T3:
+      usleep(10000);
+      allocate_r(t, A, 3);	// 3*A
+      usleep(50000);
+      release_r(t, A, 3);
+      break;
+	  
+case T4:
+      usleep(10000);
+      allocate_r(t, B, 2);	// 3*B
+	  allocate_r(t, B, 1);
+      usleep(10000);
+      allocate_r(t, C, 3);	// 3*C
+      usleep(50000);
+      release_r(t, B, 3);
+      usleep(10000);
+      release_r(t, C, 3);
+      break;
