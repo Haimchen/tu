@@ -1,0 +1,37 @@
+\subsection*{Aufgabe 2 - Rekursive Eigenschaften}
+
+\subsubsection*{a)}
+
+$ F = \poss{anmelden} Even( \poss{pruefen} \necess{\Act} \false)$ \\
+
+Explizit: \\
+
+\begin{align*}
+Y =& \poss{anmelden} X \\
+X \HMmin& \poss{pruefen}\necess{ \Act } \false \lor (\poss{ \Act } \true \land \necess { \Act } X )
+\end{align*}
+
+
+\subsubsection*{b)}
+
+$ F = Inv(Poss(\poss{gewinnen} \true))$ \\
+
+Explizit: \\
+
+\begin{align*}
+Y \HMmin& \poss{gewinnen} \true \lor \poss{ \Act } Y \\
+X \HMmax& Y \land \necess{ \Act } X
+\end{align*}
+
+\subsubsection*{c)}
+
+$ F = Inv(\poss{pruefen} \true) \mathcal{U}^s \poss{durchfallen} \necess{pruefen} \false$ \\
+
+Explizit: \\
+
+\begin{align*}
+Y \HMmax& \poss{pruefen} \true \land \poss{ \Act } Y \\
+X \HMmin& \poss{durchfallen} \land \necess{\Act  \setminus \{durchfallen\}} \false \lor
+(Y \land \poss{\Act} \true \land \necess{\Act}X)
+\end{align*}
+

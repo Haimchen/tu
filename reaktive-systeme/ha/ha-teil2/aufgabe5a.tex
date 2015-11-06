@@ -1,0 +1,70 @@
+\section*{Aufgabe 5 - Fixpunktbeweise}
+\subsection*{a)}
+Gegeben sind der vollständige Verband $(D, \sqsubseteq)$ sowie
+die monotone Funktion $f: D \to D$.
+Nach Tarskis Theorem ist $z_{min}$ wie folgt definiert:
+\begin{align*}
+&z_{min} = \Inf \{x \in D \medspace | \medspace f(x) \sqsubseteq x\}
+\end{align*}
+
+Zu zeigen: $z_{min}$ ist der kleinste Fixpunkt. \\
+
+Sei im Folgenden die Menge $F$ definiert als \\
+\begin{align*}
+& F = \{x \in D \medspace |  \medspace f(x) \sqsubseteq x\}
+\end{align*}
+
+\subsubsection*{1. $z_{min}$ ist ein Fixpunkt}
+Dazu ist zuerst zu zeigen, dass $z_{min}$ ein Fixpunkt von $f$ ist, das also folgendes gilt: \\
+\begin{align*}
+& z_{min} = f(z_{min})
+\end{align*}
+
+Da $\sqsubseteq$ antisymmetrisch ist, muss gezeigt werden, dass die folgenden Aussagen gelten:
+\begin{align*}
+f(z_{min})& \sqsubseteq z_{min}& (I)
+\end{align*}
+
+\begin{align*}
+z_{min}& \sqsubseteq f(z_{min})& (II)
+\end{align*}
+
+Aufgrund der Definition von $F$ können wir auch schreiben:
+\begin{align*}
+z_{min} &= \Inf\{x \in D  \medspace |  \medspace f(x) \sqsubseteq x\} = \Inf F
+\end{align*}
+Für jedes $x$ aus $F$ gilt also, dass $z_{min} \sqsubseteq x$.
+ Zusammen mit der Monotonie von $f$ impliziert dies, dass
+$ f(z_{min}) \sqsubseteq f(x)$
+gelten muss. Daraus lässt sich für jedes $x \in F$ folgern:
+\begin{align*}
+& f(z_{max}) \sqsubseteq f(x) \sqsubseteq x
+\end{align*}
+Somit ist $f(z_{min})$ eine untere Schranke der Menge $F$. Nach der Definition ist $z_{min}$ größte untere Schranke von $f$. Somit muss $f(z_{min}) \sqsubseteq z_{min}$ gelten und wir haben (I) bewiesen.\\
+
+Da $f$ monoton ist und (I) gilt, wissen wir, dass $ $ gelten muss.
+
+Daraus folgt, dass $f(z_{min}) \in F$. Da $z_{min}$ eine untere Schranke von $F$ ist, erhalten wir $z_{min} \sqsubseteq f(z_{min})$.
+
+Aus (I) und (II) erhalten wir
+\begin{align*}
+& z_{min} \sqsubseteq f(z_{min}) \sqsubseteq z_{min} & f  \medspace antisymmetrisch \\
+& \Rightarrow z_{min} = f(z_{min}) &
+\end{align*}
+Also ist $z_{min}$ ein Fixpunkt von $f$.
+
+
+\subsubsection*{2. $z_{min}$ ist der kleinste Fixpunkt von $f$ }
+Es bleibt zu zeigen, dass $z_{min} $ der kleinste Fixpunkt der Funktion $f$ ist. Dazu muss gelten: \\
+\begin{align*}
+&\forall  \medspace d \in D,  \medspace mit  \medspace d = f(d): z_{min} \sqsubseteq d
+\end{align*}
+$d$ ist also ein beliebiger Fixpunkt von $f$. Es muss also folgendes gelten:
+\begin{align*}
+& f(d) \sqsubseteq d \\
+& \Rightarrow d \in F \\
+& \Rightarrow \Inf F \sqsubseteq d \\
+& \Rightarrow \Inf F = z_{min} \sqsubseteq d
+\end{align*}
+Somit muss $z_{min}$ der kleinste Fixpunkt der Funktion $f$ sein. \\
+$\Box$

@@ -1,0 +1,112 @@
+\subsection*{Aufgabe 9 - HML mit Rekursion}
+
+\subsubsection*{a)}
+
+Die zugrunde liegende Formel ist
+$ X \HMmin ( \poss {a} \true \lor \poss{c} \true ) \land \necess {Act} X $. \\
+
+\begin{align*}
+\OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \necess{Act} X }{\emptyset}
+=& ( \possDenot{a} \Proc \cup \possDenot{c}\Proc) \cap
+ (\necessDenot{a}\emptyset \cap \necessDenot{b} \emptyset \cap \necessDenot{c} \emptyset)\\
+=& (\{ p_1, p_2, p_6, p_7, p_8 \} \cup \{p_4, p_6, p_7\}) \cap\\
+  &( \{p_3, p_4, p_5, p_9 \} \cap
+  \{p_1, p_3, p_5, p_7, p_8, p_9 \} \cap
+  \{p_1, p_2, p_3, p_5, p_8, p_9 \}) \\
+=& \{p_1, p_2, p_4, p_6, p_7, p_8 \} \cap \{ p_3, p_5, p_9 \} \\
+=& \emptyset
+\end{align*}
+
+An dieser Stelle haben wir einen Fixpunkt erreicht, da
+$ \OSem {(\poss {a} \true \lor \poss{c} \true ) \land \necess {Act} X }{\emptyset} = \emptyset $.
+
+
+\subsubsection*{b)}
+
+Die zugrunde liegende Formel ist
+$ X \HMmax ( \poss {a} \true \lor \poss{c} \true ) \land \poss{Act} X $. \\
+
+% O^1
+\begin{align*}
+\OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }{\Proc}
+=& ( \possDenot{a} \Proc \cup \possDenot{c}\Proc) \cap
+ (\possDenot{a}\Proc \cap \possDenot{b} \Proc \cap \possDenot{c} \Proc)\\
+=& (\{ p_1, p_2, p_6, p_7, p_8 \} \cup \{p_4, p_6, p_7\}) \cap\\
+  &(\{ p_1, p_2, p_6, p_7, p_8 \} \cup
+   \{p_2, p_4, p_6\}) \cup
+   \{p_4, p_6, p_7\}) \cup\\
+=& \{p_1, p_2, p_4, p_6, p_7, p_8 \} \cap \Proc \setminus \{ p_3, p_5, p_9 \} \\
+=& \{p_1, p_2, p_4, p_6, p_7, p_8 \}
+\end{align*}
+
+% O^2
+\begin{align*}
+(\OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }{})^2 (\Proc)
+=& \OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }
+   { \{p_1, p_2, p_4, p_6, p_7, p_8 \}} \\
+=& ( \possDenot{a} \Proc \cup \possDenot{c}\Proc) \cap \\
+  &(\possDenot{a} \{p_1, p_2, p_4, p_6, p_7, p_8 \} \cup \\
+  &\possDenot{b} \{p_1, p_2, p_4, p_6, p_7, p_8 \}  \cup \\
+  &\possDenot{c}  \{p_1, p_2, p_4, p_6, p_7, p_8 \})\\
+=& (\{ p_1, p_2, p_6, p_7, p_8 \} \cup \{p_4, p_6, p_7\}) \cap\\
+   &(\{ p_6, p_8 \} \cup
+   \{p_2, p_6\} \cup
+   \{p_4, p_7\})\\
+=& \{p_1, p_2, p_4, p_6, p_7, p_8 \} \cap  \{ p_2, p_4, p_6, p_7, p_8 \} \\
+=& \{p_2, p_4, p_6, p_7, p_8 \}
+\end{align*}
+
+% O^3
+\begin{align*}
+(\OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }{})^3 (\Proc)
+=& \OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }
+   { \{p_2, p_4, p_6, p_7, p_8 \}} \\
+=& ( \possDenot{a} \Proc \cup \possDenot{c}\Proc) \cap \\
+  &(\possDenot{a} \{p_2, p_4, p_6, p_7, p_8 \} \cap \\
+  &\possDenot{b} \{ p_2, p_4, p_6, p_7, p_8 \}  \cap \\
+  &\possDenot{c}  \{p_2, p_4, p_6, p_7, p_8 \})\\
+=& (\{ p_1, p_2, p_6, p_7, p_8 \} \cup \{p_4, p_6, p_7\}) \cap\\
+   &(\{ p_6, p_8 \} \cup
+   \{p_6\} \cup
+   \{p_4, p_7\}) \\
+=& \{p_1, p_2, p_4, p_6, p_7, p_8 \} \cap  \{ p_4, p_6, p_7, p_8 \} \\
+=& \{p_4, p_6, p_7, p_8 \}
+\end{align*}
+
+% O^4
+\begin{align*}
+(\OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }{})^4 (\Proc)
+=& \OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }
+   { \{p_4, p_6, p_7, p_8 \}} \\
+=& ( \possDenot{a} \Proc \cup \possDenot{c}\Proc) \cap \\
+  &(\possDenot{a} \{p_4, p_6, p_7, p_8 \} \cap
+  \possDenot{b} \{ p_4, p_6, p_7, p_8 \}  \cap
+  \possDenot{c}  \{ p_4, p_6, p_7, p_8 \})\\
+=& (\{ p_1, p_2, p_6, p_7, p_8 \} \cup \{p_4, p_6, p_7\}) \cap\\
+   &(\{ p_6, p_8 \} \cup
+   \{p_6\} \cup
+   \{ p_7\}) \\
+=& \{p_1, p_2, p_4, p_6, p_7, p_8 \} \cap  \{ p_6, p_7, p_8 \} \\
+=& \{ p_6, p_7, p_8 \}
+\end{align*}
+
+% O^5
+\begin{align*}
+(\OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }{})^5 (\Proc)
+=& \OSem{ (\poss{a} \true \lor \poss{c} \true ) \land \poss{Act} X }
+   { \{ p_6, p_7, p_8 \}} \\
+=& ( \possDenot{a} \Proc \cup \possDenot{c}\Proc) \cap \\
+  &(\possDenot{a} \{ p_6, p_7, p_8 \} \cap
+  \possDenot{b} \{ p_6, p_7, p_8 \}  \cap
+  \possDenot{c}  \{ p_6, p_7, p_8 \})\\
+=& (\{ p_1, p_2, p_6, p_7, p_8 \} \cup \{p_4, p_6, p_7\}) \cap\\
+   &(\{ p_6, p_8 \} \cup
+   \emptyset \cup
+   \{ p_7\}) \\
+=& \{p_1, p_2, p_4, p_6, p_7, p_8 \} \cap  \{ p_6, p_7, p_8 \} \\
+=& \{ p_6, p_7, p_8 \}
+\end{align*}
+
+An dieser Stelle haben wir einen Fixpunkt erreicht, da \\
+$ \OSem {(\poss {a} \true \lor \poss{c} \true ) \land \necess {Act} X }{ \{ p_6, p_7, p_8 \}}
+= \{ p_6, p_7, p_8 \} $.

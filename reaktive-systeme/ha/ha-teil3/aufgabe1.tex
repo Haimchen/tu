@@ -1,0 +1,52 @@
+\subsection*{Aufgabe 1 - Hennessy-Milner Logik: Auswertung}
+
+\subsubsection*{i)}
+
+\begin{align*}
+\denot{F_1^\prime}
+	=& \necessDenot{a} \emptyset \land \necessDenot{b} \emptyset \land \necessDenot{c} \emptyset\\
+	=& \{p_2, p_6, p_7, q_4, q_7, q_{10} \}\\
+	\cap& \{p_3, p_4, p_7, q_2, q_4, q_6, q_8\}\\
+	\cap& \{p_1, p_3, p_7, q_1, q_3, q_5, q_9, q_{10} \}\\
+	=& \{p_7\}\\
+\denot{F_1}
+	=& \possDenot{a}\denot{F_1^\prime} \lor \possDenot{b}\denot{F_1^\prime} \lor \possDenot{c}\denot{F_1^\prime}\\
+	=& \possDenot{a}\{p_7\} \cup \possDenot{b}\{p_7\} \cup \possDenot{c}\{p_7\}\\
+	=& \{p_5\} \cup \{p_6\} \cup\{p_2\}\\
+	=& \{p_5, p_6, p_2\}\\
+\end{align*}
+ 
+\subsubsection*{ii)}
+
+\begin{align*}
+\denot{F_2}
+	=& \possDenot{a}\possDenot{a}\Proc \cap \possDenot{a}\possDenot{b}\Proc\\
+	=& \possDenot{a}\{p_1,p_3,p_4,p_5,q_1,q_2,q_3,q_5,q_6,q_8,q_9\}\\
+	\cap& \possDenot{b}\{p_1,p_2,p_5,p_6,q_1,q_3,q_5,q_7,q_9,q_{10}\}\\
+	=& \{p_3,q_1,q_2,q_3,q_6,q_8\} \cap \{p_1,p_4,q_1,q_2,q_3,q_6,q_9\}\\
+	=& \{q_1,q_2,q_3,q_6\}
+\end{align*}
+
+\subsubsection*{iii)}
+
+\begin{align*}
+\denot{F_3}
+	=& \necessDenot{b}(\possDenot{c}\necessDenot{a}\emptyset \cup \possDenot{b}\necessDenot{a}\emptyset\\
+	=& \necessDenot{b}(\possDenot{c}\{p_2,p_6,p_7,q_4,q_7,q_{10}\} \\
+	\cup& \possDenot{b}\{p_2,p_6,p_7,q_4,q_7,q_{10}\})\\
+	=& \necessDenot{b}(\{p_2,p_5,q_4,q_6,q_7\} \cup \{p_2,p_6,q_5,q_7\})\\
+	=& \necessDenot{b}\{p_2,p_5,p_6,q_4,q_5,q_6,q_7\}\\
+	=& \{p_1,p_2,p_3,p_4,p_7,q_2,q_4,q_5,q_6,q_8\}
+\end{align*}
+
+\subsubsection*{iv)}
+
+\begin{align*}
+\denot{F_4}
+	=& \necessDenot{c}\possDenot{a}\possDenot{a}\Proc \cup \possDenot{c}\possDenot{b}\Proc\\
+	=& \necessDenot{c}\{p_3,q_1,q_2,q_3,q_6,q_8\} \small{aus F_2} \\
+	\cup& \{p_4,p_5,q_2,q_4,q_6\})\\
+	=& \{p_1,p_3,p_7,q_1,q_2,q_3,q_5,q_8,q_9,q_{10}\}\\
+	\cup& \{p_4,p_5,q_2,q_4,q_6\}\\
+	=& \{p_1,p_3,p_4,p_5,p_7,q_1,q_2,q_3,q_4,q_5,q_6,q_8,q_9,q_{10}\}
+\end{align*}

@@ -1,0 +1,35 @@
+\subsection*{Aufgabe 5 - Unterscheidende Formeln}
+
+\subsubsection*{a)}
+
+Es existiert keine unterscheidende Formel, da der Unterschied zwischen den beiden Prozessen nicht durch HML-Formeln beschrieben werden kann.
+In $A$ und $B$ ist zu jeder Zeit ein $a$-Schritt möglich. Für beliebige $n \in \mathbb{N}$ sind die beiden Prozesse also n-Schritt-bisimilar: $ A \bisim_n B$. \\
+Das Hennessy-Milner-Theorem ist nicht anwendbar, da es voraussetzt, dass beide betrachteten Prozesse bild-endlich sind.
+ $A$ ist aber nicht bild-endlich, da die Menge der durch $a$ erreichbaren Nachfolger von $A$ unendlich ist:
+$ \#(Der(A,a) \not\in \mathbb{N}$.
+
+
+\subsubsection*{b)}
+
+Eine unterscheidende Formel ist: \\
+$ F_1 = \poss{a}^{11} \true$ \\
+Es gilt:
+$ B \models F_1$, aber $C \not\models F_1 $.\\
+
+
+\subsubsection*{c)}
+
+Eine unterscheidende Formel ist: \\
+$ F_2 = \poss{a} \necess{a}\false$ \\
+Es gilt:
+$ Y \models F_2$, aber $X \not\models F_2 $.\\
+
+\subsubsection*{d)}
+
+Es existiert keine unterscheidende Formel, da der Unterschied zwischen den beiden Prozessen nicht durch HML-Formeln beschrieben werden kann.
+In $X$ und $Z$ sind zu jeder Zeit $a$-, $\Out{a}{}$- oder $\tau$-Schritte möglich. Für beliebige $n \in \mathbb{N}$ sind die beiden Prozesse also n-Schritt-bisimilar: $ X \bisim_n Z$. \\
+Das Hennessy-Milner-Theorem ist nicht anwendbar, da es voraussetzt, dass beide betrachteten Prozesse bild-endlich sind.
+ $X$ ist aber nicht bild-endlich, da die Mengen der durch $a, \Out{a}{}$ und $\tau$ erreichbaren Nachfolger von $X$ unendlich sind: \\
+$ \#(Der(X,a) \not\in \mathbb{N}$. \\
+$ \#(Der(X,\Out{a}{}) \not\in \mathbb{N}$. \\
+$ \#(Der(X,\tau) \not\in \mathbb{N}$.

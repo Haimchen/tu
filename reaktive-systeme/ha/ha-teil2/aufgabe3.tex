@@ -1,0 +1,18 @@
+\section*{Aufgabe 3: Bisimulation}
+
+\begin{alignat*}{3}
+\mathcal{F}^{1}(Proc \times Proc) &= r(s(\{&&(P_1, P_2),(P_1, P_5),(P_1, Q_1), (P_1, Q_2),(P_2, P_5),(P_2, Q_1),\\
+								  &		  &&(P_2, Q_2),(P_3, Q_3),(P_4, Q_4),(P_5, Q_2),(P_5, Q_1),(Q_1, Q_2)\}))
+\end{alignat*}
+\\
+$\mathcal{F}^{2}(Proc \times Proc) = r(s(\{(P_1, P_5),(P_1, Q_1),(P_2, Q_2),(P_3, Q_3),(P_5, Q_1)\}))$
+\\
+$\mathcal{F}^{3}(Proc \times Proc) = r(s(\{(P_2, Q_2),(P_5, Q_1)\}))$
+\\
+$\mathcal{F}^{4}(Proc \times Proc) = r(s(\{(P_5, Q_1)\}))$
+\\
+$\mathcal{F}^{5}(Proc \times Proc) = r(s(\{(P_5, Q_1)\}))$
+\\\\
+Da $\mathcal{F}^{4} = \mathcal{F}^{5}$ sind beide ein Fixpunkt.
+\\
+Somit erhalten wir, dass $P_5$ und $Q_1$ das einzige nicht trivial bisimilare Paar ist. Es gilt $P_5$ \bisim $Q_1$

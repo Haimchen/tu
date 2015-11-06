@@ -1,0 +1,75 @@
+\section*{Aufgabe 2: Vollständige Verbände}
+Gegeben sind $ (X, R)$, wobei $X$ eine endliche Menge ist und $R$ eine Relation.
+
+Zu zeigen: \\
+$ (X,R) $ ist ein Verband $\Rightarrow (X, R) $ ist ein vollständiger Verband \\
+
+
+Da $ (X, R) $ ein Verband ist, folgt aus der Definition eines Verbandes:\\
+\begin{align*}
+& \forall x,y \in X. \medspace\exists \Sup (\{x, y\}) \land \exists \Inf (\{x, y\})
+\end{align*}
+
+Um die Existenz des Infimums und Supremums für beliebige Teilmengen zu beweisen,
+benötigen wir zunächst folgende Äquivalenz: \\
+Seien $x, y, z \in X$ beliebig.
+ Dann folgt aus der Definition eines Verbandes,
+dass $(X, R)$ auch eine partiell geordnete Menge ist.
+ Aus den Eigenschaften einer partiell geordneten Menge lässt sich ableiten, dass die Relation $R$ transitiv ist.
+Deswegen muss gelten: \\
+\begin{align*}
+& \Sup (\{x, y, z\}) = \Sup( \{\Sup (\{x, y\}), z\}) &(*)\\
+& \Inf (\{x, y, z\}) = \Inf( \{\Inf (\{x, y\}), z\}) &(**)
+\end{align*}
+
+Sei nun $ Y \subseteq X $ beliebig mit $Y = \{y_1, y_2, ... y_k\} $.\\
+Aus der Endlichkeit von $X$ folgt, dass auch $Y$ endlich sein muss. \\
+
+Für zwei beliebige Elemente $y_i$ und $y_j$ mit $ i,j \in [1,k] $ gilt wegen der Definition der Teilmengenbeziehung: \\
+\begin{align*}
+&y_i, y_j \in Y &\\
+&\Rightarrow y_i, y_j \in X
+& Definition \medspace von \medspace \subseteq\\
+&\Rightarrow \exists z_i = \Sup (\{y_i, y_j\}) \land \exists z_s = \Inf (\{y_i, y_j\})
+& X \medspace ist \medspace Verband\\
+& \Rightarrow z_i, z_s \in X
+& X \medspace Trägermenge \medspace von  \medspace (X, R) \\
+\end{align*}
+
+
+Für eine beliebige Teilmenge $Y \subseteq X$ lässt sich damit die Existenz des Supremums beweisen:
+
+\begin{align*}
+\Sup(Y) &= \Sup(\{y_1, y_2, ... , y_k\}) & \\
+& =  \Sup(\{ \Sup(\{y_1, y_2\}), y_3, ... , y_k\}) & wegen  \medspace (*)\\
+\end{align*}
+Somit lässt sich das Supremum von $Y$ rekursiv bestimmen als:
+\begin{align*}
+\Sup(Y) &= \Sup(\{y_1, y_2, ... , y_k\}) & \\
+& =  \Sup(\{ z_l, y_{l+2}, ... , y_k\}) & l < k+1, z_l = \Sup(\{z_{l-1}, y_{l+1}\}), z_l \in X\\
+& =   \Sup(\{ z_{k-2}, y_k\}) & Y  \medspace endlich
+\end{align*}
+
+Da dies eine zweielementige Teilmenge von $X$ sein muss,
+existiert auch ein Supremum. Somit ist auch die Existent eines Supremums der Menge $Y$ bewiesen.
+Für die Vollständigkeit des Verbandes muss auch das Infimum von $Y$ existieren.
+Analog zum Supremum gilt:
+
+\begin{align*}
+\Inf(Y) &= \Inf(\{y_1, y_2, ... , y_k\}) & \\
+& =  \Inf(\{ \Inf(\{y_1, y_2\}), y_3, ... , y_k\}) & wegen  \medspace (**)\\
+\end{align*}
+Somit lässt sich das Supremum von $Y$ rekursiv bestimmen als:
+\begin{align*}
+\Inf(Y) &= \Inf(\{y_1, y_2, ... , y_k\}) & \\
+& =  \Inf(\{ z_l, y_{l+2}, ... , y_k\}) & l < k+1, z_l = \Inf(\{z_{l-1}, y_{l+1}\}), z_l \in X\\
+& =   \Inf(\{ z_{k-2}, y_k\}) & Y  \medspace endlich
+\end{align*}
+
+Dies ist wiederum eine zweielementige Teilmenge von $X$,
+für die laut Definition ein Infimum existieren muss.
+Damit ist auch die Existent des Infimums von $Y$ bewiesen.
+
+Da also für eine beliebige Teilmenge von $X$ Infimum und Supremum existieren, ist $(X,R)$ ein vollständiger Verband.\\
+$\Box$
+

@@ -1,0 +1,44 @@
+\subsection*{Aufgabe 2 - Hennessy-Milner Logik: Formalisierung}
+
+\subsubsection*{a)}
+
+i) 
+\begin{align*}
+F_1 =& \poss{elefanten}\poss{warte 1min}\poss{warte 1min}\poss{robben}\true\\
+\end{align*}
+
+ii) 
+\begin{align*}
+F_2 =& \poss{robben}\poss{verlassen}\true\\
+\end{align*}
+
+iii) 
+\begin{align*}
+F_3 =& \necess{robben}\necess{verlassen}\false\\
+\end{align*}
+
+iv) 
+\begin{align*}
+F_4 =& \necess{robben}\necess{nilpferde}\false\\
+\end{align*}
+
+v) 
+\begin{align*}
+F_5 =& \poss{jahreskarte}\poss{känguru}\true\\
+	&\lor\poss{bezahlen}\poss{kartezeigen}\poss{känguru}\true\\
+\end{align*}
+
+\subsubsection*{b)}
+
+\begin{align*}
+\denot{F_1}
+	=& \{WNK\} 	& ja, da WNK \in \denot{F_1} = \{WNK\}\\
+\denot{F_2}
+	=& \{WE\} 	& ja, da \denot{F_5} \neq \emptyset\\
+\denot{F_3}
+	=& \Proc \setminus \{WE\} 	& ja, da \denot{F_5} \neq \emptyset\\
+\denot{F_4}
+	=& \Proc\\
+\denot{F_5}
+	=& \{Eingang\}
+\end{align*}

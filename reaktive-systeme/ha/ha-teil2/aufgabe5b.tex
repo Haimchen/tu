@@ -1,0 +1,65 @@
+\subsection*{b)}
+
+Gegeben sind der vollständige, endliche Verband $(D, \sqsubseteq)$ sowie
+die monotone Funktion $f: D \to D$.
+Nach  Theorem 4.2 ist $z_{max}$, der größte Fixpunkt von $f$, wie folgt definiert:
+\begin{align*}
+&z_{max} = f^M(\top), M \in \mathbb{N}
+\end{align*}
+
+Zu zeigen: $z_{max}$ ist der größte Fixpunkt. \\
+Dazu muss zunächst gezeigt werden, dass $z_{max}$ nach obiger Definition ein Fixpunkt ist
+ und dann, dass es keinen größeren Fixpunkt gibt.
+
+\subsubsection*{1. $z_{max}$ ist ein Fixpunkt}
+Da $f$ laut Definition eine monotone Funktion ist und nichts größer sein kann,
+als das größte Element, muss gelten:
+\begin{align*}
+& f(\top) \sqsubseteq \top
+\end{align*}
+Da $f$ total ist, kann die Funktion auch mehrfach angewendet werden.
+Aus der Monotonie von $f$ und der Transitivität der Relation $\sqsubseteq$ folgt dann folgender Zusammenhang:
+\begin{align*}
+& f^k(\top) \sqsubseteq f^{k-1}(\top), k \in \mathbb{N}, k > 0
+\end{align*}
+
+Da in den Voraussetzungen $D$ als endlich gegeben ist, muss irgendwann ein Wert k erreicht werden,
+wo der Zusammenhang konstant ist, wo also gilt:
+\begin{align*}
+& f^k(\top) = f^{k-1}(\top)
+\end{align*}
+
+Es muss also auch einen Wert $M$ geben, wobei für alle $k \leq M$ gilt:
+\begin{align*}
+& f^k(\top) = f^M(\top)
+\end{align*}
+Daraus lässt sich ableiten, dass ebenso gelten muss:
+\begin{align*}
+& f^M(\top) = f^{M-1}(\top) = f(f^{M-1}(\top))
+\end{align*}
+Daraus lässt sich direkt ablesen, dass $f^M(\top)$,
+ also $z_{max}$ nach der Definition von Theorem 4.2,
+ ein Fixpunkt von $f$ sein muss.
+
+\subsubsection*{2. $z_{max}$ ist der größte Fixpunkt}
+Sei $d \in D$ ein beliebiger Fixpunkt von $f$ mit $ d \ne f^M(\top)$.
+Das bedeutet, dass $ d = f(d)$ gelten muss.
+Es gilt außerdem, dass $d \sqsubseteq \top$, da $\top$ das maximale Element in $D$ ist.
+Mit Hilfe der Monotonie von $f$ kann man folgendes folgern:
+\begin{align*}
+& d = f(d) \sqsubseteq f(\top)
+\end{align*}
+Das bleibt auch nach mehrmaliger Anwendung von $f$ gültig,
+ so lange wie $f$ nicht mehr als $M$ mal hintereinander ausgeführt wurde.
+Nach $M$ Schritten sind nach Definition die Fixpunkte erreicht und wir können keine
+Aussage mehr über die Relation zu unserem beliebigen Fixpunkt $d$ treffen.
+
+Als letzten gültigen Schritt erhält man also:
+\begin{align*}
+& d \sqsubseteq f^M(\top)
+\end{align*}
+Da somit alle anderen Fixpunkte $d$ kleiner sein müssen, können wir schließen,
+dass $f^M(\top)$ der größte Fixpunkt von $f$ sein muss.
+Somit ist bewiesen, dass $z_{max} = f^M(\top)$ der größte Fixpunkt von $f$ ist
+ und diese Aussage von Theorem 4.2 gilt.\\
+$\Box$

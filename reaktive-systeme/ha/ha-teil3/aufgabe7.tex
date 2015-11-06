@@ -1,0 +1,109 @@
+\subsection*{Aufgabe 7 - Monotonie von O}
+
+
+Zu zeigen: $\OSem{F}{}$ ist monoton $\forall F \in \henMil_{\{X\}}$. \\
+Seien $S_1, S_2 \subseteq \Proc$ und es gelte $S_1 \subseteq S_2$.
+
+Um die Monotonie von $\OSem{F}{}$ für beliebige $F$ zu beweisen, muss also gezeigt werden, dass
+ $ \OSem{F}{S_1} \subseteq \OSem{F}{S_2}$ für alle $F \in \henMil$ gilt.
+
+Beweis per struktureller Induktion über den Aufbau von $F$:
+
+\subsubsection*{Induktionsanfang}
+Induktionsanfang sind die atomaren Formeln $\true$ und $\false$: \\
+
+\begin{align*}
+\OSem{\true}{S_1} =& \Proc \subseteq \Proc  & Def. \OSem{}{}\\
+=& \OSem{\true}{S_2} & Def. \OSem{}{}
+\end{align*}
+
+\begin{align*}
+\OSem{\false}{S_1} =& \Proc \subseteq \Proc & Def. \OSem{}{} \\
+=& \OSem{\false}{S_2} & Def. \OSem{}{}
+\end{align*}
+
+\subsubsection*{Induktionsvoraussetzung}
+
+Seien $F, G \in \henMil$ so, dass $\OSem{F}{S_1} \subseteq \OSem{F}{S_2}$ und
+$\OSem{G}{S_1} \subseteq \OSem{G}{S_2}$ gelten.
+
+
+
+\subsubsection*{Induktionsbehauptung I}
+
+Dann gilt auch:
+$\OSem{F \lor G}{S_1} \subseteq \OSem{F \lor G}{S_2} $ \\
+
+\subsubsection*{Induktionsschritt I}
+
+
+
+\begin{align*}
+\OSem{F \lor G}{S_1} =& \OSem{F}{S_1} \cup \OSem{G}{S_1}
+ & Def. \OSem{}{}\\
+=& \{ p \in \Proc | p \in \OSem{F}{S_1} \lor p \in \OSem{G}{S_1} \}
+& Def. \cup \\
+\subseteq &  \{ p \in \Proc | p \in \OSem{F}{S_2} \lor p \in \OSem{G}{S_2} \}
+& (*) \\
+=&  \{ p \in \Proc | p \in \OSem{F}{S_1} \} \cup
+  \{ p \in \Proc | p \in \OSem{G}{S_1} \}
+& Def. \cup \\
+=& \OSem{F}{S_2} \cup \OSem{G}{S_2} & Def. \OSem{}{}\\
+=& \OSem{F \lor G}{S_2} &
+\end{align*}
+
+$(*)$
+Aus der I.V. folgt: \\
+\begin{align*}
+& p \in \OSem{G}{S_1} \Rightarrow  p \in \OSem{G}{S_2} \\
+& p \in \OSem{F}{S_1} \Rightarrow  p \in \OSem{F}{S_2} \\
+& \Rightarrow \{ p \in \Proc | p \in \OSem{F}{S_1} \lor p \in \OSem{G}{S_1} \}
+\subseteq \{ p \in \Proc | p \in \OSem{F}{S_1} \lor p \in \OSem{G}{S_1} \}
+\end{align*}
+
+
+\subsubsection*{Induktionsbehauptung II}
+
+Sei $a \in \Act$. Dann gilt auch:
+$\OSem{\necess{a}F}{S_1} \subseteq \OSem{\necess{a}F}{S_2} $ \\
+
+\subsubsection*{Induktionsschritt II}
+
+\begin{align*}
+\OSem{\necess{a}F}{S_1} =& \necessDenot{a}\OSem{F}{S_1}
+& Def. \OSem{}{}\\
+\OSem{\necess{a}F}{S_2} =& \necessDenot{a}\OSem{F}{S_2}
+& Def. \OSem{}{}\\
+\end{align*}
+
+Es sind zwei Fälle zu unterscheiden: \\
+I. Alle $p \in \Proc$ mit $ p \NCCSTrans{a}$. \\
+Sei $P = \{p \in \Proc | p \NCCSTrans{s} \}$. \\
+Nach Definition von $\necessDenot{a}$ sind alle Prozesse $p \in P$ in der Menge
+$\OSem{\necess{a}F}{S_1} = \necessDenot{a}\OSem{F}{S_1}$ enthalten,
+d.h. $P \subseteq \OSem{\necess{a}F}{S_1}$. \\
+Analog gilt ebenso, dass alle $p \in P$ in der Menge
+$\OSem{\necess{a}F}{S_2} = \necessDenot{a}\OSem{F}{S_2}$ enthalten sind, also
+$P \subseteq \OSem{\necess{a}F}{S_2}$. \\
+
+II. Alle $q \in \Proc$ mit $q \CCSTrans{a}$. \\
+Für alle Prozesse q, die $a$-Übergänge haben, gilt nach Definition von $\necessDenot{a}$,
+ dass sie dann in $\OSem{\necess{a}F}{S_1}$ enthalten sind,
+wenn ein Übergang $q \CCSTrans{a} q'$ mit $q' \in \OSem{F}{S_1}$ existiert.
+Sei $Q = \{ q \in \Proc | q \CCSTrans{a} q' \land q' \in \OSem{F}{S_1} \} $. \\
+Es gilt also $Q \subseteq \OSem{F}{S_1}$. \\
+
+Da nach I.V $\OSem{F}{S_1} \subseteq \OSem{F}{S_2}$ gilt, folgt daraus direkt, dass
+$Q \subseteq \OSem{\necess{a}F}{S_2}$, da jeder $a$-Nachfolger, der in $\OSem{F}{S_2}$ enthalten ist, auch in $\OSem{F}{S_2}$ enthalten sein muss.
+
+
+Da jeder Prozess aus $\OSem{\necess{a}F}{S_1}$ entweder in $P$ oder in $Q$
+ enthalten sein muss, ist $\OSem{\necess{a}F}{S_1} = P \cup Q$.
+Wir haben bereits gezeigt, dass $P \subseteq \OSem{\necess{a}F}{S_2}$ und
+ $Q \subseteq \OSem{\necess{a}F}{S_2}$. Aus der Definition der Vereinigung folgt dann direkt,
+ dass auch  $P \cup Q \subseteq \OSem{\necess{a}F}{S_2}$.
+Es gilt also auch $\OSem{\necess{a}F}{S_1} \subseteq \OSem{\necess{a}F}{S_2}$.
+
+
+\subsubsection*{Schluss}
+Da wir gezeigt haben, dass die Behauptung für atomare Formeln $F$ gilt und induktiv auch über die Struktur von $F$, gilt die Behautung für alle Formeln $F \in \henMil$.

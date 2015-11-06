@@ -1,0 +1,78 @@
+\subsection*{Aufgabe 4 - min max mix}
+Wir berechnen zuerst $\denot{Y}$: \\
+Sei $F_Y = \poss{b} \true \lor ( \necess{ \Act} Y \land \poss{\Act} \true)$ \\
+
+\begin{align*}
+\OSem{F_Y}{\emptyset} =& \possDenot{b} \Proc \cup
+(( \necessDenot{a} \emptyset \cap \necessDenot{b} \emptyset \cap \necessDenot{c} \emptyset) \cap
+(\possDenot{a} \Proc \cup \possDenot{b} \Proc \cup \possDenot{c} \Proc)) \\
+=& \{ p_3, p_6, p_9\} \cup \\
+&(( \{p \in \Proc | p \NCCSTrans{a}\} \cap \{p \in \Proc | p \NCCSTrans{b}\} \cap \{p \in \Proc | p \NCCSTrans{c}\}) \cap \\
+&( \{p \in \Proc | p \CCSTrans{a}\} \cup\{p \in \Proc | p \CCSTrans{b}\} \cup\{p \in \Proc | p \CCSTrans{c}\} )) \\
+=& \{ p_3, p_6, p_9\} \cup (\{p \in \Proc | p \NCCSTrans{}\} \cap \{p \in \Proc | p \CCSTrans{}\} )\\
+=&  \{ p_3, p_6, p_9\} \cup \emptyset \\
+=&  \{ p_3, p_6, p_9\} \\
+ (\OSem{F_Y}{})^2({\emptyset}) =& \possDenot{b} \Proc \cup \\
+&((  \necessDenot{a}   \{ p_3, p_6, p_9\}  \cap  \necessDenot{b}   \{ p_3, p_6, p_9\}  \cap  \necessDenot{c}   \{ p_3, p_6, p_9\})  \cap \\
+&(\possDenot{a} \Proc \cup \possDenot{b} \Proc \cup \possDenot{c} \Proc)) \\
+=&  \{ p_3, p_6, p_9\} \cup \\
+& (( \{ p_4, p_5, p_6, p_7, p_8, p_9\} \cap
+\{ p_1, p_2, p_4, p_5, p_7, p_9\} \cap
+\{ p_1, p_3, p_5, p_7, p_8\} \\
+&( \{p \in \Proc | p \CCSTrans{a}\} \cup\{p \in \Proc | p \CCSTrans{b}\} \cup\{p \in \Proc | p \CCSTrans{c}\} )) \\
+=&  \{ p_3, p_6, p_9\} \cup ( \{ p_5, p_7\} \cap \{p \in \Proc | p \CCSTrans{}\}) \\
+=&  \{ p_3, p_6, p_9\} \cup \emptyset \\
+=&  \{ p_3, p_6, p_9\}
+\end{align*}
+
+Da $\OSem{F_Y}{ \{ p_3, p_6, p_9\}} =  \{ p_3, p_6, p_9\}$ ist hier ein Fixpunkt (der kleinste) erreicht. \\
+Wir berechnen nun $\denot{X}$ mit Hilfe des berechneten Fixpunktes. \\
+Sei $F_X = \poss{a} Y \lor \necess{ \Act \setminus \{ a\}} X$. \\
+
+
+\begin{align*}
+\OSem{F_X}{\emptyset} =&
+\possDenot{a} \{ p_3, p_6, p_8\} \cup
+( \necessDenot{b} \emptyset \cap \necessDenot{c} \emptyset) \\
+=& \{ p_1\} \cup
+( \{ p_1, p_2, p_4, p_5, p_7, p_9\} \cap \{ p_1, p_3, p_5, p_7, p_8\} ) \\
+=& \{ p_1\} \cup \{ p_1, p_5, p_7\} \\
+=& \{ p_1, p_5, p_7\} \\
+(\OSem{F_X}{})^2({\emptyset}) =&
+\possDenot{a} \{ p_3, p_6, p_8\} \cup
+( \necessDenot{b} \{ p_1, p_5, p_7\}  \cap \necessDenot{c} \{ p_1, p_5, p_7\} ) \\
+=& \{ p_1\} \cup
+( \{ p_1, p_2, p_4, p_5, p_7, p_8, p_9\} \cap \{ p_1, p_2, p_3, p_4, p_5, p_7, p_8, p_9\} )  \\
+=& \{ p_1\} \cup
+\{ p_1, p_2, p_4, p_5, p_7, p_8, p_9\} \\
+=& \{ p_1, p_2, p_4, p_5, p_7, p_8, p_9\} \\
+(\OSem{F_X}{})^3({\emptyset}) =&
+\possDenot{a} \{ p_3, p_6, p_8\} \cup
+(\necessDenot{b} \{ p_1, p_2, p_4, p_5, p_7, p_8, p_9\} \cap
+\necessDenot{c} \{ p_1, p_2, p_4, p_5, p_7, p_8, p_9\} ) \\
+=& \{ p_1\} \cup
+( \{ p_1, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9\} \cap
+ \{ p_1, p_2, p_3, p_4, p_5, p_6, p_7, p_8, p_9\} )  \\
+=& \{ p_1\} \cup \Proc \\
+=& \Proc
+\end{align*}
+
+Da die Menge $\Proc$ nicht mehr größer werden kann und wir den maximalen Fixpunkt suchen, ist dieser hier erreicht. \\
+Wir berechnen nun $\denot{Z}$ mit Hilfe des berechneten Fixpunktes. \\
+Sei $F_Z = \poss{c} X \land \necess{\Act} Z $. \\
+
+\begin{align*}
+\OSem{F_Z}{\Proc} =&
+\possDenot{c}\Proc \cap
+( \necessDenot{a} \Proc \cap \necessDenot{b} \Proc \cap \necessDenot{c} \Proc) \\
+=& \{p \in \Proc | p \CCSTrans{c}\} \cap
+(\{p \in \Proc | p \NCCSTrans{a}\} \cap \{p \in \Proc | p \NCCSTrans{b}\} \cap \{p \in \Proc | p \NCCSTrans{c}\}) \\
+=& \{p \in \Proc | p \CCSTrans{c}\} \cap
+\{p \in \Proc | p \NCCSTrans{}\} \\
+=& \emptyset
+\end{align*}
+
+Da die Menge nicht mehr kleiner werden kann und wir den minimalen Fixpunkt suchen, ist dieser erreicht. \\
+
+Die Auswertung des gegebenen Gleichungssystems ergibt also die leere Menge, d.h. kein Prozess erfüllt die Formeln.
+

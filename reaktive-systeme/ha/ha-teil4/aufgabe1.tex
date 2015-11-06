@@ -1,0 +1,67 @@
+\subsection*{Aufgabe 1: Rekursive Eigenschaften - Berechnung}
+
+\subsubsection*{a)}
+Sei $F_X = \poss{a} X \land \necess{c}\false $.
+\begin{align*}
+\OSem{F_X}{\Proc} =& \possDenot{a}\Proc \cap \necessDenot{c}\emptyset \\
+				  =& \{p_1,p_2,p_5,p_6,p_7,p_8\} \cap \{p_1,p_2,p_3,p_5,p_8,p_9\} \\
+				  =& \{p_1,p_2,p_5,p_8\} \\
+(\OSem{F_X}{})^2(\{p_1,p_2,p_5,p_8\}) =& \possDenot{a}\{p_1,p_2,p_5,p_8\} \cap \necessDenot{c}\emptyset \\
+				  =& \{p_2,p_6,p_8\} \cap \{p_1,p_2,p_3,p_5,p_8,p_9\} \\
+				  =& \{p_2,p_8\} \\
+(\OSem{F_X}{})^3(\{p_2,p_8\}) =& \possDenot{a}\{p_2,p_8\} \cap \necessDenot{c}\emptyset \\
+				  =& \{p_6,p_8\} \cap \{p_1,p_2,p_3,p_5,p_8,p_9\} \\
+				  =& \{p_8\} \\
+(\OSem{F_X}{})^4(\{p_8\}) =& \possDenot{a}\{p_8\} \cap \necessDenot{c}\emptyset \\
+				  =& \{p_6,p_8\} \cap \{p_1,p_2,p_3,p_5,p_8,p_9\} \\
+				  =& \{p_8\} \\
+\end{align*}
+
+Da $\OSem{F_X}{\{p_8\} } = \{p_8\}$ ist $\{p_8\}$ ein Fixpunkt. \\
+
+$Y \HMmax (\poss{b}X \lor \poss{c}X) \land (\necess{\Act}\false \lor \poss{\Act}Y)$\\
+Sei $F_Y = (\poss{b}X \lor \poss{c}X) \land (\necess{\Act}\false \lor \poss{\Act}Y)$.
+
+\begin{align*}
+\OSem{F_Y}{\Proc} =& ( \possDenot{b}\{p_8\} \cup \possDenot{c}\{p_8\}) \cap (\necessDenot{\Act}\emptyset \cup \possDenot{\Act} \Proc) \\
+				  =& (\emptyset \cup \{p_7\}) \cap (\{p_3,p_9\} \cup \Proc\setminus\{p_3,p_9\}) \\
+				  =& (\emptyset \cup \{p_7\}) \cap \Proc \\
+				  =& \{p_7\} \\
+(\OSem{F_Y}{})^2(\{p_7\}) =& (\possDenot{b}\{p_8\} \cup \possDenot{c}\{p_8\}) \cap (\necessDenot{\Act}\emptyset \cup \possDenot{\Act}\{p_7\}) \\
+				  =& (\emptyset \cup \{p_7\}) \cap (\{p_3,p_9\} \cup \{p_6\})\\
+				  =& \emptyset
+\end{align*}
+
+Da wir den größten Fixpunkt suchen und die Menge ab hier nicht mehr kleiner werden kann, ist ein Fixpunkt erreicht.
+Es gibt also keinen Prozess, der die gegebenen Formeln erfüllt.
+\subsubsection*{b)}
+
+\begin{align*}
+\OSem{F_X}{\emptyset} =& \necessDenot{\Act}\false \cup \possDenot{\Act}\emptyset \\
+				  =& \{p_3,p_9\} \cup \emptyset \\
+				  =& \{p_3,p_9\} \\
+(\OSem{F_X}{})^2(\{p_3,p_9\}) =& \necessDenot{\Act}\false \cup \possDenot{\Act}\{p_3,p_9\} \\
+				  =& \{p_3,p_9\} \cup \possDenot{a}\{p_3,p_9\} \cup \possDenot{b}\{p_3,p_9\} \cup \possDenot{c}\{p_3,p_9\}\\
+				  =& \{p_3,p_9\} \cup \{p_1,p_7\} \cup \{p_4\} \cup \{p_6\} \\
+				  =& \{p_1,p_3,p_4,p_6,p_7,p_9\} \\
+(\OSem{F_X}{})^3(\{p_1,p_3,p_4,p_6,p_7,p_9\}) =& \necessDenot{\Act}\false \cup \possDenot{\Act}\{p_1,p_3,p_4,p_6,p_7,p_9\} \\
+				  =& \{p_3,p_9\} \cup \{p_1,p_5,p_7\} \cup \{p_2,p_4,p_6\} \cup \{p_6\}\\
+  				  =& \{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\} \\
+(\OSem{F_X}{})^4(\{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\}) =& \necessDenot{\Act}\false \cup \possDenot{\Act}\{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\} \\
+				  =& \{p_3,p_9\} \cup \{p_1,p_2,p_5,p_7\} \cup \{p_2,p_4,p_6\} \cup \{p_4,p_6\} \\
+  				  =& \{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\} \\
+\end{align*}
+
+Somit ist $\{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\}$ ein Fixpunkt. \\
+
+\begin{align*}
+\OSem{F_Y}{\Proc} =& \possDenot{a}\Proc \cap \necessDenot{\Act}\{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\} \\
+				  =& \{p_1,p_2,p_5,p_6,p_7,p_8\} \cap \{p_1,p_2,p_3,p_4,p_5,p_7,p_9\} \cap \Proc \cap \Proc\setminus\{p_7\}\\
+				  =& \{p_1,p_2,p_5\} \\
+(\OSem{F_Y}{})^2(\Proc) =& \possDenot{a}\{p_1,p_2,p_5\} \cap \necessDenot{\Act}\{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\} \\
+				  =& \{p_2\} \cap \Proc\setminus\{p_6,p_7,p_8\}\\
+				  =& \{p_2\} \\
+(\OSem{F_Y}{})^3(\Proc) =& \possDenot{a}\{p_2\} \cap \necessDenot{\Act}\{p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_9\} \\
+				  =& \{p_2\} \cap \Proc\setminus\{p_6,p_7,p_8\}\\
+				  =& \{p_2\} \\
+\end{align*}
