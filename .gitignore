@@ -1,13 +1,21 @@
 mpgi2/mpgi2-ha
 
+# temp files
+**/*.swp
+
 #For Java stuff:
 *.class
+
+# For C
+**/*.o
+**/*.d
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# *.jar
+Softwaretechnik/**/*.jar
 *.war
 *.ear
 
@@ -30,5 +38,17 @@ mpgi2/mpgi2-ha
 # Python
 *.pyc
 
-# Stochastik Buch
+# Stochastik Buch & klausurblatt
 stochastik/Stochastik-Buch/*
+stochastik/klausur/*
+
+# berechenbarkeit loseungen als fotos
+berechenbarkeit-komplexitaet/**/*.jpg
+berechenbarkeit-komplexitaet/**/*.jpeg
+
+# webtech: bilder
+webtech/**/*.png
+webtech/**/*.jpg
+webtech/**/*.jpeg
+webtech/**/*.gif
+
