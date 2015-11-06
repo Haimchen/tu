@@ -18,6 +18,11 @@ mpgi2/mpgi2-ha
 *.synctex.gz
 *.fdb_latexmk
 *.fls
+*.swo
+*.bbl
+*.bcf
+*.blg
+*.run.xml
 
 # for Mac
 **/.DS_Store
