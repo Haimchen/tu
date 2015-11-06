@@ -6,8 +6,7 @@ Sei $\mathcal{B} = \{(q_2, p_1),(q_1, p_2),(q_4,p_2),(q_3,p_4),(q_5,p_3)\}$. \\
 Beweis, dass $\mathcal{B} $ eine starke Bisimulation ist:
 
 \begin{compactitem}
-%% TODO, Fehler korrigieren! Erste zeile nach Aufgabenstellung (Grafik!) korrigieren!
-%\item \ShowBisim{\MC{B}}{q_2,p_1}{{{a, q_3,p_3}{a,q_3,p_5},{a,q_2,p_5}}{{a, q_3,p_3}}
+\item \ShowBisim{\MC{B}}{p_1,q_2}{{a, p_2, q_4}}{{a, q_4, p_2}}
 \item \ShowBisim{\MC{B}}{q_1,p_2}{{c,q_3,p_4},{b,q_5,p_3}}{{b, p_3,q_5},{c, p_4,q_3}}
 \item \ShowBisim{\MC{B}}{q_4,p_2}{{b,q_5,p_3}}{{b, p_3,q_5}}
 \item \ShowBisim{\MC{B}}{q_3,p_4}{{a,q_5,p_3}}{{a, p_3,q_5}}
