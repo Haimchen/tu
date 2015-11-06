@@ -1,0 +1,236 @@
+\documentclass[12pt]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+%\usepackage{unicode-math}
+
+\usepackage{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} % or letter or a5paper or ... etc
+% \geometry{landscape} % rotated page geometry
+
+% No indent at begin of paragraph
+\setlength{\parindent}{0pt}
+% line break after subsubsection heading
+\makeatletter
+\def\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.1\linespacing}%
+  {\normalfont\itshape}}
+\makeatother
+\usepackage{amssymb}
+\usepackage{ifsym}
+% define full outer join
+\def\fullouterjoin{\tiny \textifsym{d|><|d}}
+
+\title{Hausaufgabe 1 - Blatt 2, 3 \& 4}
+
+%%% BEGIN DOCUMENT
+\begin{document}
+\subsection*{Aufgabe 5.1}
+
+\subsubsection*{a) }
+$ \pi_{Name, Vorname}(Angestellter \bowtie_{Pers.-Nr = Pers.-Nr}
+(Betreut \bowtie_{Kunden-Nr = Kunden-Nr}(Firmenkunde))) $ \\
+
+\begin{tabular}{|c|c|}\hline
+Name & Vorname \\ \hline
+Cartman & Eric \\
+Bouvier & Selma \\
+Simpson & Homer \\ \hline
+\end{tabular}
+
+
+\subsubsection*{b) }
+$ A \cap B$ \\
+
+mit \\
+$ A = \pi_{Name}(Kunde \bowtie_{Kunden-Nr = Kunden-Nr}
+(Bestellt \bowtie_{Produkt-Nr = Produkt-Nr} \linebreak
+(\sigma_{Abteilung = ``NullBock``} (Produkt)))) $ \\
+
+$ B = \pi_{Name}(Kunde \bowtie_{Kunden-Nr = Kunden-Nr}
+(Bestellt \bowtie_{Produkt-Nr = Produkt-Nr} \linebreak
+(\sigma_{Abteilung = ``NixDa``} (Produkt)))) $ \\
+
+\begin{tabular}{|c|}\hline
+Name   \\ \hline
+Stefanie   \\ \hline
+\end{tabular}
+
+
+\subsubsection*{c) }
+
+$ \pi_{Name, Vorname}(Angestellter \bowtie_{Pers.-Nr = Pers.-Nr}
+(Betreut \bowtie_{Kunden-Nr = Kunden-Nr}(A)))$ \\
+Mit\\
+$ A = (Bestellt \bowtie_{Produkt-Nr = Produkt-Nr} Produkt) \backslash Abteilung $ \\
+
+\begin{tabular}{|c|c|}\hline
+Name & Vorname \\ \hline
+Cartman & Eric \\ \hline
+\end{tabular}
+
+\subsection*{Aufgabe 5.2}
+
+\subsubsection*{a) }
+
+$ \pi_{Name, Bestellungen}(Kunde \fullouterjoin_{Kunden-Nr = Kunden-Nr} A) $ \\
+Mit\\
+$ A = \gamma_{Kunden-Nr, COUNT(Anzahl) \rightarrow Bestellungen}(Bestellt) $ \\
+
+\begin{tabular}{|c|c|}\hline
+Name & Bestellungen \\ \hline
+Hella & 2 \\
+Lukas & 1 \\
+Stefanie & 3 \\
+Thomas & - \\
+Levin & 1 \\
+Greta & 1 \\ \hline
+\end{tabular}
+
+\subsubsection*{b) }
+
+$ \pi_{GehaltProStunde}
+(\gamma_{(SUM(Gehalt) \medspace / \medspace SUM(hProWoche)) -> GehaltProStunde}(A)) $ \\
+Mit\\
+$ A = \sigma_{Abteilung=``NixDa`` \lor Abteilung=``Nicht \medspace in \medspace der \medspace Tabelle``}
+(Angestellter)$
+
+\begin{tabular}{|c|}\hline
+2750  \\ \hline
+\end{tabular}
+
+
+\subsubsection*{c) }
+
+$ \pi_{Name, Durchschnitt}(Kunde \bowtie_{Kunden-Nr = Kunden-Nr} A) $ \\
+Mit\\
+$ A = \gamma_{Kunden-Nr, AVG(Anzahl) \rightarrow Durchschnitt}
+(\pi_{Kunden-Nr, Anzahl} (B))$ \\
+$ B = Firmenkunde \bowtie_{Kunden-Nr = Kunden-Nr} Bestellt $ \\
+
+\begin{tabular}{|c|c|}\hline
+Name & Durchschnitt \\ \hline
+Hella & 3.5 \\
+Stefanie & 3.33 \\ \hline
+\end{tabular}
+
+\subsubsection*{d) }
+
+$ \pi_{Bezeichnung, Produkt-Nr, Abteilung}
+(Produkt \bowtie_{Produkt-Nr = Produkt-Nr} A) $ \\
+Mit\\
+$ A = \sigma_{Gesamtzahl \ge 3}(\gamma_{Produkt-Nr, SUM(Anzahl) \rightarrow Gesamtzahl}
+(\pi_{Produkt-Nr, Anzahl}(Bestellt)))$
+
+\begin{tabular}{|c|c|c|}\hline
+Bezeichnung & Produkt-Nr & Abteilung \\ \hline
+Aktenvernichter & 88 & NullBock \\
+OUTDOOR Zelt & 100 & NixDA \\
+1 TB HDD & 99 & Multimedia\\ \hline
+\end{tabular}
+
+Anmerkung: Wir haben die Aufgabenstellung so verstanden, dass von dem Produkt mindestens drei Stück verkauft werden sollen.
+
+\subsection*{Aufgabe 5.3}
+
+\subsubsection*{a) }
+Der Name des Firmenkunden einer Firma vom Typ Mittel oder Klein, der die meisten Bestellvorgänge getätigt hat.
+
+\begin{tabular}{|c|}\hline
+Name \\ \hline
+Stefanie  \\ \hline
+\end{tabular}
+
+\subsubsection*{b) }
+Gesamtpreis aller Bestellungen, die der Kunde mit der Kunden-Nr 1 am 10.06.2013 durchgeführt hat.
+
+\begin{tabular}{|c|}\hline
+Betrag \\ \hline
+400  \\ \hline
+\end{tabular}
+
+\subsection*{Aufgabe 6}
+
+\subsubsection*{a) }
+$ \tau_{P\_Name}(\pi_{P\_Name}(\sigma_{PS\_AvailQuantity > 0}
+( A \bowtie_{P\_Partkey = PS\_Partkey} Partsupp))) $ \\
+Mit\\
+$ A = \pi_{P\_Partkey, P\_Name}
+(\sigma_{P\_Brand=``Brand\#12`` \land P\_Size \le 19 \land P\_Size \ge 12 }(Part)) $ \\
+
+
+\subsubsection*{b) }
+
+$ \pi_{C\_Custkey, C\_Name, C\_Phone}(A) $ \\
+Mit\\
+$ A = \sigma_{N\_Name=``Germany`` \land C\_Accountbalance < 0}
+(Customer \bowtie_{C\_Nationkey = N\_Nationkey} Nation)) $ \\
+Anmerkung: Wir gehen davon aus, dass die Datenbank englischsprachige Datensätze enthält und im Attribut N\_Name die Bezeichnung für das Land gespeichert ist.\\
+
+
+\subsubsection*{c) }
+
+$ \tau_{Name, Phone}(A2 \cup B2) $\\
+Mit\\
+$ A = \pi_{C\_Name, C\_Phone}
+(\sigma_{C\_Accountbalance \le 9000}(Customer)) $ \\
+
+$ B = \pi_{S\_Name, S\_Phone}
+(\sigma_{S\_Accountbalance \le 7000}(Supplier)) $ \\
+
+$ A2 = \rho_{C\_Name \rightarrow Name, C\_Phone \rightarrow Phone}(A)) $ \\
+
+$ B2 = \rho_{S\_Name \rightarrow Name, S\_Phone \rightarrow Phone}(B)) $ \\
+
+
+\subsubsection*{d) }
+
+$ \pi_{C\_Name, C\_Phone}
+(Customer \bowtie_{C\_Custkey = Custkey} (B - A)))) $ \\
+Mit\\
+$ A = \rho_{O\_Custkey \rightarrow Custkey}(\pi_{O\_Custkey}(Orders)) $ \\
+
+$ B = \rho_{C\_Custkey \rightarrow Custkey}(\pi_{C\_Custkey}(Customers)) $ \\
+Anmerkung: Das Attribut C\_Phone entspricht dem in der Aufgabenstellung genannten C\_Phonenumber. Wenn das Attribut wirklich C\_Phonenumber heißen sollte, wäre noch eine Umbenennung erforderlich.
+
+\subsubsection*{e) }
+
+$ \pi_{C\_Name, C\_Phone}(Customer \bowtie_{C\_Custkey= O\_Custkey} C) $ \\
+Mit\\
+$ C = \pi_{O\_Custkey}(B \bowtie_{L\_Orderkey = O\_Orderkey} Orders) $ \\
+$ B = A \backslash (\pi_{S\_Suppkey}(Supplier)) $ \\
+$ A = \pi_{L\_Linenumber, L\_Orderkey, L\_Suppkey}(Lineitems \bowtie_{L\_Suppkey = S\_Suppkey} Suppliers) $ \\
+Anmerkung: C\_Phone entspricht dem Attribut C\_Phonenumber aus der Aufgabenstellung.
+
+\subsubsection*{f) }
+
+$ \pi_{N\_Name}(B \bowtie_{S\_Nationkey= N\_Nationkey} Nation) $ \\
+Mit\\
+$ B = \sigma_{NumSuppliers \ge 17}
+(\gamma_{S\_Nationkey, COUNT(S\_Supplykey) \rightarrow NumSuppliers)}(A))$ \\
+$ A = \pi_{S\_Nationkey, S\_Supplykey}(Supplier) $ \\
+
+\subsubsection*{g) }
+
+$ \pi_{C\_Name}(D \bowtie_{O\_Custkey= C\_Custkey} Customer) $ \\
+Mit\\
+$ D = \sigma_{RevenuePerCustomer \ge 10000} (C) $ \\
+$ C = \gamma_{O\_Custkey, SUM(L\_Extendedprice) \rightarrow RevenuePerCustomer}
+(\pi_{O\_Custkey, L\_Extendedprice}(B)) $ \\
+$ B = Orders \bowtie_{O\_Orderkey = L\_Orderkey}
+(\pi_{L\_Linenumber, L\_ExtendedPrice, L\_Orderkey}(A)) $ \\
+$ A = \sigma_{S\_Name = ``Supplier\#1``}(Lineitem \bowtie_{L\_Suppkey = S\_Suppkey}
+(\pi_{S\_Suppkey, S\_Name}(Supplier))) $ \\
+
+
+\subsubsection*{h) }
+
+$ \pi_{C\_Name}(B \bowtie_{O\_Custkey= C\_Custkey} Customer) $ \\
+Mit\\
+$ B = \gamma_{O\_Custkey, MAX(Orders) \rightarrow MaxOrders}(A))$ \\
+$ A = \gamma_{O\_Custkey, COUNT(O\_Orderkey) \rightarrow Orders}
+(\pi_{O\_Custkey, O\_Orderkey}(Orders)) $ \\
+\end{document}

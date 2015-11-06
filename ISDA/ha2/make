@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+pdflatex ha2_aufg5_6.tex && \
+open ha2_aufgabe5_6.pdf
