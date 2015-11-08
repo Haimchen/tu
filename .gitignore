@@ -52,3 +52,9 @@ webtech/**/*.jpg
 webtech/**/*.jpeg
 webtech/**/*.gif
 
+# TKN Praktikum: eigenes repo!
+tkn-programmierpraktikum/iot-android-gateway
+
+# AAL Project: iolite stuff
+aal-project/iolite/**
+aal-project/Eclipse*/**

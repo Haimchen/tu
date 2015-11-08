@@ -1,0 +1,6 @@
+*.swp
+**/*.aux
+*.log
+make
+ha2-abgabe.pdf
+.DS_Store
