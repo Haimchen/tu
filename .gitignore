@@ -38,6 +38,9 @@ Softwaretechnik/**/*.jar
 # Python
 *.pyc
 
+# Web Stuff
+**/node_modules/**
+
 # Stochastik Buch & klausurblatt
 stochastik/Stochastik-Buch/*
 stochastik/klausur/*
@@ -58,3 +61,6 @@ tkn-programmierpraktikum/iot-android-gateway
 # AAL Project: iolite stuff
 aal-project/iolite/**
 aal-project/Eclipse*/**
+
+# IR Homework
+information_rules/ha2/IR-Group03
