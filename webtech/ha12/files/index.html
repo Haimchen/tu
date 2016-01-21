@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>File Server</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<h1>Datei Browser</h1>
+
+<div class="left">
+  <form onsubmit="javascript:createFile(event)" id="newfileform">
+  <label for="newfilename"> Erstelle eine neue Datei
+  <input type="text" required placeholder="Dateinamen eingeben..." id="newfilename"></label><br>
+  <textarea rows="5" cols="20" id="newfilecontent" placeholder="Inhalt eingeben"></textarea>
+  <button type="submit">Datei erstellen</button>
+  </form>
+
+  <form onsubmit="javascript:createFolder(event)" id="newfolderform">
+  <label for="newfoldername"> Erstelle ein Verzeichnis
+  <input type="text" required placeholder="Verzeichnis eingeben..." id="newfoldername"></label>
+  <button type="submit">Verzeichnis erstellen</button>
+  </form>
+
+  <h2> Dateien</h2>
+
+  <ul id="files">
+  </ul>
+</div>
+<div class="right">
+  <article id="fileContent"></article>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
